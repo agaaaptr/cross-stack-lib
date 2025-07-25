@@ -44,13 +44,22 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
 
 -   [x] **Checkpoint 5: Build, Uji Coba, dan Packaging (Selesai)**
     -   [x] Mengkonfigurasi proses build untuk menghasilkan output yang siap didistribusikan.
-    -   [x] Membuat halaman demo (`index.html`) untuk menguji komponen secara manual.
+    -   [x] Membuat halaman demo (`index.html`).
     -   [x] Memastikan hasil build dapat diimpor dan digunakan di proyek lain.
 
 -   [x] **Checkpoint 6: Dokumentasi dan Otomatisasi Deployment (Selesai)**
     -   [x] Menambahkan `README.md` dengan instruksi penggunaan.
     -   [x] Membuat workflow GitHub Actions (`deploy.yml`) untuk mem-publish library ke npm secara otomatis.
     -   [x] Melakukan `git init` dan commit awal.
+
+-   [ ] **Checkpoint 7: Restrukturisasi Monorepo dan Integrasi Contoh (Sedang Berlangsung)**
+    -   [x] Merestrukturisasi proyek ke dalam struktur monorepo (`packages/cross-stack-lib`, `examples/`).
+    -   [x] Mengkonfigurasi npm Workspaces.
+    -   [x] Membuat proyek contoh Next.js (`examples/example-react`).
+    -   [x] Mengintegrasikan `cross-stack-lib` ke proyek contoh Next.js.
+    -   [ ] Membuat proyek contoh Vue.
+    -   [ ] Membuat proyek contoh Angular.
+    -   [ ] Memastikan dukungan TypeScript di semua proyek contoh.
 
 ## 4. Aturan Commit (Semantic Commits)
 
