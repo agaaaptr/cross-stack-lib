@@ -70,6 +70,23 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
     -   [x] Memverifikasi build proyek contoh Vue.js (berhasil).
     -   [x] Memverifikasi build proyek contoh Angular (berhasil, peringatan `RouterOutlet` dihapus).
 
+-   [ ] **Checkpoint 9: Pengujian, CI/CD, dan Deployment (Akan Datang)**
+    -   [ ] **Pengujian Unit dan Integrasi:**
+        -   [ ] Menulis tes unit untuk komponen `csl-table`.
+        -   [ ] Menulis tes unit untuk komponen `csl-modal`.
+        -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Next.js.
+        -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Vue.js.
+        -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Angular.
+    -   [ ] **Integrasi CI/CD dengan GitHub Actions (Monorepo-aware):**
+        -   [ ] Mengkonfigurasi workflow GitHub Actions untuk menjalankan tes secara otomatis pada setiap push/pull request.
+        -   [ ] Mengkonfigurasi workflow GitHub Actions untuk membangun library dan proyek contoh secara otomatis.
+        -   [ ] Mengimplementasikan strategi caching untuk dependensi CI/CD.
+    -   [ ] **Deployment Otomatis ke Vercel (untuk Proyek Contoh):**
+        -   [ ] Mengkonfigurasi proyek Next.js (`example-react`) untuk deployment otomatis ke Vercel.
+        -   [ ] Mengkonfigurasi proyek Vue.js (`example-vue`) untuk deployment otomatis ke Vercel.
+        -   [ ] Mengkonfigurasi proyek Angular (`example-angular`) untuk deployment otomatis ke Vercel.
+        -   [ ] Memastikan variabel lingkungan Vercel dikelola dengan aman.
+
 ## 4. Aturan Commit (Semantic Commits)
 
 Untuk menjaga agar histori Git tetap bersih dan mudah dibaca, proyek ini mengadopsi standar **Semantic Commit Messages**. Setiap pesan commit harus mengikuti format berikut:
