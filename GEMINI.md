@@ -1,5 +1,7 @@
 # Gemini Project Context: cross-stack-lib
 
+*Note: This file is for internal project tracking and is ignored by Git.*
+
 ## 1. Ringkasan Proyek
 
 `cross-stack-lib` adalah sebuah proyek untuk membangun library komponen UI yang bersifat "cross-stack" atau lintas-framework. Tujuannya adalah agar komponen yang dibuat (seperti Tabel dan Modal) dapat digunakan secara konsisten di berbagai framework frontend modern seperti Angular, React (Next.js), dan Vue.
@@ -125,6 +127,37 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
         -   [ ] Mengkonfigurasi proyek Angular (`example-angular`) untuk deployment otomatis ke Vercel.
         -   [ ] Memastikan variabel lingkungan Vercel dikelola dengan aman.
 
+-   [x] **Checkpoint 11: Pengembangan Situs Web Dokumentasi Publik (Selesai)**
+    -   [x] Membuat direktori `apps/docs` dan menginisialisasi proyek Next.js di dalamnya.
+    -   [x] Memverifikasi build semua proyek contoh setelah penambahan `apps/docs` (berhasil).
+    -   [x] Membuat struktur direktori dasar dan halaman placeholder untuk situs dokumentasi.
+    -   [x] Mengintegrasikan `cross-stack-lib` ke dalam situs dokumentasi (menambahkan dependensi, membuat `LitWrappers.tsx`, memperbarui `globals.css`).
+    -   [x] Membuat konten "Getting Started" (installation.mdx, usage.mdx) dan mengkonfigurasi dukungan MDX di Next.js.
+    -   [x] Membuat konten dokumentasi komponen (examples.mdx, api.mdx untuk csl-table dan csl-modal) (proses cepat/placeholder).
+    -   [x] **Restrukturisasi & Pembersihan Proyek:**
+        -   [x] Refaktor struktur folder `example-react` (memindahkan `app` dan `components` dari `src/` ke root proyek `example-react`).
+        -   [x] Periksa dan hapus file/folder yang tidak terpakai atau redundan di seluruh monorepo.
+        -   [x] Memastikan struktur proyek bersih, profesional, dan siap produksi.
+    -   [x] Memverifikasi build situs dokumentasi (`apps/docs`) (berhasil).
+    -   [x] Memverifikasi build semua proyek di monorepo setelah restrukturisasi dan pembersihan (berhasil).
+    -   [ ] **Perencanaan & Desain:**
+        -   [ ] Menentukan teknologi untuk situs dokumentasi (disarankan Next.js atau Astro untuk performa dan SEO).
+        -   [ ] Merancang struktur navigasi yang interaktif dan mudah digunakan.
+        -   [ ] Menentukan tema desain yang modern, fresh, fluid, smooth, dan profesional.
+    -   [ ] **Implementasi Situs Dokumentasi:**
+        -   [ ] Membuat proyek situs dokumentasi baru di dalam monorepo (misal: `docs/`).
+        -   [ ] Mengimplementasikan halaman beranda yang menarik.
+        -   [ ] Membuat halaman "Getting Started" atau "Installation" dengan instruksi setup/install library yang jelas.
+        -   [ ] Membuat halaman terpisah untuk setiap komponen (`csl-table`, `csl-modal`) yang menampilkan:
+            -   [ ] Contoh penggunaan interaktif.
+            -   [ ] Bagian source code yang dapat disalin.
+            -   [ ] Properti (props) dan event yang tersedia.
+        -   [ ] Memastikan situs memiliki animasi yang fluid dan smooth.
+    -   [ ] **Integrasi & Deployment:**
+        -   [ ] Mengintegrasikan library `cross-stack-lib` ke dalam situs dokumentasi.
+        -   [ ] Mengkonfigurasi deployment otomatis situs dokumentasi ke platform hosting (misal: Vercel, Netlify).
+        -   [ ] Memastikan situs dapat diakses publik.
+
 ## 4. Aturan Commit (Semantic Commits)
 
 Untuk menjaga agar histori Git tetap bersih dan mudah dibaca, proyek ini mengadopsi standar **Semantic Commit Messages**. Setiap pesan commit harus mengikuti format berikut:
@@ -158,3 +191,10 @@ Deskripsi singkat tentang perubahan dalam bentuk kalimat imperatif (misalnya, "t
 -   `fix(csl-modal): prevent closing on overlay click`
 -   `docs(readme): update usage instructions`
 -   `chore(vite): configure library mode`
+
+## 5. Aturan Sesi
+
+Setiap kali sesi berakhir, agen harus:
+- Melakukan update knowledge, detail information, dan checkpoint update yang informatif di file `GEMINI.md`.
+- Melakukan update `README.md` dengan kondisi proyek terbaru.
+- Selalu menawarkan untuk melakukan commit dan push ke repositori.

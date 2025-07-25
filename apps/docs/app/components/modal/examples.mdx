@@ -1,0 +1,27 @@
+# Modal Component Examples
+
+## Basic Modal
+
+```tsx
+'use client';
+
+import { CslModal } from '../../../components/LitWrappers';
+import { useState } from 'react';
+
+export default function BasicModalExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Modal</button>
+      <CslModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div slot="header">Modal Title</div>
+        <div slot="body">This is the content of the modal body.</div>
+        <div slot="footer">
+          <button onClick={() => setIsOpen(false)}>Close</button>
+        </div>
+      </CslModal>
+    </>
+  );
+}
+```

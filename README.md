@@ -10,10 +10,12 @@ This project is organized as a monorepo using npm workspaces:
 . (root)
 ├── packages/
 │   └── cross-stack-lib/  # The core UI component library (Lit, Vite)
-└── examples/
-    └── example-react/    # Next.js (React) example application
-    └── example-vue/      # Vue.js example application
-    └── example-angular/  # Angular example application
+├── examples/
+│   └── example-react/    # Next.js (React) example application
+│   └── example-vue/      # Vue.js example application
+│   └── example-angular/  # Angular example application
+└── apps/
+    └── docs/             # Next.js documentation website
 ```
 
 ## Getting Started
@@ -80,19 +82,23 @@ npm run start -w example-angular
 
 Open [http://localhost:4200](http://localhost:4200) (default Angular CLI port) in your browser to see the `csl-table` and `csl-modal` in action.
 
+### Documentation Website
+
+To start the documentation website development server:
+
+```bash
+npm run dev -w docs
+```
+
+Open [http://localhost:3000](http://localhost:3000) (default Next.js port) in your browser to view the documentation.
+
 ## Node.js Version and Dependencies
 
 This project is configured to use Node.js version `^22.17.0`. All dependencies have been updated to their latest compatible versions, and known security vulnerabilities have been addressed.
 
 ## Project Cleanliness and Maintainability
 
-This project has undergone significant refactoring and cleaning to ensure a professional, maintainable, and easy-to-understand codebase. Efforts include:
-
-*   **Optimized `.gitignore`**: Centralized and comprehensive `.gitignore` at the root to ensure only necessary files are tracked by Git.
-*   **Removed Boilerplate**: Unused boilerplate files and empty directories from initial project setups have been removed from both the core library and example applications.
-*   **Streamlined Structure**: Test files are co-located with their respective components, and redundant configuration files have been eliminated.
-
-These measures contribute to a cleaner repository, faster build times, and a more intuitive development experience.
+This project is committed to maintaining a clean, professional, and easily maintainable codebase. Regular refactoring and cleanup efforts ensure optimal performance and a streamlined development experience.
 
 ## Development
 
@@ -105,3 +111,5 @@ These measures contribute to a cleaner repository, faster build times, and a mor
 ## Contributing
 
 Please adhere to the [Semantic Commit Messages](#4-aturan-commit-semantic-commits) guidelines when making commits.
+
+
