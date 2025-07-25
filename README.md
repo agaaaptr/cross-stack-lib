@@ -12,8 +12,8 @@ This project is organized as a monorepo using npm workspaces:
 │   └── cross-stack-lib/  # The core UI component library (Lit, Vite)
 └── examples/
     └── example-react/    # Next.js (React) example application
-    └── example-vue/      # Vue.js example application (To be added)
-    └── example-angular/  # Angular example application (To be added)
+    └── example-vue/      # Vue.js example application
+    └── example-angular/  # Angular example application
 ```
 
 ## Getting Started
@@ -54,7 +54,11 @@ npm run dev -w example-react
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the `csl-table` and `csl-modal` in action.
 
-### Vue.js Example (Coming Soon)
+*Note: The Next.js example integrates Web Components using `@lit-labs/react` for seamless React compatibility and type safety.*
+
+### Vue.js Example
+
+To start the Vue.js development server:
 
 ```bash
 npm run dev -w example-vue
@@ -62,13 +66,23 @@ npm run dev -w example-vue
 # npm run dev:vue
 ```
 
-### Angular Example (Coming Soon)
+Open [http://localhost:5173](http://localhost:5173) (default Vite port) in your browser to see the `csl-table` and `csl-modal` in action.
+
+### Angular Example
+
+To start the Angular development server:
 
 ```bash
-npm run dev -w example-angular
+npm run start -w example-angular
 # Or from the root, using the defined script:
 # npm run dev:angular
 ```
+
+Open [http://localhost:4200](http://localhost:4200) (default Angular CLI port) in your browser to see the `csl-table` and `csl-modal` in action.
+
+## Node.js Version and Dependencies
+
+This project is configured to use Node.js version `^22.17.0`. All dependencies have been updated to their latest compatible versions, and known security vulnerabilities have been addressed.
 
 ## Development
 

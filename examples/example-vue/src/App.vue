@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 // Import the custom elements to register them
 import 'cross-stack-lib/csl-table';

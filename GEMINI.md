@@ -52,14 +52,23 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
     -   [x] Membuat workflow GitHub Actions (`deploy.yml`) untuk mem-publish library ke npm secara otomatis.
     -   [x] Melakukan `git init` dan commit awal.
 
--   [ ] **Checkpoint 7: Restrukturisasi Monorepo dan Integrasi Contoh (Sedang Berlangsung)**
+-   [x] **Checkpoint 7: Restrukturisasi Monorepo dan Integrasi Contoh (Selesai)**
     -   [x] Merestrukturisasi proyek ke dalam struktur monorepo (`packages/cross-stack-lib`, `examples/`).
     -   [x] Mengkonfigurasi npm Workspaces.
     -   [x] Membuat proyek contoh Next.js (`examples/example-react`).
+        -   *Solusi Integrasi Next.js*: Menggunakan `@lit-labs/react` untuk membungkus komponen Lit sebagai komponen React, yang mengatasi masalah tipe dan resolusi modul di App Router Next.js. Ini melibatkan pembuatan komponen wrapper React (`LitWrappers.tsx`) dan penggunaan komponen tersebut di `page.tsx`.
     -   [x] Mengintegrasikan `cross-stack-lib` ke proyek contoh Next.js.
     -   [x] Membuat proyek contoh Vue.js (`examples/example-vue`).
     -   [x] Membuat proyek contoh Angular (`examples/example-angular`).
     -   [x] Memastikan dukungan TypeScript di semua proyek contoh.
+
+-   [x] **Checkpoint 8: Pembaruan Dependensi dan Verifikasi (Selesai)**
+    -   [x] Memperbarui konfigurasi Node.js di `package.json` dan GitHub Actions ke `^22.17.0`.
+    -   [x] Memperbarui semua dependensi ke versi terbaru yang kompatibel menggunakan `npm update` dan `npm audit fix --force`.
+    -   [x] Mengatasi kerentanan keamanan yang terdeteksi.
+    -   [x] Memverifikasi build proyek contoh Next.js (berhasil).
+    -   [x] Memverifikasi build proyek contoh Vue.js (berhasil).
+    -   [x] Memverifikasi build proyek contoh Angular (berhasil, peringatan `RouterOutlet` dihapus).
 
 ## 4. Aturan Commit (Semantic Commits)
 

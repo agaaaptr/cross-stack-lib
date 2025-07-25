@@ -9,13 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.21",
-    "cross-stack-lib": "*"
+    "@angular-devkit/build-angular": "20.1.3",
+    "cross-stack-lib": "*",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0",
+    "vite": "^7.0.6",
     "vue-tsc": "^2.0.6"
   }
 }

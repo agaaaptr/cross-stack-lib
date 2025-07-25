@@ -1,6 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 
 // Import the custom elements to register them
 import 'cross-stack-lib/csl-table';
@@ -9,7 +8,7 @@ import 'cross-stack-lib/csl-modal';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   template: `
     <h1>Angular with Cross-Stack Lib</h1>
 
