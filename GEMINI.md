@@ -57,9 +57,9 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
     -   [x] Mengkonfigurasi npm Workspaces.
     -   [x] Membuat proyek contoh Next.js (`examples/example-react`).
     -   [x] Mengintegrasikan `cross-stack-lib` ke proyek contoh Next.js.
-    -   [ ] Membuat proyek contoh Vue.
-    -   [ ] Membuat proyek contoh Angular.
-    -   [ ] Memastikan dukungan TypeScript di semua proyek contoh.
+    -   [x] Membuat proyek contoh Vue.js (`examples/example-vue`).
+    -   [x] Membuat proyek contoh Angular (`examples/example-angular`).
+    -   [x] Memastikan dukungan TypeScript di semua proyek contoh.
 
 ## 4. Aturan Commit (Semantic Commits)
 
