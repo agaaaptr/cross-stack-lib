@@ -84,6 +84,16 @@ Open [http://localhost:4200](http://localhost:4200) (default Angular CLI port) i
 
 This project is configured to use Node.js version `^22.17.0`. All dependencies have been updated to their latest compatible versions, and known security vulnerabilities have been addressed.
 
+## Project Cleanliness and Maintainability
+
+This project has undergone significant refactoring and cleaning to ensure a professional, maintainable, and easy-to-understand codebase. Efforts include:
+
+*   **Optimized `.gitignore`**: Centralized and comprehensive `.gitignore` at the root to ensure only necessary files are tracked by Git.
+*   **Removed Boilerplate**: Unused boilerplate files and empty directories from initial project setups have been removed from both the core library and example applications.
+*   **Streamlined Structure**: Test files are co-located with their respective components, and redundant configuration files have been eliminated.
+
+These measures contribute to a cleaner repository, faster build times, and a more intuitive development experience.
+
 ## Development
 
 ### Core Library (`packages/cross-stack-lib`)

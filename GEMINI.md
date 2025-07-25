@@ -12,6 +12,7 @@ Untuk mencapai ini, proyek akan menggunakan standar **Web Components**, yang did
 - **Bahasa**: **TypeScript** - Untuk memastikan kode yang aman (type-safe), mudah dikelola, dan skalabel.
 - **Build Tool**: [**Vite**](https://vitejs.dev/) - Sebuah build tool modern yang sangat cepat dan memiliki dukungan "Library Mode" yang sangat baik untuk mem-bundle komponen.
 - **Package Manager**: **npm**
+- **Testing Framework**: **Vitest** - Untuk pengujian unit dan integrasi, dipilih karena integrasinya yang erat dengan Vite dan kemampuannya untuk menjalankan tes di lingkungan JSDOM.
 
 ## 3. Rencana Pengembangan & Checkpoints
 
@@ -70,10 +71,47 @@ Proyek ini akan dibagi menjadi beberapa tahap (checkpoint) untuk memastikan peng
     -   [x] Memverifikasi build proyek contoh Vue.js (berhasil).
     -   [x] Memverifikasi build proyek contoh Angular (berhasil, peringatan `RouterOutlet` dihapus).
 
--   [ ] **Checkpoint 9: Pengujian, CI/CD, dan Deployment (Akan Datang)**
-    -   [ ] **Pengujian Unit dan Integrasi:**
-        -   [ ] Menulis tes unit untuk komponen `csl-table`.
-        -   [ ] Menulis tes unit untuk komponen `csl-modal`.
+-   [x] **Checkpoint 9: Pengujian, CI/CD, dan Deployment (Sedang Berlangsung)**
+    -   [x] **Pembersihan dan Rekonstruksi Proyek (Selesai):**
+        -   [x] Menghapus semua direktori `node_modules` dan `dist` yang ada di seluruh proyek.
+        -   [x] Menghapus direktori cache dan build framework spesifik (`.angular/`, `.next/`).
+        -   [x] Memperbarui file `.gitignore` di root proyek untuk memastikan semua output build dan dependensi yang tidak perlu di-commit diabaikan dengan benar.
+        -   [x] Menghapus file `.gitignore` yang redundan di sub-direktori.
+        -   [x] Menjalankan `npm install` di root proyek untuk menginstal ulang semua dependensi dengan benar sesuai dengan konfigurasi npm Workspaces.
+        -   [x] Memastikan `package.json` di root dan `packages/cross-stack-lib` hanya memiliki dependensi inti dan skrip yang relevan.
+        -   [x] Memastikan `tsconfig.json` dan `vite.config.ts` di `packages/cross-stack-lib` adalah konfigurasi dasar yang bersih untuk Lit.
+        -   [x] Memverifikasi `package.json` di setiap proyek contoh bersih.
+        -   [x] Menjalankan `npm update` dan `npm audit fix --force` di root proyek untuk memastikan dependensi terbaru dan tidak ada kerentanan.
+    -   [x] **Pengujian Unit Dasar (Selesai):**
+        -   [x] Mengonfigurasi Vitest sebagai kerangka pengujian dengan JSDOM.
+        -   [x] Menulis tes unit dasar untuk komponen `csl-table` dan `csl-modal` menggunakan manipulasi DOM langsung.
+        -   [x] Menulis tes unit untuk komponen `my-element` (untuk memverifikasi transpilasi dekorator Lit).
+        -   [x] Mengatasi masalah transpilasi dekorator Lit (`TypeError: (0 , property) is not a function`).
+        -   [x] Mengatasi masalah resolusi modul dan deduplikasi Lit (`Multiple versions of Lit loaded.`).
+        -   [x] Mengatasi masalah integrasi `@testing-library/jest-dom` (`Invalid Chai property: toBeInTheDocument`).
+        -   [x] Semua tes unit dasar lulus.
+    -   [x] **Pembersihan dan Refaktorisasi Arsitektur (Selesai):**
+        -   [x] Menghapus file dan direktori boilerplate yang tidak terpakai (`my-element.ts`, `my-element.test.ts`, `csl-decorated-element`).
+        -   [x] Memindahkan file tes unit ke direktori komponen yang sesuai untuk meningkatkan keterbacaan (`co-location`).
+        -   [x] Memperbaiki path impor dalam file tes setelah pemindahan.
+        -   [x] Menghapus file `package-lock.json` yang berlebihan di dalam sub-direktori untuk memastikan konsistensi monorepo.
+        -   [x] Memperbaiki konfigurasi `tsconfig.json` untuk mengecualikan file tes dari proses build library dan proyek contoh.
+        -   [x] Memperbaiki konfigurasi `vitest.config.ts` di proyek contoh React.
+        -   [x] Memverifikasi semua perubahan dengan menjalankan kembali tes unit dan proses build untuk library dan semua proyek contoh.
+    -   [x] **Checkpoint 10: Pembersihan dan Optimalisasi Struktur Proyek (Selesai)**
+        -   [x] **Pembersihan `.gitignore`**:
+            -   **Tindakan**: Memverifikasi dan memastikan file `.gitignore` di root proyek mencakup semua direktori output build (`dist`, `.next`, `.angular/cache`, `dist/example-angular`), direktori dependensi (`node_modules`), dan file-file spesifik IDE. Tidak ada `.gitignore` redundan di sub-direktori.
+            -   **Penjelasan**: Dalam struktur monorepo, memiliki satu file `.gitignore` terpusat di root adalah praktik terbaik. Ini memastikan konsistensi dalam aturan pengabaian file di seluruh proyek, mencegah file yang tidak perlu masuk ke repositori, dan menyederhanakan manajemen konfigurasi Git.
+        -   [x] **Pembersihan Aset Boilerplate Proyek Contoh**:
+            -   **Tindakan**: Menghapus aset default (seperti file SVG, ikon) yang tidak relevan untuk mendemonstrasikan fungsionalitas `cross-stack-lib` dari proyek contoh React (`examples/example-react/public`). Proyek Vue dan Angular tidak memiliki aset boilerplate serupa di lokasi yang diperiksa.
+            -   **Penjelasan**: Menghapus aset boilerplate yang tidak digunakan membantu menjaga proyek contoh tetap ramping dan fokus pada tujuan utamanya: mendemonstrasikan integrasi `cross-stack-lib`. Ini mengurangi ukuran repositori, mempercepat proses build, dan membuat proyek lebih mudah dipahami karena tidak ada gangguan visual atau file yang tidak relevan.
+        -   [x] **Verifikasi Menyeluruh**:
+            -   **Tindakan**: Menjalankan kembali semua unit tes untuk library inti (`packages/cross-stack-lib`) dan semua proses build untuk library inti serta ketiga proyek contoh (React, Vue, Angular). Semua tes dan build berhasil tanpa error.
+            -   **Penjelasan**: Verifikasi menyeluruh setelah setiap tahap refaktorisasi sangat penting untuk memastikan bahwa perubahan tidak merusak fungsionalitas yang sudah ada. Ini bertindak sebagai jaring pengaman dan memberikan keyakinan bahwa proyek tetap stabil dan berfungsi dengan benar setelah pembersihan.
+        -   [x] **Pembersihan Direktori Kosong**:
+            -   **Tindakan**: Melakukan pemindaian ulang proyek untuk mengidentifikasi dan menghapus semua direktori kosong yang tidak terpakai di luar `node_modules` dan `.git`.
+            -   **Penjelasan**: Menghapus direktori kosong yang tidak perlu berkontribusi pada kebersihan dan profesionalisme struktur proyek. Ini mengurangi kekacauan, membuat navigasi proyek lebih mudah, dan memastikan bahwa hanya direktori yang relevan yang dipertahankan, yang penting untuk pemeliharaan jangka panjang.
+    -   [ ] **Pengujian Integrasi (Akan Datang):**
         -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Next.js.
         -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Vue.js.
         -   [ ] Menulis tes integrasi untuk penggunaan `cross-stack-lib` di proyek contoh Angular.
