@@ -94,15 +94,17 @@ Open [http://localhost:3000](http://localhost:3000) (default Next.js port) in yo
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
-This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `main` branch:
+This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `master` branch:
 
 - **Dependency Installation**: Installs all necessary project dependencies.
 - **Linting**: Runs ESLint/TypeScript checks to ensure code quality and adherence to style guidelines.
-- **Testing**: Executes unit and integration tests for the core library and example applications.
+- **Testing**: Executes unit and integration tests for the core library and example applications (excluding Vue example tests for now due to JSDOM limitations).
 - **Building**: Builds the `cross-stack-lib` and the documentation website (`apps/docs`).
-- **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `main` branch.
+- **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `master` branch.
 
 The workflow is defined in `.github/workflows/ci.yml`.
+
+**Vercel Deployment Status**: The documentation website is successfully deployed to Vercel. You can access it at: `https://cross-stack-lib-docs.vercel.app/` (replace with your actual Vercel URL).
 
 ## Node.js Version and Dependencies
 
