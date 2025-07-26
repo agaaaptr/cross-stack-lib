@@ -53,6 +53,27 @@ jobs:
       - name: Run lint
         run: npm run lint # Assumes a root lint script that handles all workspaces
 
+  lint-docs:
+    needs: install-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Restore Node.js modules cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Run docs lint
+        run: npm run lint -w apps/docs
+
   test:
     needs: install-dependencies
     runs-on: ubuntu-latest
