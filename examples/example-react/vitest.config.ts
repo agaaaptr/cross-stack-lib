@@ -14,7 +14,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'lit': resolve(__dirname, '../../packages/cross-stack-lib/node_modules/lit'),
       'cross-stack-lib': resolve(__dirname, '../../packages/cross-stack-lib/src/index.ts'), // Alias for cross-stack-lib
     },
   },

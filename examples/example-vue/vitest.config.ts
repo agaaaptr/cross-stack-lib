@@ -21,7 +21,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'lit': resolve(__dirname, '../../packages/cross-stack-lib/node_modules/lit'),
       'cross-stack-lib/csl-table': resolve(__dirname, '../../packages/cross-stack-lib/src/components/csl-table.ts'),
       'cross-stack-lib/csl-modal': resolve(__dirname, '../../packages/cross-stack-lib/src/components/csl-modal.ts'),
     },

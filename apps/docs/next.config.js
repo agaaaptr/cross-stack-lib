@@ -14,8 +14,8 @@ const nextConfig = {
           options: {
             postcssOptions: {
               plugins: [
-                require(require.resolve('tailwindcss'), { paths: [require.resolve('tailwindcss')] })(require.resolve('./tailwind.config.js')),
-                require(require.resolve('autoprefixer'), { paths: [require.resolve('autoprefixer')] }),
+                require('@tailwindcss/postcss')({ config: './tailwind.config.js' }),
+                require('autoprefixer'),
               ],
             },
           },
