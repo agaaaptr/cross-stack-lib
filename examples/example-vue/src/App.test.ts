@@ -1,4 +1,5 @@
-import { mount, nextTick } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { describe, it, expect } from 'vitest';
 import App from './App.vue';
 import { CslTable } from 'cross-stack-lib/components/csl-table';
