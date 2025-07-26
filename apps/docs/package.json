@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npx next build",
+    "build": "NODE_PATH=../../node_modules npx next build",
     "start": "next start",
     "lint": "next lint"
   },
