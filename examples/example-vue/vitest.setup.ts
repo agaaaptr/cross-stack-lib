@@ -76,20 +76,23 @@ if (typeof document !== 'undefined') {
 // Mock for LitElement's `updateComplete` property and `shadowRoot`
 // This ensures that `await element.updateComplete` resolves immediately in tests
 // and `shadowRoot` is always available.
-const originalCustomElementsDefine = window.customElements.define;
+const originalCustomElementsDefine = window.customElements.define.bind(window.customElements);
 window.customElements.define = (name, constructor, options) => {
-  originalCustomElementsDefine(name, class extends constructor {
-    constructor() {
-      super();
-      // Mock shadowRoot for testing
-      if (!this.shadowRoot) {
-        (this as any).attachShadow({ mode: 'open' });
+  if (!window.customElements.get(name)) {
+    originalCustomElementsDefine(name, class extends constructor {
+      constructor() {
+        super();
+        // Mock shadowRoot for testing
+        if (!this.shadowRoot) {
+          (this as any).attachShadow({ mode: 'open' });
+        }
       }
-    }
-    get updateComplete() {
-      return Promise.resolve(true);
-    }
-  }, options);
+
+      get updateComplete() {
+        return Promise.resolve(true);
+      }
+    }, options);
+  }
 };
 
 // Mock for `ShadyCSS` if used (though Lit generally doesn't require it with modern browsers)

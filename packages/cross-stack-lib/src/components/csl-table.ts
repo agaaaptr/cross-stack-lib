@@ -52,7 +52,26 @@ export class CslTable extends LitElement {
   `;
 
   @property({ type: Array })
-  columns: TableColumn[] = [];
+  _columns: TableColumn[] = []; // Internal property
+
+  set columns(value: TableColumn[] | string) {
+    const oldValue = this._columns;
+    if (typeof value === 'string') {
+      try {
+        this._columns = JSON.parse(value);
+      } catch (e) {
+        console.error('Error parsing columns property:', e);
+        this._columns = [];
+      }
+    } else {
+      this._columns = value;
+    }
+    this.requestUpdate('columns', oldValue);
+  }
+
+  get columns(): TableColumn[] {
+    return this._columns;
+  }
 
   @property({ type: Array })
   data: any[] = [];

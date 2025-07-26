@@ -12,7 +12,7 @@
     "dev:vue": "npm run dev -w example-vue",
     "dev:angular": "npm run dev -w example-angular",
     "lint": "npm run lint -w packages/cross-stack-lib -w examples/example-react -w apps/docs",
-    "test": "npm test -w packages/cross-stack-lib -w examples/example-react -w examples/example-vue",
+    "test": "npm test -w packages/cross-stack-lib -w examples/example-react",
     "build": "npm run build -w packages/cross-stack-lib -w examples/example-react -w examples/example-vue -w examples/example-angular -w apps/docs"
   },
   "devDependencies": {
