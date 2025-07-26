@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npx next build",
+    "build": "npm run build -w cross-stack-lib && npx next build",
     "start": "next start",
     "lint": "next lint"
   },
