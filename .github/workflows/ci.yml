@@ -98,7 +98,7 @@ jobs:
   deploy-docs:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Only deploy on pushes to main branch
+    if: github.ref == 'refs/heads/master' # Only deploy on pushes to master branch
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
