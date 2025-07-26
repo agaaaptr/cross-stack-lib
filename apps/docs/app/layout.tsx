@@ -13,18 +13,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <header style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
+    <html lang="en" className="dark">
+      <body className="bg-dark-DEFAULT text-light-DEFAULT min-h-screen flex flex-col">
+        <header className="bg-dark-light p-4 border-b border-dark-lighter flex justify-between items-center">
           <nav>
-            <ul style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0 }}>
-              <li style={{ marginRight: '20px' }}><Link href="/">Home</Link></li>
-              <li style={{ marginRight: '20px' }}><Link href="/getting-started">Getting Started</Link></li>
-              <li><Link href="/components/table">Components</Link></li>
+            <ul className="flex space-x-4">
+              <li><Link href="/" className="text-light-DEFAULT hover:text-accent transition-colors duration-300">Home</Link></li>
+              <li><Link href="/getting-started" className="text-light-DEFAULT hover:text-accent transition-colors duration-300">Getting Started</Link></li>
+              <li><Link href="/components/table" className="text-light-DEFAULT hover:text-accent transition-colors duration-300">Components</Link></li>
             </ul>
           </nav>
+          {/* Basic Theme Toggle - will be enhanced later */}
+          <button className="bg-primary text-white px-3 py-1 rounded hover:bg-accent transition-colors duration-300">
+            Toggle Theme
+          </button>
         </header>
-        <main>{children}</main>
+        <main className="flex-grow p-4">
+          {children}
+        </main>
       </body>
     </html>
   );

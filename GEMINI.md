@@ -130,6 +130,14 @@ This project will be divided into several structured stages (checkpoints) to ens
     *   [x] Verify documentation site build (`apps/docs`) (successful).
     *   [x] Verify builds of all projects in the monorepo after restructuring and cleanup (successful).
 
+*   [x] **Checkpoint 12: Documentation Website UI/UX Design (Completed)**
+    *   [x] Implement modern, fresh, and simple UI/UX design for `apps/docs`.
+    *   [x] Utilize Tailwind CSS for styling, including a cool color palette and dark base color.
+    *   [x] Configure Tailwind CSS and PostCSS in `apps/docs`.
+    *   [x] Apply Tailwind CSS classes to `layout.tsx`, `page.tsx`, and other relevant pages.
+    *   [x] Set up MDX components to ensure consistent styling for Markdown content.
+    *   [x] Verify successful build of the documentation site with new UI/UX changes.
+
 ## 4. Future Development Details
 
 This section outlines important details and setup information for future development, particularly for CI/CD integration and Vercel deployment.

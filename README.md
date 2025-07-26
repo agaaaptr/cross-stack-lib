@@ -90,7 +90,7 @@ To start the documentation website development server:
 npm run dev -w docs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) (default Next.js port) in your browser to view the documentation.
+Open [http://localhost:3000](http://localhost:3000) (default Next.js port) in your browser to view the documentation. The documentation site now features a modern, dark-themed UI/UX with a cool color palette, built using Tailwind CSS.
 
 ## Node.js Version and Dependencies
 
