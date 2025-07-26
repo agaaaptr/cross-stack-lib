@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "NODE_PATH=../../node_modules npx next build",
+    "build": "npx next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -28,6 +28,6 @@
     "eslint-config-next": "15.4.4",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5"
+    "typescript": "5.4.5"
   }
 }
