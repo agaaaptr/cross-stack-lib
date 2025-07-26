@@ -11,6 +11,7 @@
   "dependencies": {
     "@lit-labs/react": "^2.0.0",
     "@next/mdx": "^15.4.4",
+    "@mdx-js/loader": "^3.1.0",
     "cross-stack-lib": "file:../../packages/cross-stack-lib",
     "next": "15.4.4",
     "react": "19.1.0",
