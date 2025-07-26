@@ -40,6 +40,3 @@ Thumbs.db # Windows
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
-
-# Gemini CLI internal file
-GEMINI.md
