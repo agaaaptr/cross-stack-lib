@@ -92,6 +92,18 @@ npm run dev -w docs
 
 Open [http://localhost:3000](http://localhost:3000) (default Next.js port) in your browser to view the documentation. The documentation site now features a modern, dark-themed UI/UX with a cool color palette, built using Tailwind CSS.
 
+## Continuous Integration/Continuous Deployment (CI/CD)
+
+This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `main` branch:
+
+- **Dependency Installation**: Installs all necessary project dependencies.
+- **Linting**: Runs ESLint/TypeScript checks to ensure code quality and adherence to style guidelines.
+- **Testing**: Executes unit and integration tests for the core library and example applications.
+- **Building**: Builds the `cross-stack-lib` and the documentation website (`apps/docs`).
+- **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `main` branch.
+
+The workflow is defined in `.github/workflows/ci.yml`.
+
 ## Node.js Version and Dependencies
 
 This project is configured to use Node.js version `^22.17.0`. All dependencies have been updated to their latest compatible versions, and known security vulnerabilities have been addressed.

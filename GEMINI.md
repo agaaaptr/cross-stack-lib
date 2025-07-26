@@ -138,6 +138,12 @@ This project will be divided into several structured stages (checkpoints) to ens
     *   [x] Set up MDX components to ensure consistent styling for Markdown content.
     *   [x] Verify successful build of the documentation site with new UI/UX changes.
 
+*   [x] **Checkpoint 13: CI/CD Integration with GitHub Actions (Completed)**
+    *   [x] Create `/.github/workflows/ci.yml` for automated testing, linting, and building.
+    *   [x] Configure `install-dependencies` job with Node.js setup and caching.
+    *   [x] Define `lint`, `test`, and `build` jobs with dependency restoration.
+    *   [x] Configure root `package.json` scripts for monorepo-wide `lint`, `test`, and `build` execution.
+
 ## 4. Future Development Details
 
 This section outlines important details and setup information for future development, particularly for CI/CD integration and Vercel deployment.
@@ -176,6 +182,11 @@ This section outlines important details and setup information for future develop
     3.  **Link Project**: Navigate to `apps/docs` and run `vercel link`.
     4.  **Configure Vercel Project**: In Vercel dashboard, set "Root Directory" for the project to `apps/docs`.
     5.  **Automate Deployment**: Vercel automatically deploys on Git pushes to the linked branch (e.g., `main`).
+
+*   [x] **Checkpoint 14: Vercel Deployment for Documentation Site (Completed)**
+    *   [x] Add `deploy-docs` job to `ci.yml` to automate deployment to Vercel.
+    *   [x] Configure Vercel CLI installation and deployment steps in the workflow.
+    *   [x] Ensure deployment is conditional on pushes to the `main` branch.
 
 ## 5. Commit Rules (Semantic Commits)
 

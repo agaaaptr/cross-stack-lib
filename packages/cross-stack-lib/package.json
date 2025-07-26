@@ -25,7 +25,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "tsc --noEmit"
   },
   "keywords": [
     "web-components",
