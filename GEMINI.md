@@ -1,6 +1,6 @@
 # Gemini Project Context: cross-stack-lib
 
-*Note: This file is for internal project tracking and is ignored by Git.*
+*Note: This file is for internal project tracking.*
 
 ## 1. Project Overview
 
