@@ -118,5 +118,5 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Deploy to Vercel (Initial)
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        run: SKIP_ENV_VALIDATION=1 vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         working-directory: ./apps/docs # Specify the root directory for the Vercel project
