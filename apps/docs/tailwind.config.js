@@ -16,12 +16,12 @@ module.exports = {
         primary: '#66B2FF', // Vibrant cool blue
         secondary: '#A0AEC0', // Muted cool gray
         accent: '#00CED1', // DarkCyan, a cool, slightly greenish blue for emphasis
-        background: {
+        dark: {
           DEFAULT: '#1A202C', // Very dark blue-gray, base background
           light: '#2D3748', // Slightly lighter dark blue-gray
           lighter: '#4A5568', // Even lighter dark blue-gray
         },
-        text: {
+        light: {
           DEFAULT: '#E2E8F0', // Off-white, cool tone for text
           muted: '#CBD5E0', // Slightly darker cool gray for muted text
         },

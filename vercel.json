@@ -2,17 +2,10 @@
   "name": "cross-stack-lib-docs",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
-  "outputDirectory": "apps/docs/.next",
   "builds": [
     {
       "src": "apps/docs/next.config.js",
       "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/apps/docs/$1"
     }
   ]
 }
