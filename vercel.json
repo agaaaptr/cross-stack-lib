@@ -7,5 +7,11 @@
       "src": "apps/docs/next.config.js",
       "use": "@vercel/next"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/apps/docs/$1"
+    }
   ]
 }
