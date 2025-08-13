@@ -166,6 +166,15 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Define `lint`, `test`, and `build` jobs with dependency restoration.
   * [x] Configure root `package.json` scripts for monorepo-wide `lint`, `test`, and `build` execution.
 
+* [x] **Checkpoint 14: Vercel Deployment for Documentation Site (Completed)**
+  * [x] Add `deploy-docs` job to `ci.yml` to automate deployment to Vercel.
+  * [x] Configure Vercel CLI installation and deployment steps in the workflow.
+  * [x] Ensure deployment is conditional on pushes to the `main` branch.
+
+* [x] **Checkpoint 15: Development Branch Setup (Completed)**
+  * [x] Create 'develop' branch for ongoing development.
+  * [x] Create a separate CI workflow for the 'develop' branch (lint, test, build).
+
 ## 4. Future Development Details
 
 This section outlines important details and setup information for future development, particularly for CI/CD integration and Vercel deployment.
