@@ -261,3 +261,16 @@ At the end of each session, the agent must:
 * Update knowledge, detailed information, and checkpoint updates informatively in the `GEMINI.md` file.
 * Update `README.md` with the latest project conditions.
 * Always offer to commit and push to the repository.
+
+## 7. Known Issues
+
+### 7.1. Persistent Styling Problem on Vercel Deployment
+
+*   **Symptom**: The deployed documentation site at `apps/docs` does not load any Tailwind CSS styles, appearing as an unstyled HTML page. The issue does not occur in local development but only in the Vercel production environment.
+*   **Analysis**: This is likely a build-time issue on Vercel where the Tailwind CSS is not being generated or included in the final production build.
+*   **Attempted Fixes (Unsuccessful)**:
+    1.  **Corrected Tailwind Config**: Fixed a mismatch between color names in `tailwind.config.js` and the class names used in the layout components.
+    2.  **Verified CSS Imports**: Confirmed that `app/globals.css` is correctly imported in `app/layout.tsx` and contains the necessary `@tailwind` directives.
+    3.  **Fixed Vercel Routing**: Restored the `routes` property in the root `vercel.json` to fix a 404 error, ensuring the application is served correctly.
+    4.  **Moved Build Dependencies**: Moved `tailwindcss`, `postcss`, and `autoprefixer` from `devDependencies` to `dependencies` in `apps/docs/package.json` to ensure they are available during the Vercel build process.
+*   **Status**: **Unresolved.** Despite these fixes addressing all common causes for this issue, the problem persists. Further investigation is needed, possibly related to Vercel's specific build process for monorepos, caching, or a more subtle configuration conflict.
