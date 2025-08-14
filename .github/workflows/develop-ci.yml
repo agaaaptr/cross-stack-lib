@@ -25,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('''**/package-lock.json''') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -48,31 +48,12 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('''**/package-lock.json''') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Run lint
-        run: npm run lint # Assumes a root lint script that handles all workspaces
-
-  lint-docs:
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.x'
-
-      - name: Restore Node.js modules cache
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('''**/package-lock.json''') }}
-
-      - name: Run docs lint
-        run: npm run lint -w apps/docs
+      - name: Run lint for core library and docs
+        run: |
+          npm run lint -w packages/cross-stack-lib
+          npm run lint -w apps/docs
 
   test:
     needs: install-dependencies
@@ -90,10 +71,10 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('''**/package-lock.json''') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Run tests
-        run: npm test # Assumes a root test script that handles all workspaces
+      - name: Run tests for core library
+        run: npm test -w packages/cross-stack-lib
 
   build:
     needs: install-dependencies
@@ -111,7 +92,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('''**/package-lock.json''') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Build all projects
-        run: npm run build # Assumes a root build script that handles all workspaces
+      - name: Build core library and docs
+        run: |
+          npm run build -w packages/cross-stack-lib
+          npm run build -w apps/docs

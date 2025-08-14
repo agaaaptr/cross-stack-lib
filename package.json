@@ -1,27 +1,18 @@
 {
-  "name": "cross-stack-lib-monorepo",
+  "name": "cross-stack-lib",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/*",
-    "apps/*"
-  ],
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build:lib": "npm run build -w cross-stack-lib",
-    "dev:react": "npm run dev -w example-react",
-    "dev:vue": "npm run dev -w example-vue",
-    "dev:angular": "npm run dev -w example-angular",
-    "lint": "npm run lint -w packages/cross-stack-lib -w examples/example-react -w apps/docs",
-    "test": "npm test -w packages/cross-stack-lib -w examples/example-react",
-    "build": "npm run build -w packages/cross-stack-lib -w examples/example-react -w examples/example-vue -w examples/example-angular -w apps/docs"
+    "build": "npm run build -w packages/cross-stack-lib -w apps/docs",
+    "lint": "npm run lint -w packages/cross-stack-lib -w apps/docs",
+    "test": "npm test -w packages/cross-stack-lib"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "vite": "^5.2.0"
   },
-  "engines": {
-    "node": ">=22.17.0"
-  },
-  "dependencies": {
-    "@next/mdx": "^15.4.4"
-  }
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }

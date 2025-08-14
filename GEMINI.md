@@ -56,23 +56,10 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Create GitHub Actions workflow (`deploy.yml`) to automatically publish the library to npm.
   * [x] Perform `git init` and initial commit.
 
-* [x] **Checkpoint 7: Monorepo Restructuring and Example Integration (Completed)**
-  * [x] Restructure project into a monorepo structure (`packages/cross-stack-lib`, `examples/`).
+* [x] **Checkpoint 7: Monorepo Restructuring (Completed)**
+  * [x] Restructure project into a monorepo structure (`packages/cross-stack-lib`).
   * [x] Configure npm Workspaces.
-  * [x] Create Next.js example project (`examples/example-react`).
-    * *Next.js Integration Solution*: Use `@lit-labs/react` to wrap Lit components as React components, addressing type issues and module resolution in Next.js App Router. This involves creating a React wrapper component (`LitWrappers.tsx`) and using it in `page.tsx`.
-  * [x] Integrate `cross-stack-lib` into the Next.js example project.
-  * [x] Create Vue.js example project (`examples/example-vue`).
-  * [x] Create Angular example project (`examples/example-angular`).
-  * [x] Ensure TypeScript support in all example projects.
-
-* [x] **Checkpoint 8: Dependency Updates and Verification (Completed)**
-  * [x] Update Node.js configuration in `package.json` and GitHub Actions to `^22.17.0`.
-  * [x] Update all dependencies to the latest compatible versions using `npm update` and `npm audit fix --force`.
-  * [x] Address detected security vulnerabilities.
-  * [x] Verify Next.js example project build (successful).
-  * [x] Verify Vue.js example project build (successful).
-  * [x] Verify Angular example project build (successful, `RouterOutlet` warning removed).
+  * [x] Ensure TypeScript support in all relevant packages.
 
 * [x] **Checkpoint 9: Testing, CI/CD, and Deployment (Completed)**
   * [x] **Cleanup and Project Reconstruction (Completed):**
@@ -93,50 +80,6 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Resolve Lit module resolution and deduplication issues (`Multiple versions of Lit loaded.`).
     * [x] Resolve `@testing-library/jest-dom` integration issues (`Invalid Chai property: toBeInTheDocument`).
     * [x] All basic unit tests passed.
-  * [x] **Architecture Cleanup and Refactoring (Completed):**
-    * [x] Remove unused boilerplate files and directories (`my-element.ts`, `my-element.test.ts`, `csl-decorated-element`).
-    * [x] Move unit test files to appropriate component directories for improved readability (`co-location`).
-    * [x] Fix import paths in test files after moving.
-    * [x] Remove redundant `package-lock.json` files within sub-directories to ensure monorepo consistency.
-    * [x] Fix `tsconfig.json` configuration to exclude test files from library and example project build processes.
-    * [x] Fix `vitest.config.ts` configuration in React example project.
-    * [x] Verify all changes by re-running unit tests and build processes for the library and all example projects.
-  * [x] **Ongoing Test Issues in Vue Example (`examples/example-vue`):**
-    * **Problem**: Persistent `expect(received).toBeInTheDocument() received value must be an HTMLElement or an SVGElement. Received has type: Null` errors when testing Lit component's Shadow DOM content in Vue example tests.
-    * **Analysis**: JSDOM's limited Shadow DOM support prevents reliable testing of Lit component's internal rendering. Attempts to manually populate `shadowRoot.innerHTML` or override Lit's `render` method in JSDOM have not been consistently effective.
-    * **Current Approach**: Simplify Vue example tests to focus on component existence, property passing, and event handling, rather than deep inspection of Lit component's internal Shadow DOM rendering. Internal Lit component rendering should be thoroughly tested in the core library's unit tests (`packages/cross-stack-lib`).
-    * **Recent Fixes**: Updated `examples/example-vue/src/App.test.ts` to check Lit properties directly (`cslTable.columns`, `cslModal.open`) instead of relying on reflected attributes (`getAttribute`, `hasAttribute`).
-    * **Current Status**: Temporarily excluded Vue example tests from CI pipeline due to persistent JSDOM/Shadow DOM rendering challenges. This is a pragmatic step to unblock CI/CD and Vercel deployment. A more robust testing strategy for Web Components in Vue (e.g., using browser-based testing tools) will be explored in future development.
-  * [x] **CI/CD and Vercel Deployment Troubleshooting (Completed):**
-    * **Problem**: GitHub Actions workflow not triggering due to incorrect branch name (`main` instead of `master`).
-    * **Solution**: Updated `ci.yml` to trigger on `master` branch.
-    * **Problem**: `npm ci` failing due to `package-lock.json` out of sync with `package.json` after TypeScript version update.
-    * **Solution**: Ran `npm install` locally to update `package-lock.json`.
-    * **Problem**: Vercel build failing with `Error: Cannot find module '@next/mdx'` or `Error: Cannot find module '@mdx-js/loader'`.
-    * **Solution**: Ensured both `@next/mdx` and `@mdx-js/loader` are correctly listed as dependencies in `apps/docs/package.json`.
-    * **Problem**: `vercel deploy` command requiring confirmation.
-    * **Solution**: Added `--yes` flag to `vercel --prod` command in `ci.yml`.
-    * **Problem**: `Type error: Cannot find module 'cross-stack-lib' or its corresponding type declarations.` during Vercel build.
-    * **Solution**: Implemented `vercel.json` at the monorepo root to explicitly define build and install commands for Vercel, ensuring `cross-stack-lib` is built and its types are available before `apps/docs`.
-    * **Problem**: Multiple Vercel projects created (`docs` and `cross-stack-lib-docs`).
-    * **Solution**: Removed old `.vercel` link from `apps/docs` and added `"name": "cross-stack-lib-docs"` to root `vercel.json`. User manually deleted old Vercel project.
-    * **Problem**: `deploy-docs` job skipped even after all previous jobs passed.
-    * **Solution**: Corrected `if` condition in `deploy-docs` job in `ci.yml` to `github.ref == 'refs/heads/master'`.
-    * **Current Status**: CI/CD pipeline is fully functional, and documentation site is successfully deployed to Vercel.
-
-* [x] **Checkpoint 10: Project Structure Cleanup and Optimization (Completed)**
-  * [x] **`.gitignore` Cleanup**:
-    * **Action**: Verify and ensure the `.gitignore` file at the project root covers all build output directories (`dist`, `.next`, `.angular/cache`, `dist/example-angular`), dependency directories (`node_modules`), and IDE-specific files. No redundant `.gitignore` files in sub-directories.
-    * **Explanation**: In a monorepo structure, having a single centralized `.gitignore` at the root is best practice. This ensures consistency in file ignoring rules across the entire project, prevents unnecessary files from entering the repository, and simplifies Git configuration management.
-  * [x] **Example Project Boilerplate Asset Cleanup**:
-    * **Action**: Remove default assets (such as SVG files, icons) irrelevant to demonstrating `cross-stack-lib` functionality from the React example project (`examples/example-react/public`). Vue and Angular projects did not have similar boilerplate assets in the checked locations.
-    * **Explanation**: Removing unused boilerplate assets helps keep example projects lean and focused on their primary purpose: demonstrating `cross-stack-lib` integration. This reduces repository size, speeds up the build process, and makes the project easier to understand as there are no visual distractions or irrelevant files.
-  * [x] **Comprehensive Verification**:
-    * **Action**: Re-run all unit tests for the core library (`packages/cross-stack-lib`) and all build processes for the core library and all three example projects (React, Vue, Angular). All tests and builds succeeded without errors.
-    * **Explanation**: Thorough verification after each refactoring stage is crucial to ensure that changes do not break existing functionality. This acts as a safety net and provides confidence that the project remains stable and functions correctly after cleanup.
-  * [x] **Empty Directory Cleanup**:
-    * **Action**: Re-scan the project to identify and remove all unused empty directories outside `node_modules` and `.git`.
-    * **Explanation**: Removing unnecessary empty directories contributes to the cleanliness and professionalism of the project structure. This reduces clutter, makes project navigation easier, and ensures that only relevant directories are maintained, which is important for long-term maintenance.
 
 * [x] **Checkpoint 11: Public Documentation Website Development (Completed)**
   * [x] Create `apps/docs` directory and initialize a Next.js project within it.
@@ -145,12 +88,6 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Integrate `cross-stack-lib` into the documentation site (add dependencies, create `LitWrappers.tsx`, update `globals.css`).
   * [x] Create "Getting Started" content (installation.mdx, usage.mdx) and configure MDX support in Next.js.
   * [x] Create component documentation content (examples.mdx, api.mdx for csl-table and csl-modal) (quick process/placeholder).
-  * [x] **Restructuring & Project Cleanup:**
-    * [x] Refactor `example-react` folder structure (move `app` and `components` from `src/` to `example-react` project root).
-    * [x] Check and remove unused or redundant files/folders across the monorepo.
-    * [x] Ensure project structure is clean, professional, and production-ready.
-  * [x] Verify documentation site build (`apps/docs`) (successful).
-  * [x] Verify builds of all projects in the monorepo after restructuring and cleanup (successful).
 
 * [x] **Checkpoint 12: Documentation Website UI/UX Design (Completed)**
   * [x] Implement modern, fresh, and simple UI/UX design for `apps/docs`.
@@ -174,6 +111,45 @@ This project will be divided into several structured stages (checkpoints) to ens
 * [x] **Checkpoint 15: Development Branch Setup (Completed)**
   * [x] Create 'develop' branch for ongoing development.
   * [x] Create a separate CI workflow for the 'develop' branch (lint, test, build).
+
+* [ ] **Checkpoint 16: Isolated Example Projects with Verdaccio**
+  * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of `cross-stack-lib` across different frameworks.
+  * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming `cross-stack-lib` via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
+  * **Detailed Plan**:
+    1.  **Install Verdaccio**: Install Verdaccio globally on the development machine.
+        ```bash
+        npm install -g verdaccio
+        ```
+    2.  **Start Verdaccio**: Run Verdaccio to start a local npm registry server (typically on `http://localhost:4873`).
+        ```bash
+        verdaccio
+        ```
+    3.  **Build `cross-stack-lib`**: Ensure the core library is built and ready for publishing.
+        ```bash
+        npm run build -w packages/cross-stack-lib
+        ```
+    4.  **Publish to Verdaccio**: Log in to the local registry and publish `cross-stack-lib`.
+        ```bash
+        npm adduser --registry http://localhost:4873
+        cd packages/cross-stack-lib
+        npm publish --registry http://localhost:4873
+        ```
+    5.  **Create Isolated Example Projects**: For each desired framework (e.g., Next.js, Vue, Angular), create a new, standard project *outside* the `cross-stack-lib` monorepo.
+        *   Example for Next.js: `npx create-next-app@latest my-next-app`
+        *   Example for Vue: `npm create vue@latest my-vue-app`
+        *   Example for Angular: `ng new my-angular-app`
+    6.  **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `cross-stack-lib`.
+        *   Option A (Temporary for a single install):
+            ```bash
+            npm install cross-stack-lib --registry http://localhost:4873
+            ```
+        *   Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install cross-stack-lib`.
+    7.  **Integrate and Test**: Use `cross-stack-lib` components within the isolated example projects and verify functionality.
+  * **Benefits of this approach**:
+    *   **Isolation**: Eliminates monorepo-specific build complexities and conflicts.
+    *   **Simplicity**: Uses standard framework CLIs and build processes.
+    *   **Realistic Testing**: Mimics real-world consumption of the published library.
+    *   **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
 
 ## 4. Future Development Details
 
@@ -267,10 +243,109 @@ At the end of each session, the agent must:
 ### 7.1. Persistent Styling Problem on Vercel Deployment
 
 *   **Symptom**: The deployed documentation site at `apps/docs` does not load any Tailwind CSS styles, appearing as an unstyled HTML page. The issue does not occur in local development but only in the Vercel production environment.
-*   **Analysis**: This is likely a build-time issue on Vercel where the Tailwind CSS is not being generated or included in the final production build.
-*   **Attempted Fixes (Unsuccessful)**:
-    1.  **Corrected Tailwind Config**: Fixed a mismatch between color names in `tailwind.config.js` and the class names used in the layout components.
-    2.  **Verified CSS Imports**: Confirmed that `app/globals.css` is correctly imported in `app/layout.tsx` and contains the necessary `@tailwind` directives.
-    3.  **Fixed Vercel Routing**: Restored the `routes` property in the root `vercel.json` to fix a 404 error, ensuring the application is served correctly.
-    4.  **Moved Build Dependencies**: Moved `tailwindcss`, `postcss`, and `autoprefixer` from `devDependencies` to `dependencies` in `apps/docs/package.json` to ensure they are available during the Vercel build process.
-*   **Status**: **Unresolved.** Despite these fixes addressing all common causes for this issue, the problem persists. Further investigation is needed, possibly related to Vercel's specific build process for monorepos, caching, or a more subtle configuration conflict.
+*   **Analysis**: This was initially believed to be a build-time issue on Vercel. However, extensive local debugging revealed a series of complex dependency resolution and configuration issues, primarily due to using pre-release versions of Next.js (v15), React (v19), and Tailwind CSS (v4).
+*   **Resolution**: The issue was resolved by:
+    1.  **Downgrading Core Dependencies**: Reverting Next.js to `^14.2.4`, React to `^18.3.1`, and Tailwind CSS to `^3.4.3`.
+    2.  **Explicit Dependency Management**: Explicitly adding several transitive dependencies (e.g., `object-hash`, `dlv`, `postcss-nested`, `postcss-js`, `sucrase`, `didyoumean`, `@swc/counter`, `@swc/helpers`) as direct `devDependencies` in `apps/docs/package.json` and/or the root `package.json` to force correct resolution in the monorepo.
+    3.  **Tailwind CSS v3 Configuration**: Reverting `globals.css`, `tailwind.config.js`, and `postcss.config.js` to use the correct Tailwind CSS v3 syntax and structure.
+    4.  **Aggressive Cleaning**: Performing multiple `rm -rf node_modules` and `rm package-lock.json` followed by `npm install` at the root level to ensure a completely clean dependency tree.
+*   **Current Status**: **Resolved.** The documentation site now builds and displays styling correctly in local development. The `TypeError: n.cache is not a function` in `example-react` has also been resolved by explicitly adding `object-hash` as a dependency and performing a clean reinstall of `node_modules`. Vercel deployment will need to be re-verified after these changes.
+
+## 8. Usage Guides
+
+This section provides a comprehensive guide on how to run, build, lint, and test different parts of the monorepo.
+
+### 8.1. Monorepo Root Commands
+
+These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
+
+*   **Install All Dependencies**: Installs dependencies for all packages and apps in the monorepo.
+    ```bash
+    npm install
+    ```
+*   **Build Core Library (`cross-stack-lib`)**: Builds the core UI component library.
+    ```bash
+    npm run build -w packages/cross-stack-lib
+    # Alias: npm run build:lib
+    ```
+*   **Run Linting for All Relevant Packages**: Runs ESLint for the core library, React example, and documentation site.
+    ```bash
+    npm run lint
+    ```
+*   **Run Tests for Core Library and React Example**: Executes unit tests for the core library and the React example.
+    ```bash
+    npm run test
+    ```
+*   **Build All Projects**: Builds the core library, all example applications, and the documentation site.
+    ```bash
+    npm run build
+    ```
+
+### 8.2. Documentation Website (`apps/docs`)
+
+These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
+
+*   **Start Development Server**: Runs the Next.js development server for the documentation site.
+    ```bash
+    npm run dev -w apps/docs
+    ```
+*   **Build for Production**: Creates an optimized production build of the documentation site.
+    ```bash
+    npm run build -w apps/docs
+    ```
+*   **Run Linting**: Checks the documentation site's code for quality and errors.
+    ```bash
+    npm run lint -w apps/docs
+    ```
+
+### 8.3. Example Applications (`examples/`)
+
+These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
+
+#### React Example (`examples/example-react`)
+
+*   **Start Development Server**:
+    ```bash
+    npm run dev -w examples/example-react
+    # Alias: npm run dev:react
+    ```
+*   **Build for Production**:
+    ```bash
+    npm run build -w examples/example-react
+    ```
+*   **Run Tests**:
+    ```bash
+    npm run test -w examples/example-react
+    ```
+
+#### Vue.js Example (`examples/example-vue`)
+
+*   **Start Development Server**:
+    ```bash
+    npm run dev -w examples/example-vue
+    # Alias: npm run dev:vue
+    ```
+*   **Build for Production**:
+    ```bash
+    npm run build -w examples/example-vue
+    ```
+*   **Run Tests**:
+    ```bash
+    npm run test -w examples/example-vue
+    ```
+
+#### Angular Example (`examples/example-angular`)
+
+*   **Start Development Server**:
+    ```bash
+    npm run start -w examples/example-angular
+    # Alias: npm run dev:angular
+    ```
+*   **Build for Production**:
+    ```bash
+    npm run build -w examples/example-angular
+    ```
+*   **Run Tests**:
+    ```bash
+    npm run test -w examples/example-angular
+    ```
