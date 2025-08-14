@@ -36,6 +36,55 @@ This project is organized as a monorepo using npm workspaces:
     # npm run build:lib
     ```
 
+## Local Development with Verdaccio
+
+To test `cross-stack-lib` with external projects (e.g., React, Vue, Angular applications), you can use a local npm registry like Verdaccio. This allows you to publish your library locally and consume it as if it were a public npm package.
+
+1.  **Install Verdaccio globally:**
+    ```bash
+    npm install -g verdaccio
+    ```
+
+2.  **Start Verdaccio:**
+    ```bash
+    verdaccio
+    ```
+    Verdaccio will typically start on `http://localhost:4873`.
+
+3.  **Build `cross-stack-lib`:**
+    Ensure your library is built and ready for publishing:
+    ```bash
+    npm run build -w packages/cross-stack-lib
+    ```
+
+4.  **Publish to your local Verdaccio registry:**
+    First, log in to the local registry (you can use any username/password):
+    ```bash
+    npm adduser --registry http://localhost:4873
+    ```
+    Then, navigate to the `packages/cross-stack-lib` directory and publish:
+    ```bash
+    cd packages/cross-stack-lib
+    npm publish --registry http://localhost:4873
+    ```
+
+5.  **Consume `cross-stack-lib` in your external project:**
+    In your external project (e.g., a new Next.js, Vue, or Angular app), you can install `cross-stack-lib` from your local registry.
+
+    *   **Option A (Temporary for a single install):**
+        ```bash
+        npm install cross-stack-lib --registry http://localhost:4873
+        ```
+    *   **Option B (More permanent for the project):**
+        Create a `.npmrc` file in your external project's root with the following content:
+        ```
+        registry=http://localhost:4873
+        ```
+        Then, you can install `cross-stack-lib` as usual:
+        ```bash
+        npm install cross-stack-lib
+        ```
+
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
 This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `master` branch:

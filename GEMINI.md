@@ -70,7 +70,6 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Run `npm install` at the project root to correctly reinstall all dependencies according to npm Workspaces configuration.
     * [x] Ensure `package.json` at the root and `packages/cross-stack-lib` only have core dependencies and relevant scripts.
     * [x] Ensure `tsconfig.json` and `vite.config.ts` in `packages/cross-stack-lib` are clean basic configurations for Lit.
-    * [x] Verify `package.json` in each example project is clean.
     * [x] Run `npm update` and `npm audit fix --force` at the project root to ensure latest dependencies and no vulnerabilities.
   * [x] **Basic Unit Testing (Completed):**
     * [x] Configure Vitest as the testing framework with JSDOM.
@@ -80,14 +79,44 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Resolve Lit module resolution and deduplication issues (`Multiple versions of Lit loaded.`).
     * [x] Resolve `@testing-library/jest-dom` integration issues (`Invalid Chai property: toBeInTheDocument`).
     * [x] All basic unit tests passed.
+  * [x] **Architecture Cleanup and Refactoring (Completed):**
+    * [x] Remove unused boilerplate files and directories (`my-element.ts`, `my-element.test.ts`, `csl-decorated-element`).
+    * [x] Move unit test files to appropriate component directories for improved readability (`co-location`).
+    * [x] Fix import paths in test files after moving.
+    * [x] Remove redundant `package-lock.json` files within sub-directories to ensure monorepo consistency.
+    * [x] Fix `tsconfig.json` configuration to exclude test files from library and example project build processes.
+    * [x] Verify all changes by re-running unit tests and build processes for the library.
+  * [x] **CI/CD and Vercel Deployment Troubleshooting (Completed):**
+    * [x] GitHub Actions workflow not triggering due to incorrect branch name (`main` instead of `master`).
+    * [x] `npm ci` failing due to `package-lock.json` out of sync with `package.json` after TypeScript version update.
+    * [x] Vercel build failing with `Error: Cannot find module '@next/mdx'` or `Error: Cannot find module '@mdx-js/loader'`.
+    * [x] `vercel deploy` command requiring confirmation.
+    * [x] `Type error: Cannot find module 'cross-stack-lib' or its corresponding type declarations.` during Vercel build.
+    * [x] Multiple Vercel projects created (`docs` and `cross-stack-lib-docs`).
+    * [x] `deploy-docs` job skipped even after all previous jobs passed.
+    * [x] CI/CD pipeline is fully functional, and documentation site is successfully deployed to Vercel.
+
+* [x] **Checkpoint 10: Project Structure Cleanup and Optimization (Completed)**
+  * [x] **`.gitignore` Cleanup**:
+    * [x] Verify and ensure the `.gitignore` file at the project root covers all build output directories (`dist`, `.next`, `.angular/cache`), dependency directories (`node_modules`), and IDE-specific files. No redundant `.gitignore` files in sub-directories.
+    * [x] In a monorepo structure, having a single centralized `.gitignore` at the root is best practice. This ensures consistency in file ignoring rules across the entire project, prevents unnecessary files from entering the repository, and simplifies Git configuration management.
+  * [x] **Comprehensive Verification**:
+    * [x] Re-run all unit tests for the core library (`packages/cross-stack-lib`) and all build processes for the core library and the documentation site. All tests and builds succeeded without errors.
+    * [x] Thorough verification after each refactoring stage is crucial to ensure that changes do not break existing functionality. This acts as a safety net and provides confidence that the project remains stable and functions correctly after cleanup.
+  * [x] **Empty Directory Cleanup**:
+    * [x] Re-scan the project to identify and remove all unused empty directories outside `node_modules` and `.git`.
+    * [x] Removing unnecessary empty directories contributes to the cleanliness and professionalism of the project structure. This reduces clutter, makes project navigation easier, and ensures that only relevant directories are maintained, which is important for long-term maintenance.
 
 * [x] **Checkpoint 11: Public Documentation Website Development (Completed)**
   * [x] Create `apps/docs` directory and initialize a Next.js project within it.
-  * [x] Verify builds of all example projects after adding `apps/docs` (successful).
   * [x] Create basic directory structure and placeholder pages for the documentation site.
   * [x] Integrate `cross-stack-lib` into the documentation site (add dependencies, create `LitWrappers.tsx`, update `globals.css`).
   * [x] Create "Getting Started" content (installation.mdx, usage.mdx) and configure MDX support in Next.js.
   * [x] Create component documentation content (examples.mdx, api.mdx for csl-table and csl-modal) (quick process/placeholder).
+  * [x] **Restructuring & Project Cleanup:**
+    * [x] Check and remove unused or redundant files/folders across the monorepo.
+    * [x] Ensure project structure is clean, professional, and production-ready.
+  * [x] Verify documentation site build (`apps/docs`) (successful).
 
 * [x] **Checkpoint 12: Documentation Website UI/UX Design (Completed)**
   * [x] Implement modern, fresh, and simple UI/UX design for `apps/docs`.
@@ -168,7 +197,7 @@ This section outlines important details and setup information for future develop
     2. **Define Jobs**:
         * `install-dependencies`: Install npm dependencies (with caching).
         * `lint`: Run ESLint/TypeScript checks for all relevant packages.
-        * `test`: Run unit tests for `cross-stack-lib` and integration tests for example apps.
+        * `test`: Run unit tests for `cross-stack-lib`.
         * `build`: Build `cross-stack-lib` and `apps/docs`.
         * `deploy-docs` (Conditional): Deploy `apps/docs` to Vercel on `main` branch pushes.
         * `publish-lib` (Conditional): Publish `cross-stack-lib` to npm on version tags.
@@ -268,15 +297,15 @@ These commands should be run from the project's root directory (`/Users/agaaaptr
     npm run build -w packages/cross-stack-lib
     # Alias: npm run build:lib
     ```
-*   **Run Linting for All Relevant Packages**: Runs ESLint for the core library, React example, and documentation site.
+*   **Run Linting for All Relevant Packages**: Runs ESLint for the core library and documentation site.
     ```bash
     npm run lint
     ```
-*   **Run Tests for Core Library and React Example**: Executes unit tests for the core library and the React example.
+*   **Run Tests for Core Library**: Executes unit tests for the core library.
     ```bash
     npm run test
     ```
-*   **Build All Projects**: Builds the core library, all example applications, and the documentation site.
+*   **Build All Projects**: Builds the core library and the documentation site.
     ```bash
     npm run build
     ```
@@ -296,56 +325,4 @@ These commands should be run from the project's root directory (`/Users/agaaaptr
 *   **Run Linting**: Checks the documentation site's code for quality and errors.
     ```bash
     npm run lint -w apps/docs
-    ```
-
-### 8.3. Example Applications (`examples/`)
-
-These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
-
-#### React Example (`examples/example-react`)
-
-*   **Start Development Server**:
-    ```bash
-    npm run dev -w examples/example-react
-    # Alias: npm run dev:react
-    ```
-*   **Build for Production**:
-    ```bash
-    npm run build -w examples/example-react
-    ```
-*   **Run Tests**:
-    ```bash
-    npm run test -w examples/example-react
-    ```
-
-#### Vue.js Example (`examples/example-vue`)
-
-*   **Start Development Server**:
-    ```bash
-    npm run dev -w examples/example-vue
-    # Alias: npm run dev:vue
-    ```
-*   **Build for Production**:
-    ```bash
-    npm run build -w examples/example-vue
-    ```
-*   **Run Tests**:
-    ```bash
-    npm run test -w examples/example-vue
-    ```
-
-#### Angular Example (`examples/example-angular`)
-
-*   **Start Development Server**:
-    ```bash
-    npm run start -w examples/example-angular
-    # Alias: npm run dev:angular
-    ```
-*   **Build for Production**:
-    ```bash
-    npm run build -w examples/example-angular
-    ```
-*   **Run Tests**:
-    ```bash
-    npm run test -w examples/example-angular
     ```
