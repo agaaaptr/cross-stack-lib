@@ -1,13 +1,29 @@
-import { css as d, LitElement as g, html as n } from "lit";
-import { property as h, state as c, customElement as u } from "lit/decorators.js";
-var b = Object.defineProperty, P = Object.getOwnPropertyDescriptor, s = (t, e, i, o) => {
-  for (var r = o > 1 ? void 0 : o ? P(e, i) : e, l = t.length - 1, p; l >= 0; l--)
-    (p = t[l]) && (r = (o ? p(e, i, r) : p(r)) || r);
-  return o && r && b(e, i, r), r;
+import { css as u, LitElement as d, html as n } from "lit";
+import { property as h, state as p, customElement as g } from "lit/decorators.js";
+var m = Object.defineProperty, b = Object.getOwnPropertyDescriptor, i = (t, e, s, o) => {
+  for (var r = o > 1 ? void 0 : o ? b(e, s) : e, l = t.length - 1, c; l >= 0; l--)
+    (c = t[l]) && (r = (o ? c(e, s, r) : c(r)) || r);
+  return o && r && m(e, s, r), r;
 };
-let a = class extends g {
+let a = class extends d {
   constructor() {
-    super(...arguments), this.columns = [], this.data = [], this.pageSize = 10, this.searchText = "", this.currentPage = 1;
+    super(...arguments), this._columns = [], this.data = [], this.pageSize = 10, this.searchText = "", this.currentPage = 1;
+  }
+  // Internal property
+  set columns(t) {
+    const e = this._columns;
+    if (typeof t == "string")
+      try {
+        this._columns = JSON.parse(t);
+      } catch (s) {
+        console.error("Error parsing columns property:", s), this._columns = [];
+      }
+    else
+      this._columns = t;
+    this.requestUpdate("columns", e);
+  }
+  get columns() {
+    return this._columns;
   }
   get filteredData() {
     if (!this.searchText)
@@ -15,7 +31,7 @@ let a = class extends g {
     const t = this.searchText.toLowerCase();
     return this.data.filter(
       (e) => this.columns.some(
-        (i) => String(e[i.key]).toLowerCase().includes(t)
+        (s) => String(e[s.key]).toLowerCase().includes(t)
       )
     );
   }
@@ -83,7 +99,7 @@ let a = class extends g {
     `;
   }
 };
-a.styles = d`
+a.styles = u`
     :host {
       display: block;
       font-family: sans-serif;
@@ -125,23 +141,23 @@ a.styles = d`
       gap: 10px;
     }
   `;
-s([
+i([
   h({ type: Array })
-], a.prototype, "columns", 2);
-s([
+], a.prototype, "_columns", 2);
+i([
   h({ type: Array })
 ], a.prototype, "data", 2);
-s([
+i([
   h({ type: Number })
 ], a.prototype, "pageSize", 2);
-s([
-  c()
+i([
+  p()
 ], a.prototype, "searchText", 2);
-s([
-  c()
+i([
+  p()
 ], a.prototype, "currentPage", 2);
-a = s([
-  u("csl-table")
+a = i([
+  g("csl-table")
 ], a);
 export {
   a as CslTable

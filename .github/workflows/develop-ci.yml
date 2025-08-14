@@ -1,12 +1,12 @@
-name: CI/CD Pipeline
+name: Develop CI Pipeline
 
 on:
   push:
     branches:
-      - master
+      - develop
   pull_request:
     branches:
-      - master
+      - develop
 
 jobs:
   install-dependencies:
@@ -98,31 +98,3 @@ jobs:
         run: |
           npm run build -w packages/cross-stack-lib
           npm run build -w apps/docs
-
-  deploy-docs:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' # Only deploy on pushes to master branch
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.x'
-
-      - name: Restore Node.js modules cache
-        uses: actions/cache/restore@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
-
-      - name: Deploy to Vercel
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes # Removed --scope apps/docs
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

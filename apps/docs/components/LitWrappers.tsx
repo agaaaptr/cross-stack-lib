@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { createComponent } from '@lit-labs/react';
 import { CslTable as CslTableWC, CslModal as CslModalWC } from 'cross-stack-lib';

@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can add your custom global styles here */
-
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+  /* You can add custom body styles here if needed */
 }
