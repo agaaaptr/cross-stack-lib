@@ -2,6 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  /* You can add custom body styles here if needed */
+@layer base {
+  :root {
+    --background: 220 14.3% 95.9%; /* Changed from pure white */
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 215.4 16.3% 46.9%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 215.4 16.3% 46.9%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+
+    --radius: 0.5rem;
+
+    /* Custom variables for code block backgrounds */
+    --code-block-background: 220 10% 20%; /* Light mode code background - slightly brighter */
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 263.4 95.2% 66.3%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 263.4 95.2% 66.3%;
+
+    /* Custom variables for code block backgrounds */
+    --code-block-background: 220 10% 15%; /* Dark mode code background - reverted to previous */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom styles for code blocks */
+  pre {
+    background-color: hsl(var(--code-block-background)) !important; /* Added !important */
+    border-radius: var(--radius);
+    padding: 1rem; /* Adjust as needed */
+    overflow-x: auto; /* Enable horizontal scrolling for long lines */
+  }
+
+  /* Remove highlight/block effect for inline code and code within pre */
+  :not(pre) > code {
+    background-color: transparent !important; /* Remove background for inline code */
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  pre code {
+    background-color: transparent !important; /* Ensure code inside pre doesn't have its own background */
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
 }
