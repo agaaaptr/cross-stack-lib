@@ -1,12 +1,16 @@
 import Installation from './installation.mdx';
 import Usage from './usage.mdx';
+import { PageTransition } from "@/app/components/page-transition";
 
 export default function GettingStartedPage() {
   return (
-    <div className="p-8 bg-background-light rounded-lg shadow-lg text-text-DEFAULT">
-      <h1 className="text-4xl font-bold mb-6 text-primary">Getting Started</h1>
-      <Installation />
-      <Usage />
-    </div>
+    <PageTransition>
+      <div className="container max-w-4xl py-10 px-4">
+        <div className="prose dark:prose-invert">
+          <Installation />
+          <Usage />
+        </div>
+      </div>
+    </PageTransition>
   );
 }

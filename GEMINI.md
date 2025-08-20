@@ -141,6 +141,19 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Create 'develop' branch for ongoing development.
   * [x] Create a separate CI workflow for the 'develop' branch (lint, test, build).
 
+* [x] **Checkpoint 15: UI/UX Refinements and Code Block Styling**
+  * [x] **Code Block Background & Readability**:
+    * [x] Adjusted light mode base background color (`--background`) to a less bright neutral gray (`220 14.3% 95.9%`).
+    * [x] Configured `rehype-pretty-code` to use `aurora-x` theme for syntax highlighting, ensuring code coloring is applied correctly.
+    * [x] Set neutral gray background colors for code blocks (`--code-block-background`) in both light (`220 10% 20%`) and dark (`220 10% 15%`) modes for better contrast and readability.
+    * [x] Removed conflicting background and border styles from `pre` and `code` elements in `mdx-components.tsx` and `code-block-wrapper.tsx` to ensure custom CSS takes precedence.
+    * [x] Ensured `rehype-pretty-code` does not apply its own background by setting `keepBackground: false` in `next.config.js`.
+  * [x] **Copy Icon Visibility**:
+    * [x] Improved visibility of the copy-to-clipboard icon in light mode by setting its default text color to `text-muted-foreground` in `apps/docs/app/components/ui/button.tsx`.
+  * [x] **Monorepo Structure & Dependencies**:
+    * [x] Noted significant refactoring of documentation site components and layout (`apps/docs/app/components/`, `apps/docs/app/layout.tsx`, `apps/docs/app/page.tsx`, etc.).
+    * [x] Identified new dependencies related to UI components, theming, and code highlighting (`@radix-ui/react-dialog`, `framer-motion`, `next-themes`, `rehype-pretty-code`, `shiki`, etc.) added to `package.json` and `package-lock.json`.
+
 * [ ] **Checkpoint 16: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of `cross-stack-lib` across different frameworks.
   * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming `cross-stack-lib` via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.

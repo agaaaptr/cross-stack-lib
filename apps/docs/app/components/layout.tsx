@@ -1,26 +1,18 @@
-import Link from 'next/link';
+import { SidebarNav } from "./sidebar-nav";
 
 export default function ComponentsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-grow">
-      <nav className="w-64 p-6 bg-background-light border-r border-background-lighter text-text-DEFAULT">
-        <h3 className="text-xl font-semibold mb-4 text-primary">Components</h3>
-        <ul className="space-y-2">
-          <li>
-            <Link href="/components/table" className="block text-text-DEFAULT hover:text-accent transition-colors duration-300">
-              Table
-            </Link>
-          </li>
-          <li>
-            <Link href="/components/modal" className="block text-text-DEFAULT hover:text-accent transition-colors duration-300">
-              Modal
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <main className="flex-grow p-8 bg-background-DEFAULT">
-        {children}
-      </main>
+    <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="flex-1 md:grid md:grid-cols-[220px_1fr] md:gap-8">
+        <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+          <div className="h-full py-6 lg:py-10 border-r border-border/40">
+            <SidebarNav />
+          </div>
+        </aside>
+        <main className="relative py-6 lg:py-10">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
