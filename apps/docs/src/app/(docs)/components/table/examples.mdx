@@ -1,0 +1,103 @@
+# Table Component Examples
+
+Here are some examples of how to use the `xstack-table` component.
+
+## Basic Table
+
+This example shows a basic table with static data and columns.
+
+```tsx
+'use client';
+
+import { XStackTable } from '@/LitWrappers';
+import { useEffect, useState }n
+export default function BasicTableExample() {
+  const [data, setData] = useState([]);
+  const [columns, setColumns] = useState([]);
+
+  useEffect(() => {
+    setData([
+      { id: 1, name: 'Alice', age: 30 },
+      { id: 2, name: 'Bob', age: 24 },
+      { id: 3, name: 'Charlie', age: 35 },
+    ]);
+    setColumns([
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: 'Name' },
+      { key: 'age', header: 'Age' },
+    ]);
+  }, []);
+
+  return (
+    <XStackTable
+      data={JSON.stringify(data)}
+      columns={JSON.stringify(columns)}
+    ></XStackTable>
+  );
+}
+```
+
+## Table with Search and Pagination
+
+This example demonstrates a table with search functionality and pagination.
+
+```tsx
+'use client';
+
+import { XStackTable } from '@/LitWrappers';
+import { useEffect, useState } from 'react';
+
+const initialData = [
+  { id: 1, name: 'Alice', age: 30 },
+  { id: 2, name: 'Bob', age: 24 },
+  { id: 3, name: 'Charlie', age: 35 },
+  { id: 4, name: 'David', age: 40 },
+  { id: 5, name: 'Eve', age: 28 },
+  { id: 6, name: 'Frank', age: 50 },
+  { id: 7, name: 'Grace', age: 22 },
+  { id: 8, name: 'Heidi', age: 31 },
+  { id: 9, name: 'Ivan', age: 29 },
+  { id: 10, name: 'Judy', age: 45 },
+  { id: 11, name: 'Karl', age: 33 },
+  { id: 12, name: 'Linda', age: 27 },
+];
+
+export default function SearchableTableExample() {
+  const [data, setData] = useState(initialData);
+  const [columns, setColumns] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [pageSize, setPageSize] = useState(5);
+
+  useEffect(() => {
+    setColumns([
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: 'Name' },
+      { key: 'age', header: 'Age' },
+    ]);
+  }, []);
+
+  const handleSearch = (event: CustomEvent) => {
+    const query = event.detail;
+    setSearchTerm(query);
+    const filteredData = initialData.filter(item =>
+      Object.values(item).some(val =>
+        String(val).toLowerCase().includes(query.toLowerCase())
+      )
+    );
+    setData(filteredData);
+  };
+
+  const handlePageSizeChange = (event: CustomEvent) => {
+    setPageSize(event.detail);
+  };
+
+  return (
+    <XStackTable
+      data={JSON.stringify(data)}
+      columns={JSON.stringify(columns)}
+      pageSize={pageSize}
+      onSearch={handleSearch}
+      onPageSizeChange={handlePageSizeChange}
+    ></XStackTable>
+  );
+}
