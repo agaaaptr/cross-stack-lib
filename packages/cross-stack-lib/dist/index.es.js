@@ -1,6 +1,6 @@
-import { CslTable as r } from "./csl-table.es.js";
-import { CslModal as a } from "./csl-modal.es.js";
+import { XStackTable as r } from "./xstack-table.es.js";
+import { XStackModal as e } from "./xstack-modal.es.js";
 export {
-  a as CslModal,
-  r as CslTable
+  e as XStackModal,
+  r as XStackTable
 };

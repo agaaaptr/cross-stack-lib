@@ -1,10 +1,10 @@
-# Gemini Project Context: cross-stack-lib
+# Gemini Project Context: XStack Library
 
 *Note: This file is for internal project tracking.*
 
 ## 1. Project Overview
 
-`cross-stack-lib` is a project to build a "cross-stack" or cross-framework UI component library. The goal is for the created components (such as Table and Modal) to be consistently usable across various modern frontend frameworks like Angular, React (Next.js), and Vue.
+XStack Library is a project to build a "cross-stack" or cross-framework UI component library. The goal is for the created components (such as Table and Modal) to be consistently usable across various modern frontend frameworks like Angular, React (Next.js), and Vue.
 
 To achieve this, the project will use **Web Components** standards, which are natively supported by all modern browsers and can be easily integrated into any JavaScript framework.
 
@@ -31,17 +31,17 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Create initial directory structure (`src`, `src/components`).
 
 * [x] **Checkpoint 2: Initial Component Creation (Completed)**
-  * [x] Create basic files for `csl-table` component.
-  * [x] Create basic files for `csl-modal` component.
+  * [x] Create basic files for `xstack-table` component.
+  * [x] Create basic files for `xstack-modal` component.
   * [x] Define API (properties and events) for both components.
 
-* [x] **Checkpoint 3: Table Component (`csl-table`) Implementation (Completed)**
+* [x] **Checkpoint 3: Table Component (`xstack-table`) Implementation (Completed)**
   * [x] Implement table data rendering logic.
   * [x] Add search bar feature.
   * [x] Add functionality to set data per page (page size).
   * [x] Implement pagination.
 
-* [x] **Checkpoint 4: Modal Component (`csl-modal`) Implementation (Completed)**
+* [x] **Checkpoint 4: Modal Component (`xstack-modal`) Implementation (Completed)**
   * [x] Implement logic to show/hide modal.
   * [x] Add slots for header, body, and footer content.
   * [x] Add event for closing modal.
@@ -73,14 +73,14 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Run `npm update` and `npm audit fix --force` at the project root to ensure latest dependencies and no vulnerabilities.
   * [x] **Basic Unit Testing (Completed):**
     * [x] Configure Vitest as the testing framework with JSDOM.
-    * [x] Write basic unit tests for `csl-table` and `csl-modal` components using direct DOM manipulation.
+    * [x] Write basic unit tests for `xstack-table` and `xstack-modal` components using direct DOM manipulation.
     * [x] Write unit tests for `my-element` component (to verify Lit decorator transpilation).
     * [x] Resolve Lit decorator transpilation issues (`TypeError: (0 , property) is not a function`).
     * [x] Resolve Lit module resolution and deduplication issues (`Multiple versions of Lit loaded.`).
     * [x] Resolve `@testing-library/jest-dom` integration issues (`Invalid Chai property: toBeInTheDocument`).
     * [x] All basic unit tests passed.
   * [x] **Architecture Cleanup and Refactoring (Completed):**
-    * [x] Remove unused boilerplate files and directories (`my-element.ts`, `my-element.test.ts`, `csl-decorated-element`).
+    * [x] Remove unused boilerplate files and directories (`my-element.ts`, `my-element.test.ts`, `xstack-decorated-element`).
     * [x] Move unit test files to appropriate component directories for improved readability (`co-location`).
     * [x] Fix import paths in test files after moving.
     * [x] Remove redundant `package-lock.json` files within sub-directories to ensure monorepo consistency.
@@ -92,7 +92,7 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Vercel build failing with `Error: Cannot find module '@next/mdx'` or `Error: Cannot find module '@mdx-js/loader'`.
     * [x] `vercel deploy` command requiring confirmation.
     * [x] `Type error: Cannot find module 'cross-stack-lib' or its corresponding type declarations.` during Vercel build.
-    * [x] Multiple Vercel projects created (`docs` and `cross-stack-lib-docs`).
+    * [x] Multiple Vercel projects created (`docs` and `xstack-library-docs`).
     * [x] `deploy-docs` job skipped even after all previous jobs passed.
     * [x] CI/CD pipeline is fully functional, and documentation site is successfully deployed to Vercel.
 
@@ -110,9 +110,9 @@ This project will be divided into several structured stages (checkpoints) to ens
 * [x] **Checkpoint 11: Public Documentation Website Development (Completed)**
   * [x] Create `apps/docs` directory and initialize a Next.js project within it.
   * [x] Create basic directory structure and placeholder pages for the documentation site.
-  * [x] Integrate `cross-stack-lib` into the documentation site (add dependencies, create `LitWrappers.tsx`, update `globals.css`).
+  * [x] Integrate XStack Library into the documentation site (add dependencies, create `LitWrappers.tsx`, update `globals.css`).
   * [x] Create "Getting Started" content (installation.mdx, usage.mdx) and configure MDX support in Next.js.
-  * [x] Create component documentation content (examples.mdx, api.mdx for csl-table and csl-modal) (quick process/placeholder).
+  * [x] Create component documentation content (examples.mdx, api.mdx for xstack-table and xstack-modal) (quick process/placeholder).
   * [x] **Restructuring & Project Cleanup:**
     * [x] Check and remove unused or redundant files/folders across the monorepo.
     * [x] Ensure project structure is clean, professional, and production-ready.
@@ -141,7 +141,7 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Create 'develop' branch for ongoing development.
   * [x] Create a separate CI workflow for the 'develop' branch (lint, test, build).
 
-* [x] **Checkpoint 15: UI/UX Refinements and Code Block Styling**
+* [x] **Checkpoint 16: UI/UX Refinements and Code Block Styling (Completed)**
   * [x] **Code Block Background & Readability**:
     * [x] Adjusted light mode base background color (`--background`) to a less bright neutral gray (`220 14.3% 95.9%`).
     * [x] Configured `rehype-pretty-code` to use `aurora-x` theme for syntax highlighting, ensuring code coloring is applied correctly.
@@ -149,14 +149,23 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Removed conflicting background and border styles from `pre` and `code` elements in `mdx-components.tsx` and `code-block-wrapper.tsx` to ensure custom CSS takes precedence.
     * [x] Ensured `rehype-pretty-code` does not apply its own background by setting `keepBackground: false` in `next.config.js`.
   * [x] **Copy Icon Visibility**:
-    * [x] Improved visibility of the copy-to-clipboard icon in light mode by setting its default text color to `text-muted-foreground` in `apps/docs/app/components/ui/button.tsx`.
+    * [x] Improved visibility of the copy-to-clipboard icon in light mode by setting its default text color to `text-muted-foreground` in `apps/docs/src/components/ui/button.tsx`.
   * [x] **Monorepo Structure & Dependencies**:
-    * [x] Noted significant refactoring of documentation site components and layout (`apps/docs/app/components/`, `apps/docs/app/layout.tsx`, `apps/docs/app/page.tsx`, etc.).
+    * [x] Noted significant refactoring of documentation site components and layout (`apps/docs/src/components/`, `apps/docs/src/app/layout.tsx`, `apps/docs/src/app/(home)/page.tsx`, etc.).
     * [x] Identified new dependencies related to UI components, theming, and code highlighting (`@radix-ui/react-dialog`, `framer-motion`, `next-themes`, `rehype-pretty-code`, `shiki`, etc.) added to `package.json` and `package-lock.json`.
 
-* [ ] **Checkpoint 16: Isolated Example Projects with Verdaccio**
-  * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of `cross-stack-lib` across different frameworks.
-  * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming `cross-stack-lib` via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
+* [x] **Checkpoint 17: UI/UX Overhaul and Component Refactoring (Completed)**
+  * [x] **Comprehensive UI/UX Redesign**: Implemented a modern, fresh, and simple UI/UX design across the entire documentation site (`apps/docs`). This includes a new color palette, typography, and overall visual aesthetic.
+  * [x] **Component Relocation and Restructuring**: Significant refactoring of the documentation site's component structure. Components previously located under `apps/docs/app/components` have been moved to `apps/docs/src/components` to align with standard Next.js project practices and improve modularity.
+  * [x] **New Layout and Navigation**: Introduced new layout components (`apps/docs/src/app/docs-layout.tsx`, `apps/docs/src/app/(home)/layout.tsx`) and enhanced navigation components (`apps/docs/src/components/header.tsx`, `apps/docs/src/components/mobile-nav.tsx`, `apps/docs/src/components/sidebar-nav.tsx`) to provide a more intuitive and responsive user experience.
+  * [x] **Search Functionality**: Integrated a new search command component (`apps/docs/src/components/search-command.tsx`) for quick navigation and content discovery within the documentation.
+  * [x] **Table of Contents**: Added a dynamic table of contents component (`apps/docs/src/components/table-of-contents.tsx`) to improve content readability and navigation on long documentation pages.
+  * [x] **MDX Component Enhancements**: Updated `mdx-components.tsx` to include automatic slug generation for headings and improved styling for code blocks and other Markdown elements.
+  * [x] **Dependency Updates**: Added new UI-related dependencies (`@radix-ui/react-accordion`, `@radix-ui/react-icons`, `@radix-ui/react-scroll-area`, `@radix-ui/react-slot`, `rehype-autolink-headings`, `rehype-slug`) to the root `package.json` to support the new UI components and MDX features.
+
+* [ ] **Checkpoint 18: Isolated Example Projects with Verdaccio**
+  * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
+  * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming XStack Library via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
   * **Detailed Plan**:
     1.  **Install Verdaccio**: Install Verdaccio globally on the development machine.
         ```bash
@@ -166,11 +175,11 @@ This project will be divided into several structured stages (checkpoints) to ens
         ```bash
         verdaccio
         ```
-    3.  **Build `cross-stack-lib`**: Ensure the core library is built and ready for publishing.
+    3.  **Build XStack Library**: Ensure the core library is built and ready for publishing.
         ```bash
         npm run build -w packages/cross-stack-lib
         ```
-    4.  **Publish to Verdaccio**: Log in to the local registry and publish `cross-stack-lib`.
+    4.  **Publish to Verdaccio**: Log in to the local registry and publish XStack Library.
         ```bash
         npm adduser --registry http://localhost:4873
         cd packages/cross-stack-lib
@@ -180,13 +189,13 @@ This project will be divided into several structured stages (checkpoints) to ens
         *   Example for Next.js: `npx create-next-app@latest my-next-app`
         *   Example for Vue: `npm create vue@latest my-vue-app`
         *   Example for Angular: `ng new my-angular-app`
-    6.  **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `cross-stack-lib`.
+    6.  **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `xstack-library`.
         *   Option A (Temporary for a single install):
             ```bash
-            npm install cross-stack-lib --registry http://localhost:4873
+            npm install xstack-library --registry http://localhost:4873
             ```
-        *   Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install cross-stack-lib`.
-    7.  **Integrate and Test**: Use `cross-stack-lib` components within the isolated example projects and verify functionality.
+        *   Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install xstack-library`.
+    7.  **Integrate and Test**: Use XStack Library components within the isolated example projects and verify functionality.
   * **Benefits of this approach**:
     *   **Isolation**: Eliminates monorepo-specific build complexities and conflicts.
     *   **Simplicity**: Uses standard framework CLIs and build processes.
@@ -210,10 +219,10 @@ This section outlines important details and setup information for future develop
     2. **Define Jobs**:
         * `install-dependencies`: Install npm dependencies (with caching).
         * `lint`: Run ESLint/TypeScript checks for all relevant packages.
-        * `test`: Run unit tests for `cross-stack-lib`.
-        * `build`: Build `cross-stack-lib` and `apps/docs`.
+        * `test`: Run unit tests for XStack Library.
+        * `build`: Build XStack Library and `apps/docs`.
         * `deploy-docs` (Conditional): Deploy `apps/docs` to Vercel on `main` branch pushes.
-        * `publish-lib` (Conditional): Publish `cross-stack-lib` to npm on version tags.
+        * `publish-lib` (Conditional): Publish XStack Library to npm on version tags.
     3. **Configure `npm ci`**: Use `npm ci` instead of `npm install` in CI for reproducible builds.
     4. **Set up Caching**: Use `actions/cache` for `node_modules`.
 
@@ -258,7 +267,7 @@ To keep the Git history clean and readable, this project adopts **Semantic Commi
 
 **Scope (Scope of Change):**
 
-The scope can be the name of the component or part of the project affected. Examples: `csl-table`, `csl-modal`, `build`, `docs`, `monorepo`.
+The scope can be the name of the component or part of the project affected. Examples: `xstack-table`, `xstack-modal`, `build`, `docs`, `monorepo`.
 
 **Subject (Commit Title):**
 
@@ -266,8 +275,8 @@ A brief description of the change in imperative mood (e.g., "add" not "adding").
 
 **Example Commit Messages:**
 
-* `feat(csl-table): add sorting functionality`
-* `fix(csl-modal): prevent closing on overlay click`
+* `feat(xstack-table): add sorting functionality`
+* `fix(xstack-modal): prevent closing on overlay click`
 * `docs(readme): update usage instructions`
 * `chore(vite): configure library mode`
 * `chore(monorepo): refactor project structure and update documentation`
@@ -305,7 +314,7 @@ These commands should be run from the project's root directory (`/Users/agaaaptr
     ```bash
     npm install
     ```
-*   **Build Core Library (`cross-stack-lib`)**: Builds the core UI component library.
+*   **Build Core Library (XStack Library)**: Builds the core UI component library.
     ```bash
     npm run build -w packages/cross-stack-lib
     # Alias: npm run build:lib
@@ -314,11 +323,11 @@ These commands should be run from the project's root directory (`/Users/agaaaptr
     ```bash
     npm run lint
     ```
-*   **Run Tests for Core Library**: Executes unit tests for the core library.
+*   **Run Tests for Core Library**: Executes unit tests for XStack Library.
     ```bash
     npm run test
     ```
-*   **Build All Projects**: Builds the core library and the documentation site.
+*   **Build All Projects**: Builds the XStack Library and the documentation site.
     ```bash
     npm run build
     ```

@@ -11,6 +11,13 @@ const withMDX = require('@next/mdx')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': __dirname + '/src',
+    };
+    return config;
+  },
 };
 
 module.exports = withMDX(nextConfig);

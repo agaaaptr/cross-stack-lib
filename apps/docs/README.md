@@ -1,6 +1,6 @@
-# Dokumentasi cross-stack-lib
+# Dokumentasi XStack Library
 
-Ini adalah situs dokumentasi untuk library komponen UI `cross-stack-lib`. Tujuannya adalah menyediakan platform yang modern, interaktif, dan profesional bagi pengguna untuk mempelajari, menjelajahi, dan mengintegrasikan komponen-komponen kami.
+Ini adalah situs dokumentasi untuk library komponen UI XStack Library. Tujuannya adalah menyediakan platform yang modern, interaktif, dan profesional bagi pengguna untuk mempelajari, menjelajahi, dan mengintegrasikan komponen-komponen kami.
 
 ## 1. Teknologi yang Digunakan
 
@@ -17,11 +17,11 @@ Situs ini akan memiliki struktur navigasi yang jelas dan mudah digunakan, melipu
     -   Instalasi dan Setup
     -   Penggunaan Dasar
 -   **Komponen (Components)**:
-    -   Tabel (`csl-table`)
+    -   Tabel (`xstack-table`)
         -   Contoh Penggunaan
         -   API (Props, Events, Slots)
         -   Source Code
-    -   Modal (`csl-modal`)
+    -   Modal (`xstack-modal`)
         -   Contoh Penggunaan
         -   API (Props, Events, Slots)
         -   Source Code

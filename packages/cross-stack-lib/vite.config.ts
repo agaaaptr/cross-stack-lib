@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -7,8 +7,8 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
-        'csl-table': resolve(__dirname, 'src/components/csl-table.ts'),
-        'csl-modal': resolve(__dirname, 'src/components/csl-modal.ts'),
+        'xstack-table': resolve(__dirname, 'src/components/xstack-table.ts'),
+        'xstack-modal': resolve(__dirname, 'src/components/xstack-modal.ts'),
       },
       name: 'CrossStackLib',
       fileName: (format, entryName) => `${entryName}.${format}.js`

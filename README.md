@@ -1,4 +1,4 @@
-# Cross-Stack Lib Monorepo
+# XStack Library Monorepo
 
 A simple, lightweight, and cross-stack UI component library built with Lit and Vite, managed as a monorepo.
 
@@ -28,17 +28,16 @@ This project is organized as a monorepo using npm workspaces:
     npm install
     ```
 
-3.  **Build the `cross-stack-lib`:**
+3.  **Build the XStack Library:**
     Before running any example, you need to build the core library:
     ```bash
     npm run build -w packages/cross-stack-lib
-    # Or from the root, using the defined script:
-    # npm run build:lib
+    # Alias: npm run build:lib
     ```
 
 ## Local Development with Verdaccio
 
-To test `cross-stack-lib` with external projects (e.g., React, Vue, Angular applications), you can use a local npm registry like Verdaccio. This allows you to publish your library locally and consume it as if it were a public npm package.
+To test XStack Library with external projects (e.g., React, Vue, Angular applications), you can use a local npm registry like Verdaccio. This allows you to publish your library locally and consume it as if it were a public npm package.
 
 1.  **Install Verdaccio globally:**
     ```bash
@@ -51,7 +50,7 @@ To test `cross-stack-lib` with external projects (e.g., React, Vue, Angular appl
     ```
     Verdaccio will typically start on `http://localhost:4873`.
 
-3.  **Build `cross-stack-lib`:**
+3.  **Build XStack Library:**
     Ensure your library is built and ready for publishing:
     ```bash
     npm run build -w packages/cross-stack-lib
@@ -68,42 +67,34 @@ To test `cross-stack-lib` with external projects (e.g., React, Vue, Angular appl
     npm publish --registry http://localhost:4873
     ```
 
-5.  **Consume `cross-stack-lib` in your external project:**
-    In your external project (e.g., a new Next.js, Vue, or Angular app), you can install `cross-stack-lib` from your local registry.
+5.  **Consume XStack Library in your external project:**
+    In your external project (e.g., a new Next.js, Vue, or Angular app), you can install XStack Library from your local registry.
 
     *   **Option A (Temporary for a single install):**
         ```bash
-        npm install cross-stack-lib --registry http://localhost:4873
+        npm install xstack-library --registry http://localhost:4873
         ```
     *   **Option B (More permanent for the project):**
         Create a `.npmrc` file in your external project's root with the following content:
         ```
         registry=http://localhost:4873
         ```
-        Then, you can install `cross-stack-lib` as usual:
+        Then, you can install XStack Library as usual:
         ```bash
-        npm install cross-stack-lib
+        npm install xstack-library
         ```
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
-This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `master` branch:
+This project utilizes GitHub Actions for Continuous Integration and Continuous Deployment. The CI/CD pipeline automates the following on every push and pull request to the `main` branch:
 
 - **Dependency Installation**: Installs all necessary project dependencies.
 - **Linting**: Runs ESLint/TypeScript checks to ensure code quality and adherence to style guidelines.
 - **Testing**: Executes unit tests for the core library.
-- **Building**: Builds the `cross-stack-lib` and the documentation website (`apps/docs`).
-- **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `master` branch.
+- **Building**: Builds the XStack Library and the documentation website (`apps/docs`).
+- **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `main` branch.
 
 The workflow is defined in `.github/workflows/ci.yml`.
-
-## Node.js Version and Dependencies
-
-This project is configured to use Node.js version `^22.17.0`. All dependencies have been updated to their latest compatible versions, and known security vulnerabilities have been addressed.
-
-## Project Cleanliness and Maintainability
-
-This project is committed to maintaining a clean, professional, and easily maintainable codebase. Regular refactoring and cleanup efforts ensure optimal performance and a streamlined development experience.
 
 ## Usage Guides
 
@@ -117,7 +108,7 @@ These commands should be run from the project's root directory.
     ```bash
     npm install
     ```
-*   **Build Core Library (`cross-stack-lib`)**: Builds the core UI component library.
+*   **Build Core Library (XStack Library)**: Builds the core UI component library.
     ```bash
     npm run build -w packages/cross-stack-lib
     # Alias: npm run build:lib
@@ -126,11 +117,11 @@ These commands should be run from the project's root directory.
     ```bash
     npm run lint
     ```
-*   **Run Tests for Core Library**: Executes unit tests for the core library.
+*   **Run Tests for Core Library**: Executes unit tests for XStack Library.
     ```bash
     npm run test
     ```
-*   **Build All Projects**: Builds the core library and the documentation site.
+*   **Build All Projects**: Builds the XStack Library and the documentation site.
     ```bash
     npm run build
     ```
@@ -151,15 +142,3 @@ These commands should be run from the project's root directory.
     ```bash
     npm run lint -w apps/docs
     ```
-
-## Development
-
-### Core Library (`packages/cross-stack-lib`)
-
--   **Install dependencies:** `npm install` (from `packages/cross-stack-lib` directory)
--   **Start development server:** `npm run dev` (from `packages/cross-stack-lib` directory)
--   **Build library:** `npm run build` (from `packages/cross-stack-lib` directory)
-
-## Contributing
-
-Please adhere to the [Semantic Commit Messages](#4-aturan-commit-semantic-commits) guidelines when making commits.

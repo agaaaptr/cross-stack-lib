@@ -1,2 +1,2 @@
-export * from './components/csl-table';
-export * from './components/csl-modal';
+export * from './components/xstack-table';
+export * from './components/xstack-modal';
