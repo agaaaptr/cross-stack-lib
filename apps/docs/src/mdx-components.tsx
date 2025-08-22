@@ -45,7 +45,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     pre: ({ children }) => (
       <SourceCodeToggle>
         <CodeBlockWrapper>
-          <pre className="max-h-[650px] overflow-x-auto rounded-lg border bg-card py-4 dark:bg-card">{children}</pre>
+          <pre className="max-h-[650px] rounded-lg border bg-card py-4 dark:bg-card">{children}</pre>
         </CodeBlockWrapper>
       </SourceCodeToggle>
     ),
