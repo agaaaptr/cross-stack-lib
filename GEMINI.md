@@ -229,6 +229,9 @@ This project will be divided into several structured stages (checkpoints) to ens
     * **Realistic Testing**: Mimics real-world consumption of the published library.
     * **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
 
+* [x] **Checkpoint 21: Project Knowledge Base Creation (Completed)**
+  * [x] Created `KNOWLEDGE_BASE.md` to store project FAQs and important information.
+
 ## 4. Future Development Details
 
 This section outlines important details and setup information for future development, particularly for CI/CD integration and Vercel deployment.
