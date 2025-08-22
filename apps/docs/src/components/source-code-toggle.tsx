@@ -21,7 +21,7 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="mt-4 rounded-md bg-background/95 p-4">{children}</div>
+            <div className="mt-4 rounded-md bg-background/95 p-4 overflow-x-auto">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

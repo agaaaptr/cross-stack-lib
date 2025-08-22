@@ -11,7 +11,7 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
             <SidebarNav />
           </ScrollArea>
         </aside>
-        <main id="main-content" className="relative py-6 lg:py-10">
+        <main id="main-content" className="relative py-6 lg:py-10 min-w-0">
           {children}
         </main>
         <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 lg:sticky lg:block">

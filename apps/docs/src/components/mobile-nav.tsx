@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Component1Icon, FileTextIcon, HamburgerMenuIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
@@ -46,11 +46,15 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
+      <SheetContent side="left" className="pr-0 transition-all duration-500">
+        <SheetTitle className="sr-only">Menu</SheetTitle>
+        <SheetDescription className="sr-only">
+          Navigation menu for XStack Library documentation.
+        </SheetDescription>
         <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
           <span className="font-bold">XStack Lib</span>
         </Link>
-        <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+        <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6 pr-6">
           <Accordion type="single" collapsible defaultValue={activeAccordionItem}>
             {navItems.map((item) => (
               <AccordionItem value={item.href} key={item.href}>

@@ -86,7 +86,12 @@
     background-color: hsl(var(--code-block-background)) !important; /* Added !important */
     border-radius: var(--radius);
     padding: 1rem; /* Adjust as needed */
-    overflow-x: auto; /* Enable horizontal scrolling for long lines */
+  }
+
+  .prose pre,
+  .not-prose pre {
+    max-width: 100%;
+    overflow-x: auto;
   }
 
   /* Remove highlight/block effect for inline code and code within pre */

@@ -163,44 +163,58 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] **MDX Component Enhancements**: Updated `mdx-components.tsx` to include automatic slug generation for headings and improved styling for code blocks and other Markdown elements.
   * [x] **Dependency Updates**: Added new UI-related dependencies (`@radix-ui/react-accordion`, `@radix-ui/react-icons`, `@radix-ui/react-scroll-area`, `@radix-ui/react-slot`, `rehype-autolink-headings`, `rehype-slug`) to the root `package.json` to support the new UI components and MDX features.
 
-* [ ] **Checkpoint 18: Isolated Example Projects with Verdaccio**
+* [x] **Checkpoint 18: Mobile Responsiveness and Layout Bug Fixes (Completed)**
+  * [x] Fixed mobile sidebar accessibility issues and animations.
+  * [x] Fixed horizontal page overflow caused by wide code blocks after deep analysis of CSS Grid layout behavior.
+
+* [ ] **Checkpoint 19: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
   * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming XStack Library via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
   * **Detailed Plan**:
-    1.  **Install Verdaccio**: Install Verdaccio globally on the development machine.
+    1. **Install Verdaccio**: Install Verdaccio globally on the development machine.
+
         ```bash
         npm install -g verdaccio
         ```
-    2.  **Start Verdaccio**: Run Verdaccio to start a local npm registry server (typically on `http://localhost:4873`).
+
+    2. **Start Verdaccio**: Run Verdaccio to start a local npm registry server (typically on `http://localhost:4873`).
+
         ```bash
         verdaccio
         ```
-    3.  **Build XStack Library**: Ensure the core library is built and ready for publishing.
+
+    3. **Build XStack Library**: Ensure the core library is built and ready for publishing.
+
         ```bash
         npm run build -w packages/cross-stack-lib
         ```
-    4.  **Publish to Verdaccio**: Log in to the local registry and publish XStack Library.
+
+    4. **Publish to Verdaccio**: Log in to the local registry and publish XStack Library.
+
         ```bash
         npm adduser --registry http://localhost:4873
         cd packages/cross-stack-lib
         npm publish --registry http://localhost:4873
         ```
-    5.  **Create Isolated Example Projects**: For each desired framework (e.g., Next.js, Vue, Angular), create a new, standard project *outside* the `cross-stack-lib` monorepo.
-        *   Example for Next.js: `npx create-next-app@latest my-next-app`
-        *   Example for Vue: `npm create vue@latest my-vue-app`
-        *   Example for Angular: `ng new my-angular-app`
-    6.  **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `xstack-library`.
-        *   Option A (Temporary for a single install):
+
+    5. **Create Isolated Example Projects**: For each desired framework (e.g., Next.js, Vue, Angular), create a new, standard project *outside* the `cross-stack-lib` monorepo.
+        * Example for Next.js: `npx create-next-app@latest my-next-app`
+        * Example for Vue: `npm create vue@latest my-vue-app`
+        * Example for Angular: `ng new my-angular-app`
+    6. **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `xstack-library`.
+        * Option A (Temporary for a single install):
+
             ```bash
             npm install xstack-library --registry http://localhost:4873
             ```
-        *   Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install xstack-library`.
-    7.  **Integrate and Test**: Use XStack Library components within the isolated example projects and verify functionality.
+
+        * Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install xstack-library`.
+    7. **Integrate and Test**: Use XStack Library components within the isolated example projects and verify functionality.
   * **Benefits of this approach**:
-    *   **Isolation**: Eliminates monorepo-specific build complexities and conflicts.
-    *   **Simplicity**: Uses standard framework CLIs and build processes.
-    *   **Realistic Testing**: Mimics real-world consumption of the published library.
-    *   **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
+    * **Isolation**: Eliminates monorepo-specific build complexities and conflicts.
+    * **Simplicity**: Uses standard framework CLIs and build processes.
+    * **Realistic Testing**: Mimics real-world consumption of the published library.
+    * **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
 
 ## 4. Future Development Details
 
@@ -291,16 +305,24 @@ At the end of each session, the agent must:
 
 ## 7. Known Issues
 
-### 7.1. Persistent Styling Problem on Vercel Deployment
+### 7.1. Mobile Responsiveness & Code Block Overflow
 
-*   **Symptom**: The deployed documentation site at `apps/docs` does not load any Tailwind CSS styles, appearing as an unstyled HTML page. The issue does not occur in local development but only in the Vercel production environment.
-*   **Analysis**: This was initially believed to be a build-time issue on Vercel. However, extensive local debugging revealed a series of complex dependency resolution and configuration issues, primarily due to using pre-release versions of Next.js (v15), React (v19), and Tailwind CSS (v4).
-*   **Resolution**: The issue was resolved by:
-    1.  **Downgrading Core Dependencies**: Reverting Next.js to `^14.2.4`, React to `^18.3.1`, and Tailwind CSS to `^3.4.3`.
-    2.  **Explicit Dependency Management**: Explicitly adding several transitive dependencies (e.g., `object-hash`, `dlv`, `postcss-nested`, `postcss-js`, `sucrase`, `didyoumean`, `@swc/counter`, `@swc/helpers`) as direct `devDependencies` in `apps/docs/package.json` and/or the root `package.json` to force correct resolution in the monorepo.
-    3.  **Tailwind CSS v3 Configuration**: Reverting `globals.css`, `tailwind.config.js`, and `postcss.config.js` to use the correct Tailwind CSS v3 syntax and structure.
-    4.  **Aggressive Cleaning**: Performing multiple `rm -rf node_modules` and `rm package-lock.json` followed by `npm install` at the root level to ensure a completely clean dependency tree.
-*   **Current Status**: **Resolved.** The documentation site now builds and displays styling correctly in local development. The `TypeError: n.cache is not a function` in `example-react` has also been resolved by explicitly adding `object-hash` as a dependency and performing a clean reinstall of `node_modules`. Vercel deployment will need to be re-verified after these changes.
+* **Symptom**: On mobile viewports, the entire page would become horizontally scrollable whenever a long, non-wrapping line of code was present in a code block.
+* **Initial Analysis & Failed Attempts**: Initial attempts focused on adding `overflow-x: auto` to the `<pre>` tag and its various parent containers. These failed because the root cause was not at the component level, but at the page layout level. Attempts to use `not-prose` to negate styles from `@tailwindcss/typography` also failed, indicating a more fundamental layout issue.
+* **Root Cause**: The main documentation layout (`docs-layout.tsx`) uses CSS Grid. A grid column (`<main>`) by default has `min-width: auto`, meaning it will stretch to accommodate the widest unbreakable content inside it (the long line of code). This stretching of the grid column was what caused the entire page to overflow.
+* **Resolution**: The issue was resolved by adding the class `min-w-0` to the `<main>` grid column in `apps/docs/src/app/docs-layout.tsx`. This class overrides the default behavior, forcing the column to respect the grid's boundaries. Once the column's width was constrained, the existing `overflow-x: auto` on the child `<pre>` element functioned correctly, creating a scrollbar only for the code block as intended.
+* **Current Status**: **Resolved.**
+
+### 7.2. Persistent Styling Problem on Vercel Deployment
+
+* **Symptom**: The deployed documentation site at `apps/docs` does not load any Tailwind CSS styles, appearing as an unstyled HTML page. The issue does not occur in local development but only in the Vercel production environment.
+* **Analysis**: This was initially believed to be a build-time issue on Vercel. However, extensive local debugging revealed a series of complex dependency resolution and configuration issues, primarily due to using pre-release versions of Next.js (v15), React (v19), and Tailwind CSS (v4).
+* **Resolution**: The issue was resolved by:
+    1. **Downgrading Core Dependencies**: Reverting Next.js to `^14.2.4`, React to `^18.3.1`, and Tailwind CSS to `^3.4.3`.
+    2. **Explicit Dependency Management**: Explicitly adding several transitive dependencies (e.g., `object-hash`, `dlv`, `postcss-nested`, `postcss-js`, `sucrase`, `didyoumean`, `@swc/counter`, `@swc/helpers`) as direct `devDependencies` in `apps/docs/package.json` and/or the root `package.json` to force correct resolution in the monorepo.
+    3. **Tailwind CSS v3 Configuration**: Reverting `globals.css`, `tailwind.config.js`, and `postcss.config.js` to use the correct Tailwind CSS v3 syntax and structure.
+    4. **Aggressive Cleaning**: Performing multiple `rm -rf node_modules` and `rm package-lock.json` followed by `npm install` at the root level to ensure a completely clean dependency tree.
+* **Current Status**: **Resolved.** The documentation site now builds and displays styling correctly in local development. The `TypeError: n.cache is not a function` in `example-react` has also been resolved by explicitly adding `object-hash` as a dependency and performing a clean reinstall of `node_modules`. Vercel deployment will need to be re-verified after these changes.
 
 ## 8. Usage Guides
 
@@ -310,24 +332,33 @@ This section provides a comprehensive guide on how to run, build, lint, and test
 
 These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
 
-*   **Install All Dependencies**: Installs dependencies for all packages and apps in the monorepo.
+* **Install All Dependencies**: Installs dependencies for all packages and apps in the monorepo.
+
     ```bash
     npm install
     ```
-*   **Build Core Library (XStack Library)**: Builds the core UI component library.
+
+* **Build Core Library (XStack Library)**: Builds the core UI component library.
+
     ```bash
     npm run build -w packages/cross-stack-lib
     # Alias: npm run build:lib
     ```
-*   **Run Linting for All Relevant Packages**: Runs ESLint for the core library and documentation site.
+
+* **Run Linting for All Relevant Packages**: Runs ESLint for the core library and documentation site.
+
     ```bash
     npm run lint
     ```
-*   **Run Tests for Core Library**: Executes unit tests for XStack Library.
+
+* **Run Tests for Core Library**: Executes unit tests for XStack Library.
+
     ```bash
     npm run test
     ```
-*   **Build All Projects**: Builds the XStack Library and the documentation site.
+
+* **Build All Projects**: Builds the XStack Library and the documentation site.
+
     ```bash
     npm run build
     ```
@@ -336,15 +367,20 @@ These commands should be run from the project's root directory (`/Users/agaaaptr
 
 These commands should be run from the project's root directory (`/Users/agaaaptr/Documents/Personal/Project/Web/cross-stack-lib/`).
 
-*   **Start Development Server**: Runs the Next.js development server for the documentation site.
+* **Start Development Server**: Runs the Next.js development server for the documentation site.
+
     ```bash
     npm run dev -w apps/docs
     ```
-*   **Build for Production**: Creates an optimized production build of the documentation site.
+
+* **Build for Production**: Creates an optimized production build of the documentation site.
+
     ```bash
     npm run build -w apps/docs
     ```
-*   **Run Linting**: Checks the documentation site's code for quality and errors.
+
+* **Run Linting**: Checks the documentation site's code for quality and errors.
+
     ```bash
     npm run lint -w apps/docs
     ```
