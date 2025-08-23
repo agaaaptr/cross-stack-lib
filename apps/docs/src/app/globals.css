@@ -36,6 +36,9 @@
 
     /* Custom variables for code block backgrounds */
     --code-block-background: 220 10% 20%;
+
+    /* Custom variables for modal overlay */
+    --overlay: 0 0% 0% / 0.6; /* HSL for rgba(0,0,0,0.6) */
   }
  
   .dark {
@@ -69,6 +72,9 @@
 
     /* Custom variables for code block backgrounds */
     --code-block-background: 220 10% 15%;
+
+    /* Custom variables for modal overlay */
+    --overlay: 0 0% 0% / 0.7; /* HSL for rgba(0,0,0,0.7) */
   }
 }
 

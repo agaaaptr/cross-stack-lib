@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
@@ -58,7 +58,11 @@ export function SearchCommand() {
         </kbd>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="p-0" open={open}> {/* Pass open prop here */}
+        <DialogContent className="p-0" open={open}>
+          <DialogTitle className="sr-only">Search Documentation</DialogTitle>
+          <DialogDescription className="sr-only">
+            Search for documentation, components, and examples.
+          </DialogDescription>
           <div className="flex items-center border-b px-5">
             <MagnifyingGlassIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <Input
