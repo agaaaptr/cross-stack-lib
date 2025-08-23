@@ -167,12 +167,12 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Fixed mobile sidebar accessibility issues and animations.
   * [x] Fixed horizontal page overflow caused by wide code blocks after deep analysis of CSS Grid layout behavior.
 
-* [x] **Checkpoint 19: Component Examples Implementation Challenges (Completed)**
+* [ ] **Checkpoint 19: Component Examples Implementation Challenges**
   * **Problem**: Persistent issues encountered while trying to implement interactive component examples in the Next.js documentation site.
   * **Symptoms**:
     * Table not appearing on initial load, only after navigation.
     * Boolean properties (`showSearch`, `showPagination`, `showPageSize`) not correctly hiding features in `xstack-table`.
-    * Persistent build errors (`TypeError: Cannot read properties of null (reading 'useContext')`, `Error: The `style` prop expects a mapping from style properties to values, not a string.`) related to `styled-jsx` and Next.js prerendering, even after reverting changes and clean installs.
+    * Persistent build errors (`TypeError: Cannot read properties of null (reading 'useContext')`, `Error: The`style`prop expects a mapping from style properties to values, not a string.`) related to `styled-jsx` and Next.js prerendering, even after reverting changes and clean installs.
     * Responsiveness issues.
   * **Analysis**: The core problem seems to be a fundamental incompatibility or complex interaction between Lit Web Components, React's hydration/SSR in Next.js, and potentially `styled-jsx` or the project's specific dependency versions/configuration.
   * **Future Plan/Robust Solution**: The decision is to defer this task and adopt a more robust strategy:
