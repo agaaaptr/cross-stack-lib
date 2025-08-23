@@ -1,27 +1,116 @@
-# Modal Component Examples
+import { CodeExampleTabs } from '@/components/code-example-tabs';
 
-## Basic Modal
+# Examples
 
+This page demonstrates how to use the `xstack-modal` component in different frameworks.
+
+## Customization Guide
+
+The modal is highly customizable through properties and slots.
+
+- `open`: A boolean property to control the visibility of the modal.
+- `type`: Sets the modal's theme. Accepts `confirmation` (default), `info`, `warning`, or `danger`.
+
+### Slots
+
+You can inject any HTML content into the modal using these named slots:
+- `slot="header"`: For the modal title or header content.
+- `slot="body"`: For the main content of the modal.
+- `slot="footer"`: For action buttons or other footer content.
+
+## Code Examples
+
+Below are code examples for implementing the component.
+
+<CodeExampleTabs>
+<div data-framework="react">
 ```tsx
 'use client';
 
+import { useState } from 'react';
 import { XStackModal } from '@/LitWrappers';
-import { useState }'react';
+import { Button } from '@/components/ui/button';
 
-export default function BasicModalExample() {
+export default function ModalExample() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>Open Modal</button>
-      <XStackModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div slot="header">Modal Title</div>
-        <div slot="body">This is the content of the modal body.</div>
-        <div slot="footer">
-          <button onClick={() => setIsOpen(false)}>Close</button>
+      <Button onClick={() => setIsOpen(true)}>Open Info Modal</Button>
+      <XStackModal
+        open={isOpen}
+        type="info"
+        onClose={() => setIsOpen(false)}
+      >
+        <h2 slot="header">Information</h2>
+        <p slot="body">This is an informational message.</p>
+        <div slot="footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+          <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
+          <Button onClick={() => setIsOpen(false)}>OK</Button>
         </div>
       </XStackModal>
     </>
   );
 }
 ```
+</div>
+<div data-framework="vue">
+```html
+<template>
+  <div>
+    <button @click="isOpen = true">Open Info Modal</button>
+    <xstack-modal
+      :open="isOpen"
+      type="info"
+      @close="isOpen = false"
+    >
+      <h2 slot="header">Information</h2>
+      <p slot="body">This is an informational message.</p>
+      <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button @click="isOpen = false">Cancel</button>
+        <button @click="isOpen = false">OK</button>
+      </div>
+    </xstack-modal>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+};
+</script>
+```
+</div>
+<div data-framework="angular">
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-modal-example',
+  template: `
+    <button (click)="isOpen = true">Open Info Modal</button>
+    <xstack-modal
+      [open]="isOpen"
+      type="info"
+      (close)="isOpen = false"
+    >
+      <h2 slot="header">Information</h2>
+      <p slot="body">This is an informational message.</p>
+      <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button (click)="isOpen = false">Cancel</button>
+        <button (click)="isOpen = false">OK</button>
+      </div>
+    </xstack-modal>
+  `
+})
+export class ModalExampleComponent {
+  isOpen = false;
+}
+```
+</div>
+</CodeExampleTabs>

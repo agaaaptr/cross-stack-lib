@@ -29,6 +29,23 @@ export class XStackModal extends LitElement {
       position: relative;
       max-width: 500px;
       width: 90%;
+      border-top: 5px solid transparent;
+    }
+
+    .modal-content.info {
+      border-top-color: #2196F3;
+    }
+
+    .modal-content.warning {
+      border-top-color: #ff9800;
+    }
+
+    .modal-content.danger {
+      border-top-color: #f44336;
+    }
+
+    .modal-content.confirmation {
+      border-top-color: #4CAF50;
     }
 
     .close-button {
@@ -45,11 +62,14 @@ export class XStackModal extends LitElement {
   @property({ type: Boolean, reflect: true })
   open = false;
 
+  @property({ type: String })
+  type = 'confirmation';
+
   render() {
     return this.open
       ? html`
           <div class="modal-overlay" @click="${this._handleOverlayClick}">
-            <div class="modal-content">
+            <div class="modal-content ${this.type}">
               <button class="close-button" @click="${this._handleCloseClick}">&times;</button>
               <slot name="header"></slot>
               <slot name="body"></slot>

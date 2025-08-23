@@ -79,6 +79,15 @@ export class XStackTable extends LitElement {
   @property({ type: Number })
   pageSize = 10;
 
+  @property({ type: Boolean })
+  showSearch = true;
+
+  @property({ type: Boolean })
+  showPageSize = true;
+
+  @property({ type: Boolean })
+  showPagination = true;
+
   @state()
   private searchText = '';
 
@@ -132,29 +141,40 @@ export class XStackTable extends LitElement {
   render() {
     return html`
       <div class="controls">
-        <div class="search-container">
-          <input
-            type="text"
-            placeholder="Search..."
-            .value=${this.searchText}
-            @input=${this._handleSearch}
-          />
-        </div>
+        ${this.showSearch ? html`
+          <div class="search-container">
+            <input
+              type="text"
+              placeholder="Search..."
+              .value=${this.searchText}
+              @input=${this._handleSearch}
+            />
+          </div>
+        `: html`<div></div>`}
+
         <div class="pagination">
-          <select @change=${this._handlePageSizeChange}>
-            <option value="10">10 per page</option>
-            <option value="25">25 per page</option>
-            <option value="50">50 per page</option>
-          </select>
-          <button @click=${this._handlePrevPage} .disabled=${this.currentPage === 1}>
-            Previous
-          </button>
-          <span>Page ${this.currentPage} of ${this.totalPages}</span>
-          <button @click=${this._handleNextPage} .disabled=${this.currentPage === this.totalPages}>
-            Next
-          </button>
+          ${this.showPageSize ? html`
+            <select @change=${this._handlePageSizeChange} .value=${this.pageSize}>
+              <option value="10">10 per page</option>
+              <option value="25">25 per page</option>
+              <option value="50">50 per page</option>
+            </select>
+          ` : ''}
+
+          ${this.showPagination ? html`
+            <>
+              <button @click=${this._handlePrevPage} .disabled=${this.currentPage === 1}>
+                Previous
+              </button>
+              <span>Page ${this.currentPage} of ${this.totalPages}</span>
+              <button @click=${this._handleNextPage} .disabled=${this.currentPage === this.totalPages}>
+                Next
+              </button>
+            </>
+          ` : ''}
         </div>
       </div>
+
       <table>
         <thead>
           <tr>
