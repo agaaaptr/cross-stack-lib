@@ -93,6 +93,7 @@ This project utilizes GitHub Actions for Continuous Integration and Continuous D
 - **Testing**: Executes unit tests for the core library.
 - **Building**: Builds the XStack Library and the documentation website (`apps/docs`).
 - **Deployment**: Automatically deploys the documentation website to Vercel on pushes to the `main` branch.
+- **Recent Fixes**: The CI/CD pipeline has been refined to address module resolution issues during Vercel deployment and suppress build warnings related to external modules.
 
 The workflow is defined in `.github/workflows/ci.yml`.
 

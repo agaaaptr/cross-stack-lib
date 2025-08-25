@@ -175,6 +175,16 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] **Responsiveness Fixed**: Corrected the CSS for `xstack-table` to ensure it becomes horizontally scrollable on smaller screens without breaking the page layout.
   * [x] **Build Errors Resolved**: Fixed all `lint` and `build` errors related to the component examples and TypeScript types.
 
+* [x] **Checkpoint 22: Build System Refinements and Vercel Deployment Fixes (Completed)**
+  * [x] **Vercel Build Error Resolution**:
+    * [x] Refactored `packages/cross-stack-lib/vite.config.ts` to produce a single bundled output (`cross-stack-lib.es.js`, `cross-stack-lib.umd.js`) instead of separate component bundles (`xstack-table.es.js`, `xstack-modal.es.js`). This resolved the "Module not found" errors during Vercel deployment of `apps/docs`.
+    * [x] Updated `packages/cross-stack-lib/package.json` to correctly point to the new single bundled files (`main`, `module`, and `exports` fields).
+  * [x] **Rollup Warning Suppression**:
+    * [x] Added `output.globals` configuration to `rollupOptions` in `packages/cross-stack-lib/vite.config.ts` to explicitly define global variable names for external `lit` modules. This suppressed the "No name was provided for external module..." warnings during the library build.
+  * [x] **Verification**:
+    * [x] Rebuilt `cross-stack-lib` successfully without warnings.
+    * [x] The `apps/docs` project should now correctly resolve `cross-stack-lib` imports.
+
 * [ ] **Checkpoint 20: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
   * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming XStack Library via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
