@@ -167,18 +167,13 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Fixed mobile sidebar accessibility issues and animations.
   * [x] Fixed horizontal page overflow caused by wide code blocks after deep analysis of CSS Grid layout behavior.
 
-* [ ] **Checkpoint 19: Component Examples Implementation Challenges**
-  * **Problem**: Persistent issues encountered while trying to implement interactive component examples in the Next.js documentation site.
-  * **Symptoms**:
-    * Table not appearing on initial load, only after navigation.
-    * Boolean properties (`showSearch`, `showPagination`, `showPageSize`) not correctly hiding features in `xstack-table`.
-    * Persistent build errors (`TypeError: Cannot read properties of null (reading 'useContext')`, `Error: The`style`prop expects a mapping from style properties to values, not a string.`) related to `styled-jsx` and Next.js prerendering, even after reverting changes and clean installs.
-    * Responsiveness issues.
-  * **Analysis**: The core problem seems to be a fundamental incompatibility or complex interaction between Lit Web Components, React's hydration/SSR in Next.js, and potentially `styled-jsx` or the project's specific dependency versions/configuration.
-  * **Future Plan/Robust Solution**: The decision is to defer this task and adopt a more robust strategy:
-    * Embed simple HTML/JS demo pages in iframes: This isolates the Lit component rendering from Next.js's React rendering, bypassing hydration issues.
-    * Display raw HTML/JS code: For clarity and to avoid complex React wrappers.
-    * Requires fixing underlying Next.js build issues first.
+* [x] **Checkpoint 19: Component Examples and UI/UX Refinement (Completed)**
+  * [x] **UI/UX Overhaul**: Redesigned `xstack-table` and `xstack-modal` for a more modern, professional appearance, taking inspiration from the PrimeNG library.
+  * [x] **Theming System Fixed**: Implemented a more robust theme-switching mechanism. Components now correctly adapt to light/dark mode by receiving the active theme as a property from the React wrapper, which uses the `next-themes` hook. This replaces the previous, less reliable `:host-context` CSS approach.
+  * [x] **Modal Features Restored**: Re-implemented the `type` property (`confirmation`, `info`, `warning`, `danger`) for `xstack-modal`.
+  * [x] **Contextual Coloring**: The modal now features a colored top accent bar based on its `type`. Additionally, the primary button in the modal's footer now automatically adopts the accent color, providing better contextual cues.
+  * [x] **Responsiveness Fixed**: Corrected the CSS for `xstack-table` to ensure it becomes horizontally scrollable on smaller screens without breaking the page layout.
+  * [x] **Build Errors Resolved**: Fixed all `lint` and `build` errors related to the component examples and TypeScript types.
 
 * [ ] **Checkpoint 20: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.

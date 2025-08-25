@@ -5,37 +5,37 @@ import { XStackModal } from '@/LitWrappers';
 import { Button } from '@/components/ui/button';
 
 export default function ModalExample() {
-  const [type, setType] = useState('');
+  const [modalState, setModalState] = useState({ open: false, type: 'confirmation' });
 
-  const openModal = (modalType: string) => {
-    setType(modalType);
+  const openModal = (type: string) => {
+    setModalState({ open: true, type });
   };
 
   const closeModal = () => {
-    setType('');
+    setModalState(prev => ({ ...prev, open: false }));
   };
 
   return (
-    <div className="flex flex-wrap gap-4">
-      <Button onClick={() => openModal('confirmation')}>Open Confirmation Modal</Button>
-      <Button onClick={() => openModal('info')}>Open Info Modal</Button>
-      <Button onClick={() => openModal('warning')}>Open Warning Modal</Button>
-      <Button onClick={() => openModal('danger')}>Open Danger Modal</Button>
+    <div className="p-4 border rounded-lg flex flex-wrap gap-4 items-center">
+      <Button onClick={() => openModal('confirmation')}>Confirmation</Button>
+      <Button onClick={() => openModal('info')} variant="outline">Info</Button>
+      <Button onClick={() => openModal('warning')} variant="outline">Warning</Button>
+      <Button onClick={() => openModal('danger')} variant="destructive">Danger</Button>
 
       <XStackModal
-        open={!!type}
-        type={type}
+        open={modalState.open}
+        type={modalState.type}
         onClose={closeModal}
       >
-        <h2 slot="header" className="text-lg font-semibold">
-          {type.charAt(0).toUpperCase() + type.slice(1)} Modal
-        </h2>
-        <p slot="body" className="py-4">
-          This is the body of the {type} modal. You can place any content here.
-        </p>
+        <div slot="header">
+          {modalState.type.charAt(0).toUpperCase() + modalState.type.slice(1)} Modal
+        </div>
+        <div slot="body">
+          This modal has a &apos;{modalState.type}&apos; type, indicated by the colored accent bar at the top.
+        </div>
         <div slot="footer" className="flex justify-end gap-2">
           <Button variant="outline" onClick={closeModal}>Cancel</Button>
-          <Button onClick={closeModal}>Confirm</Button>
+          <Button onClick={closeModal} data-variant="primary">OK</Button>
         </div>
       </XStackModal>
     </div>
