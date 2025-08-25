@@ -175,15 +175,21 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] **Responsiveness Fixed**: Corrected the CSS for `xstack-table` to ensure it becomes horizontally scrollable on smaller screens without breaking the page layout.
   * [x] **Build Errors Resolved**: Fixed all `lint` and `build` errors related to the component examples and TypeScript types.
 
-* [x] **Checkpoint 22: Build System Refinements and Vercel Deployment Fixes (Completed)**
-  * [x] **Vercel Build Error Resolution**:
-    * [x] Refactored `packages/cross-stack-lib/vite.config.ts` to produce a single bundled output (`cross-stack-lib.es.js`, `cross-stack-lib.umd.js`) instead of separate component bundles (`xstack-table.es.js`, `xstack-modal.es.js`). This resolved the "Module not found" errors during Vercel deployment of `apps/docs`.
-    * [x] Updated `packages/cross-stack-lib/package.json` to correctly point to the new single bundled files (`main`, `module`, and `exports` fields).
+* [x] **Checkpoint 22: Vercel Deployment Troubleshooting and Resolution (Completed)**
+  * [x] **Initial "Module not found" Error**:
+    * [x] **Symptom**: Vercel deployment failed with `Module not found: Can't resolve 'cross-stack-lib'` in `apps/docs`.
+    * [x] **Root Cause**: When Vercel's "Root Directory" was set to `apps/docs`, it only built the docs application, not the `cross-stack-lib` dependency, leading to the module not being found.
+    * [x] **Resolution**: Configured Vercel's "Build Command" to `npm run build -w packages/cross-stack-lib && npm run build -w apps/docs` and removed the "Root Directory" setting. This ensured the library was built before the docs application.
+  * [x] **Subsequent "routes-manifest.json not found" Error**:
+    * [x] **Symptom**: After resolving the module not found error, Vercel deployment failed with `Error: The file "/vercel/path0/.next/routes-manifest.json" couldn't be found.`.
+    * [x] **Root Cause**: With the "Root Directory" empty, Vercel was looking for the Next.js build output (`.next`) at the monorepo root (`/vercel/path0`), instead of within `apps/docs`.
+    * [x] **Resolution**: Configured Vercel's "Output Directory" to `apps/docs/.next`. This explicitly told Vercel where to find the build artifacts.
   * [x] **Rollup Warning Suppression**:
     * [x] Added `output.globals` configuration to `rollupOptions` in `packages/cross-stack-lib/vite.config.ts` to explicitly define global variable names for external `lit` modules. This suppressed the "No name was provided for external module..." warnings during the library build.
-  * [x] **Verification**:
-    * [x] Rebuilt `cross-stack-lib` successfully without warnings.
-    * [x] The `apps/docs` project should now correctly resolve `cross-stack-lib` imports.
+  * [x] **Final Verification**:
+    * [x] `cross-stack-lib` rebuilt successfully without warnings.
+    * [x] `apps/docs` project correctly resolved `cross-stack-lib` imports.
+    * [x] Documentation site successfully deployed to Vercel.
 
 * [ ] **Checkpoint 20: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
