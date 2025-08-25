@@ -5,16 +5,18 @@ export default defineConfig({
   // Konfigurasi Build Library
   build: {
     lib: {
-      entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        'xstack-table': resolve(__dirname, 'src/components/xstack-table.ts'),
-        'xstack-modal': resolve(__dirname, 'src/components/xstack-modal.ts'),
-      },
+      entry: resolve(__dirname, 'src/index.ts'),
       name: 'CrossStackLib',
-      fileName: (format, entryName) => `${entryName}.${format}.js`
+      fileName: (format) => `cross-stack-lib.${format}.js`
     },
     rollupOptions: {
       external: [/^lit/], // Lit should be external for the library build
+      output: {
+        globals: {
+          lit: 'lit',
+          'lit/decorators.js': 'litDecorators',
+        },
+      },
     }
   },
 

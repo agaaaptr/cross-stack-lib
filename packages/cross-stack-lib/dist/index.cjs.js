@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./xstack-table.cjs.js"),t=require("./xstack-modal.cjs.js");Object.defineProperty(exports,"XStackTable",{enumerable:!0,get:()=>e.XStackTable});Object.defineProperty(exports,"XStackModal",{enumerable:!0,get:()=>t.XStackModal});

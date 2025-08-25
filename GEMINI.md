@@ -167,7 +167,31 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] Fixed mobile sidebar accessibility issues and animations.
   * [x] Fixed horizontal page overflow caused by wide code blocks after deep analysis of CSS Grid layout behavior.
 
-* [ ] **Checkpoint 19: Isolated Example Projects with Verdaccio**
+* [x] **Checkpoint 19: Component Examples and UI/UX Refinement (Completed)**
+  * [x] **UI/UX Overhaul**: Redesigned `xstack-table` and `xstack-modal` for a more modern, professional appearance, taking inspiration from the PrimeNG library.
+  * [x] **Theming System Fixed**: Implemented a more robust theme-switching mechanism. Components now correctly adapt to light/dark mode by receiving the active theme as a property from the React wrapper, which uses the `next-themes` hook. This replaces the previous, less reliable `:host-context` CSS approach.
+  * [x] **Modal Features Restored**: Re-implemented the `type` property (`confirmation`, `info`, `warning`, `danger`) for `xstack-modal`.
+  * [x] **Contextual Coloring**: The modal now features a colored top accent bar based on its `type`. Additionally, the primary button in the modal's footer now automatically adopts the accent color, providing better contextual cues.
+  * [x] **Responsiveness Fixed**: Corrected the CSS for `xstack-table` to ensure it becomes horizontally scrollable on smaller screens without breaking the page layout.
+  * [x] **Build Errors Resolved**: Fixed all `lint` and `build` errors related to the component examples and TypeScript types.
+
+* [x] **Checkpoint 22: Vercel Deployment Troubleshooting and Resolution (Completed)**
+  * [x] **Initial "Module not found" Error**:
+    * [x] **Symptom**: Vercel deployment failed with `Module not found: Can't resolve 'cross-stack-lib'` in `apps/docs`.
+    * [x] **Root Cause**: When Vercel's "Root Directory" was set to `apps/docs`, it only built the docs application, not the `cross-stack-lib` dependency, leading to the module not being found.
+    * [x] **Resolution**: Configured Vercel's "Build Command" to `npm run build -w packages/cross-stack-lib && npm run build -w apps/docs` and removed the "Root Directory" setting. This ensured the library was built before the docs application.
+  * [x] **Subsequent "routes-manifest.json not found" Error**:
+    * [x] **Symptom**: After resolving the module not found error, Vercel deployment failed with `Error: The file "/vercel/path0/.next/routes-manifest.json" couldn't be found.`.
+    * [x] **Root Cause**: With the "Root Directory" empty, Vercel was looking for the Next.js build output (`.next`) at the monorepo root (`/vercel/path0`), instead of within `apps/docs`.
+    * [x] **Resolution**: Configured Vercel's "Output Directory" to `apps/docs/.next`. This explicitly told Vercel where to find the build artifacts.
+  * [x] **Rollup Warning Suppression**:
+    * [x] Added `output.globals` configuration to `rollupOptions` in `packages/cross-stack-lib/vite.config.ts` to explicitly define global variable names for external `lit` modules. This suppressed the "No name was provided for external module..." warnings during the library build.
+  * [x] **Final Verification**:
+    * [x] `cross-stack-lib` rebuilt successfully without warnings.
+    * [x] `apps/docs` project correctly resolved `cross-stack-lib` imports.
+    * [x] Documentation site successfully deployed to Vercel.
+
+* [ ] **Checkpoint 20: Isolated Example Projects with Verdaccio**
   * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
   * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming XStack Library via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
   * **Detailed Plan**:
@@ -215,6 +239,9 @@ This project will be divided into several structured stages (checkpoints) to ens
     * **Simplicity**: Uses standard framework CLIs and build processes.
     * **Realistic Testing**: Mimics real-world consumption of the published library.
     * **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
+
+* [x] **Checkpoint 21: Project Knowledge Base Creation (Completed)**
+  * [x] Created `KNOWLEDGE_BASE.md` to store project FAQs and important information.
 
 ## 4. Future Development Details
 

@@ -1,103 +1,141 @@
-# Table Component Examples
+import { CodeExampleTabs } from '@/components/code-example-tabs';
+import { TableExampleLoader } from '@/components/examples/table-example-loader';
 
-Here are some examples of how to use the `xstack-table` component.
+# Examples
 
-## Basic Table
+This page demonstrates the features of the `xstack-table` component.
 
-This example shows a basic table with static data and columns.
+## Live Preview
 
+<div className="my-6 rounded-lg border p-4">
+  <TableExampleLoader />
+</div>
+
+## Customization Guide
+
+You can easily show or hide features using boolean properties. For example, to hide the search bar, set `showSearch={false}` (for React) or `show-search="false"` (for Vue/HTML).
+
+- `showSearch`: Controls the visibility of the search input.
+- `showPageSize`: Controls the visibility of the page size selector.
+- `showPagination`: Controls the visibility of the pagination buttons (Previous/Next).
+
+## Code Examples
+
+Below are code examples for implementing the component. The table is shown with all features enabled.
+
+<CodeExampleTabs>
+<div data-framework="react">
 ```tsx
 'use client';
 
 import { XStackTable } from '@/LitWrappers';
-import { useEffect, useState }n
-export default function BasicTableExample() {
-  const [data, setData] = useState([]);
-  const [columns, setColumns] = useState([]);
 
-  useEffect(() => {
-    setData([
-      { id: 1, name: 'Alice', age: 30 },
-      { id: 2, name: 'Bob', age: 24 },
-      { id: 3, name: 'Charlie', age: 35 },
-    ]);
-    setColumns([
-      { key: 'id', header: 'ID' },
-      { key: 'name', header: 'Name' },
-      { key: 'age', header: 'Age' },
-    ]);
-  }, []);
+export default function FullFeaturedTable() {
+  const data = [
+    { "id": 1, "name": "John Doe", "age": 32, "city": "New York" },
+    { "id": 2, "name": "Jane Smith", "age": 28, "city": "London" },
+    { "id": 3, "name": "Sam Green", "age": 45, "city": "Tokyo" },
+    { "id": 4, "name": "Alice Johnson", "age": 39, "city": "Paris" },
+    { "id": 5, "name": "Bob Brown", "age": 51, "city": "Sydney" }
+  ];
+
+  const columns = [
+    { "key": "id", "label": "ID" },
+    { "key": "name", "label": "Name" },
+    { "key": "age", "label": "Age" },
+    { "key": "city", "label": "City" }
+  ];
 
   return (
     <XStackTable
-      data={JSON.stringify(data)}
       columns={JSON.stringify(columns)}
+      data={JSON.stringify(data)}
+      pageSize={3}
+      // Set these to false to hide the controls
+      showSearch={true}
+      showPageSize={true}
+      showPagination={true}
     ></XStackTable>
   );
 }
 ```
+</div>
+<div data-framework="vue">
+```html
+<template>
+  <div>
+    <xstack-table
+      :columns="columns"
+      :data="data"
+      :page-size="3"
+      show-search
+      show-page-size
+      show-pagination
+    ></xstack-table>
+  </div>
+</template>
 
-## Table with Search and Pagination
+<script>
+export default {
+  data() {
+    return {
+      columns: JSON.stringify([
+        { "key": "id", "label": "ID" },
+        { "key": "name", "label": "Name" },
+        { "key": "age", "label": "Age" },
+        { "key": "city", "label": "City" }
+      ]),
+      data: JSON.stringify([
+        { "id": 1, "name": "John Doe", "age": 32, "city": "New York" },
+        { "id": 2, "name": "Jane Smith", "age": 28, "city": "London" },
+        { "id": 3, "name": "Sam Green", "age": 45, "city": "Tokyo" },
+        { "id": 4, "name": "Alice Johnson", "age": 39, "city": "Paris" },
+        { "id": 5, "name": "Bob Brown", "age": 51, "city": "Sydney" }
+      ])
+    };
+  }
+};
+</script>
+```
+</div>
+<div data-framework="angular">
+```typescript
+// To use Web Components in Angular, you need to:
+// 1. Import CUSTOM_ELEMENTS_SCHEMA in your module.
+// 2. Call defineCustomElements(window) from main.ts or app.module.ts
+//    (using the output from your Lit build).
 
-This example demonstrates a table with search functionality and pagination.
+// app.component.ts
+import { Component } from '@angular/core';
 
-```tsx
-'use client';
-
-import { XStackTable } from '@/LitWrappers';
-import { useEffect, useState } from 'react';
-
-const initialData = [
-  { id: 1, name: 'Alice', age: 30 },
-  { id: 2, name: 'Bob', age: 24 },
-  { id: 3, name: 'Charlie', age: 35 },
-  { id: 4, name: 'David', age: 40 },
-  { id: 5, name: 'Eve', age: 28 },
-  { id: 6, name: 'Frank', age: 50 },
-  { id: 7, name: 'Grace', age: 22 },
-  { id: 8, name: 'Heidi', age: 31 },
-  { id: 9, name: 'Ivan', age: 29 },
-  { id: 10, name: 'Judy', age: 45 },
-  { id: 11, name: 'Karl', age: 33 },
-  { id: 12, name: 'Linda', age: 27 },
-];
-
-export default function SearchableTableExample() {
-  const [data, setData] = useState(initialData);
-  const [columns, setColumns] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [pageSize, setPageSize] = useState(5);
-
-  useEffect(() => {
-    setColumns([
-      { key: 'id', header: 'ID' },
-      { key: 'name', header: 'Name' },
-      { key: 'age', header: 'Age' },
-    ]);
-  }, []);
-
-  const handleSearch = (event: CustomEvent) => {
-    const query = event.detail;
-    setSearchTerm(query);
-    const filteredData = initialData.filter(item =>
-      Object.values(item).some(val =>
-        String(val).toLowerCase().includes(query.toLowerCase())
-      )
-    );
-    setData(filteredData);
-  };
-
-  const handlePageSizeChange = (event: CustomEvent) => {
-    setPageSize(event.detail);
-  };
-
-  return (
-    <XStackTable
-      data={JSON.stringify(data)}
-      columns={JSON.stringify(columns)}
-      pageSize={pageSize}
-      onSearch={handleSearch}
-      onPageSizeChange={handlePageSizeChange}
-    ></XStackTable>
-  );
+@Component({
+  selector: 'app-table-example',
+  template: `
+    <xstack-table
+      [columns]="columns"
+      [data]="data"
+      [pageSize]="3"
+      [showSearch]="true"
+      [showPageSize]="true"
+      [showPagination]="true"
+    ></xstack-table>
+  `
+})
+export class TableExampleComponent {
+  columns = JSON.stringify([
+    { "key": "id", "label": "ID" },
+    { "key": "name", "label": "Name" },
+    { "key": "age", "label": "Age" },
+    { "key": "city", "label": "City" }
+  ]);
+  data = JSON.stringify([
+    { "id": 1, "name": "John Doe", "age": 32, "city": "New York" },
+    { "id": 2, "name": "Jane Smith", "age": 28, "city": "London" },
+    { "id": 3, "name": "Sam Green", "age": 45, "city": "Tokyo" },
+    { "id": 4, "name": "Alice Johnson", "age": 39, "city": "Paris" },
+    { "id": 5, "name": "Bob Brown", "age": 51, "city": "Sydney" }
+  ]);
 }
+```
+</div>
+</CodeExampleTabs>

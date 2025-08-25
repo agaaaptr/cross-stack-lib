@@ -33,32 +33,37 @@ interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof Dialo
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, children, open, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
-    <AnimatePresence>
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: -50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className={cn(
-              'grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg rounded-lg max-h-[90vh] mx-4',
-              className
-            )}
-          >
-            <DialogPrimitive.Content ref={ref} {...props}>
-              {children}
-            </DialogPrimitive.Content>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  </DialogPortal>
-))
-DialogContent.displayName = DialogPrimitive.Content.displayName
+>(({ className, children, open, ...restProps }, ref) => {
+  const { onDrag, ...filteredProps } = restProps; // Filter out onDrag
+
+  return (
+    <DialogPortal>
+      <DialogOverlay />
+      <AnimatePresence>
+        {open && (
+          <div className="fixed inset-0 z-50 flex items-start justify-center pt-20">
+            <motion.div
+              ref={ref as React.Ref<HTMLDivElement>}
+              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className={cn(
+                'grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg rounded-lg max-h-[90vh] mx-4',
+                className
+              )}
+            >
+              <DialogPrimitive.Content {...filteredProps}>
+                {children}
+              </DialogPrimitive.Content>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </DialogPortal>
+  );
+});
+DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />

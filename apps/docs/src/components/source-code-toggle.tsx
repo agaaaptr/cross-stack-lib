@@ -1,11 +1,18 @@
-'use client'
+'use client';
 
-import * as React from 'react'
-import { Button } from '@/components/ui/button'
-import { motion, AnimatePresence } from 'framer-motion'
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useSourceCodeToggle } from '@/contexts/source-code-toggle-context';
 
 export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
+  const isDisabled = useSourceCodeToggle();
+
+  if (isDisabled) {
+    // When disabled (inside tabs), remove the top margin as the parent will handle it.
+    return <div className="rounded-md bg-background/95 overflow-x-auto">{children}</div>;
+  }
 
   return (
     <div className="mt-4">
@@ -21,10 +28,10 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="mt-4 rounded-md bg-background/95 p-4 overflow-x-auto">{children}</div>
+            <div className="mt-4 rounded-md bg-background/95 overflow-x-auto">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

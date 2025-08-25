@@ -42,13 +42,24 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: ({ children }) => <ol className="my-6 ml-6 list-decimal [&>li]:mt-2">{children}</ol>,
     li: ({ children }) => <li>{children}</li>,
     a: ({ children, href }) => <a href={href} className="font-medium text-primary underline underline-offset-4">{children}</a>,
-    pre: ({ children }) => (
-      <SourceCodeToggle>
+    pre: ({ children, className, ...props }) => {
+      const preElement = (
         <CodeBlockWrapper>
-          <pre className="max-h-[650px] rounded-lg border bg-card py-4 dark:bg-card">{children}</pre>
+          <pre
+            className={`max-h-[650px] rounded-lg border bg-card dark:bg-card ${className || ''}`}
+            {...props}
+          >
+            {children}
+          </pre>
         </CodeBlockWrapper>
-      </SourceCodeToggle>
-    ),
+      );
+
+      if (className?.includes('raw')) {
+        return preElement;
+      }
+
+      return <SourceCodeToggle>{preElement}</SourceCodeToggle>;
+    },
     code: ({ children }) => <code className="relative font-mono text-sm font-semibold">{children}</code>,
     table: ({ children }) => <div className="my-6 w-full overflow-y-auto"><table className="w-full">{children}</table></div>,
     thead: ({ children }) => <thead className="[&_tr]:border-b">{children}</thead>,
