@@ -2,20 +2,12 @@
   "name": "cross-stack-lib",
   "version": "1.0.0",
   "description": "A cross-stack UI component library built with Lit and Vite.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
+  "main": "dist/cross-stack-lib.umd.js",
+  "module": "dist/cross-stack-lib.es.js",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
-    },
-    "./xstack-table": {
-      "import": "./dist/xstack-table.es.js",
-      "require": "./dist/xstack-table.cjs.js"
-    },
-    "./xstack-modal": {
-      "import": "./dist/xstack-modal.es.js",
-      "require": "./dist/xstack-modal.cjs.js"
+      "import": "./dist/cross-stack-lib.es.js",
+      "require": "./dist/cross-stack-lib.umd.js"
     }
   },
   "files": [
