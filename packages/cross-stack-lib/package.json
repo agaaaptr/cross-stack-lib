@@ -9,13 +9,13 @@
       "import": "./dist/index.es.js",
       "require": "./dist/index.cjs.js"
     },
-    "./csl-table": {
-      "import": "./dist/csl-table.es.js",
-      "require": "./dist/csl-table.cjs.js"
+    "./xstack-table": {
+      "import": "./dist/xstack-table.es.js",
+      "require": "./dist/xstack-table.cjs.js"
     },
-    "./csl-modal": {
-      "import": "./dist/csl-modal.es.js",
-      "require": "./dist/csl-modal.cjs.js"
+    "./xstack-modal": {
+      "import": "./dist/xstack-modal.es.js",
+      "require": "./dist/xstack-modal.cjs.js"
     }
   },
   "files": [
