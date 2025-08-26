@@ -28,8 +28,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 80%; /* Adjusted for better visibility */
-    --input: 214.3 31.8% 90%; /* Adjusted for better visibility */
+    --border: 214.3 31.8% 85%; /* Slightly lighter border */
+    --input: 214.3 31.8% 95%; /* Slightly lighter input border */
     --ring: 262.1 83.3% 57.8%;
 
     --radius: 0.5rem;

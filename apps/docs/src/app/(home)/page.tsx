@@ -8,7 +8,7 @@ export default function HomePage() {
     <PageTransition>
       <div className="flex h-[calc(100vh-4rem)] items-center justify-center px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Build modern UI, faster than ever.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
