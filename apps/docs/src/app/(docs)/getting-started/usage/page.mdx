@@ -4,62 +4,90 @@ import { PageTransition } from "@/components/page-transition";
   <div className="prose dark:prose-invert">
     # Basic Usage
 
-    This section provides a basic overview of how to use the XStack Library components.
+    This section provides a basic overview of how to use the XStack Library components in a plain HTML or Lit-based environment. For framework-specific examples (React, Vue, Angular), please see the component example pages.
 
     ## `xstack-table`
 
-    The `xstack-table` component is designed to display tabular data with features like searching and pagination.
+    The `xstack-table` component displays tabular data with built-in controls for searching, pagination, and setting page size.
 
     ### Example
 
-    ```html
-    <xstack-table
-      .data="${JSON.stringify([{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }])}"
-      .columns="${JSON.stringify([{ key: 'id', header: 'ID' }, { key: 'name', header: 'Name' }])}"
-    ></xstack-table>
+    To pass array or object data like `data` and `columns` in plain HTML, you would typically do so via JavaScript. The `.property` syntax shown here is specific to the `lit-html` renderer.
+
+    ```js
+    // In your script
+    const table = document.querySelector('xstack-table');
+    table.columns = [
+      { key: 'id', label: 'ID' },
+      { key: 'name', label: 'Name' }
+    ];
+    table.data = [
+      { id: 1, name: 'Item 1' },
+      { id: 2, name: 'Item 2' }
+    ];
     ```
 
-    ### Properties
+    ```html
+    <!-- In your HTML -->
+    <xstack-table page-size="5" show-search></xstack-table>
+    ```
 
-    -   `data`: (Array) The array of data objects to display in the table. (e.g., `[{ id: 1, name: 'Test' }]`)
-    -   `columns`: (Array) An array of column definitions. Each object should have a `key` and `header`. (e.g., `[{ key: 'id', header: 'ID' }]`)
-    -   `pageSize`: (Number) The number of items to display per page. Default is 10.
+    ### Key Properties
 
-    ### Events
-
-    -   `search`: Fired when the search input value changes. The event detail contains the search query.
-    -   `pageChange`: Fired when the current page changes. The event detail contains the new page number.
+    -   `data`: An array of data objects to display.
+    -   `columns`: An array of column definitions.
+    -   `pageSize`: The number of items per page.
+    -   `showSearch`, `showPageSize`, `showPagination`: Booleans to toggle UI controls.
 
     ## `xstack-modal`
 
-    The `xstack-modal` component provides a flexible modal dialog.
+    The `xstack-modal` component provides a flexible modal dialog with various contextual types.
 
     ### Example
 
+    The `.open` property controls the modal's visibility. You would typically toggle this property in your JavaScript logic.
+
+    ```js
+    // In your script
+    const modal = document.querySelector('xstack-modal');
+    const openButton = document.querySelector('#open-modal-btn');
+
+    openButton.addEventListener('click', () => {
+      modal.open = true;
+    });
+
+    modal.addEventListener('close', () => {
+      modal.open = false; // Ensure state is in sync
+      console.log('Modal closed event fired!');
+    });
+    ```
+
     ```html
-    <xstack-modal .isOpen="${true}" @close="${() => console.log('Modal closed')}">
+    <!-- In your HTML -->
+    <button id="open-modal-btn">Open Modal</button>
+
+    <xstack-modal type="info">
       <div slot="header">Modal Title</div>
       <div slot="body">
         <p>This is the content of the modal body.</p>
       </div>
       <div slot="footer">
-        <button>Close</button>
+        <button onclick="document.querySelector('xstack-modal').open = false">Close</button>
       </div>
     </xstack-modal>
     ```
 
-    ### Properties
+    ### Key Properties
 
-    -   `isOpen`: (Boolean) Controls the visibility of the modal. Set to `true` to show, `false` to hide.
+    -   `open`: A boolean that controls the visibility of the modal.
+    -   `type`: A string to set the modal's style (`'confirmation'`, `'info'`, `'warning'`, `'danger'`).
 
     ### Events
 
-    -   `close`: Fired when the modal is requested to be closed (e.g., by clicking the close button or overlay).
+    -   `close`: Fired when the modal is requested to be closed.
 
     ### Slots
 
-    -   `header`: Content for the modal header.
-    -   `body`: Content for the modal body.
-    -   `footer`: Content for the modal footer.
+    -   `header`, `body`, `footer`: For placing custom content.
   </div>
 </PageTransition>

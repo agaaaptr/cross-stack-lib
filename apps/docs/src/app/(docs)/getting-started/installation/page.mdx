@@ -16,13 +16,13 @@ import { PageTransition } from "@/components/page-transition";
     yarn add cross-stack-lib
     ```
 
-    ## Usage with different frameworks
+    ## Framework Integration
 
-    XStack Library components are Web Components, which means they can be used directly in any modern web project. However, for better integration with specific frameworks like React, Vue, or Angular, you might need some additional setup.
+    XStack Library components are Web Components, which means they can be used directly in any modern web project. However, for the best experience in frameworks like React, Vue, or Angular, some additional setup is recommended.
 
     ### React (Next.js)
 
-    When using XStack Library with React (especially Next.js), it's recommended to use the `@lit-labs/react` package to wrap the Web Components. This provides better type safety and React-specific features.
+    When using XStack Library with React, it's highly recommended to use the `@lit-labs/react` package to create wrapper components. This provides proper type safety, event handling, and integration with React's lifecycle.
 
     First, install `@lit-labs/react`:
 
@@ -30,52 +30,54 @@ import { PageTransition } from "@/components/page-transition";
     npm install @lit-labs/react
     ```
 
-    Then, create a wrapper component (e.g., `LitWrappers.tsx`):
+    Then, create a wrapper component file (e.g., `LitWrappers.tsx`). Using a client component (`'use client';`) is recommended to access hooks like `useTheme`.
 
-    ```typescript
+    ```tsx
     // components/LitWrappers.tsx
+    'use client';
+
     import React from 'react';
     import { createComponent } from '@lit-labs/react';
+    import { useTheme } from 'next-themes'; // Or your preferred theme provider
     import { XStackTable as XStackTableWC, XStackModal as XStackModalWC } from 'cross-stack-lib';
 
-    export const XStackTable = createComponent({
+    // Create base React components from the Web Components
+    const XStackTableComponent = createComponent({
       react: React,
       tagName: 'xstack-table',
       elementClass: XStackTableWC,
       events: {
-        // No custom events defined for xstack-table yet
+        onSearch: 'search', // Map 'search' event to 'onSearch' prop
+        onPageChange: 'pageChange', // Map 'pageChange' event to 'onPageChange' prop
       },
     });
 
-    export const XStackModal = createComponent({
+    const XStackModalComponent = createComponent({
       react: React,
       tagName: 'xstack-modal',
       elementClass: XStackModalWC,
       events: {
-        onClose: 'close', // Map the 'close' custom event from Lit to 'onClose' React prop
+        onClose: 'close', // Map 'close' event to 'onClose' prop
       },
     });
+
+    // Create theme-aware wrappers that pass the current theme to the components
+    export const XStackTable = (props: any) => {
+      const { theme } = useTheme();
+      return <XStackTableComponent {...props} theme={theme} />;
+    };
+
+    export const XStackModal = (props: any) => {
+      const { theme } = useTheme();
+      return <XStackModalComponent {...props} theme={theme} />;
+    };
     ```
 
-    Now you can use `XStackTable` and `XStackModal` as regular React components:
-
-    ```typescript
-    // app/page.tsx
-    import { XStackTable, XStackModal } from '../components/LitWrappers';
-
-    export default function HomePage() {
-      return (
-        <div>
-          <XStackTable></XStackTable>
-          <XStackModal></XStackModal>
-        </div>
-      );
-    }
-    ```
+    Now you can import `XStackTable` and `XStackModal` from this file and use them as regular React components.
 
     ### Vue.js
 
-    Vue.js has good native support for Web Components. You might need to tell Vue to ignore custom elements to prevent it from trying to resolve them as Vue components.
+    Vue.js has excellent native support for Web Components. You just need to tell Vue to treat `xstack-*` tags as custom elements.
 
     In your `main.ts` or `main.js`:
 
@@ -83,30 +85,20 @@ import { PageTransition } from "@/components/page-transition";
     // main.ts
     import { createApp } from 'vue';
     import App from './App.vue';
+    import 'cross-stack-lib'; // Import the library to register the components
 
-    createApp(App).config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-');
-    createApp(App).mount('#app');
+    const app = createApp(App);
+    app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-');
+    app.mount('#app');
     ```
 
-    Then you can use the components directly in your Vue templates:
-
-    ```vue
-    <!-- App.vue -->
-    <template>
-      <xstack-table></xstack-table>
-      <xstack-modal></xstack-modal>
-    </template>
-
-    <script setup lang="ts">
-      // ...
-    </script>
-    ```
+    Then you can use the components directly in your Vue templates, using `.prop` for object/array properties and `@event` for events.
 
     ### Angular
 
-    Angular also supports Web Components. You need to add `CUSTOM_ELEMENTS_SCHEMA` to your module to tell Angular to recognize custom elements.
+    Angular also supports Web Components. You need to add `CUSTOM_ELEMENTS_SCHEMA` to your module to allow custom element tags.
 
-    In your `app.module.ts` (or standalone component where you use them):
+    In your `app.module.ts` (or the specific module where you use the components):
 
     ```typescript
     // app.module.ts
@@ -115,12 +107,8 @@ import { PageTransition } from "@/components/page-transition";
     import { AppComponent } from './app.component';
 
     @NgModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        BrowserModule
-      ],
+      declarations: [AppComponent],
+      imports: [BrowserModule],
       providers: [],
       bootstrap: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line
@@ -128,12 +116,12 @@ import { PageTransition } from "@/components/page-transition";
     export class AppModule { }
     ```
 
-    Then you can use the components directly in your Angular templates:
+    And in your `main.ts`, you need to import the library to register the components:
 
-    ```html
-    <!-- app.component.html -->
-    <xstack-table></xstack-table>
-    <xstack-modal></xstack-modal>
+    ```typescript
+    // main.ts
+    import 'cross-stack-lib';
     ```
+
   </div>
 </PageTransition>

@@ -2,14 +2,34 @@
 
 ## Properties
 
-- `isOpen`: `Boolean` - Controls modal visibility.
+### `open`
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Controls the visibility of the modal. Set to `true` to show it, `false` to hide it.
+
+### `type`
+- **Type**: `'confirmation' | 'info' | 'warning' | 'danger'`
+- **Default**: `'confirmation'`
+- **Description**: Sets the modal's theme, which primarily affects the color of the top accent bar and the primary button in the footer.
+
+### `theme`
+- **Type**: `'light' | 'dark'`
+- **Default**: `'light'`
+- **Description**: Sets the component's color scheme. This is typically handled automatically by the site's theme provider.
 
 ## Events
 
-- `close`: Fired when modal is closed.
+### `close`
+- **Detail**: `CustomEvent`
+- **Description**: Fired when the modal is requested to be closed (e.g., by clicking the close button or the overlay).
 
 ## Slots
 
-- `header`: Content for modal header.
-- `body`: Content for modal body.
-- `footer`: Content for modal footer.
+### `header`
+- **Description**: Holds the content for the modal's header, typically the title.
+
+### `body`
+- **Description**: The main content area of the modal.
+
+### `footer`
+- **Description**: The area for action buttons, like "OK", "Cancel", or "Confirm".

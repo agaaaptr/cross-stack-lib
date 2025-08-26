@@ -13,22 +13,22 @@ Cara komunikasi utamanya adalah dengan memanfaatkan **standar Web Components**, 
 Secara teknis, komunikasinya berjalan dua arah:
 
 1.  **Mengirim Data ke Komponen (Props/Attributes):** Framework mengirim data ke dalam komponen kita melalui **HTML attributes** untuk data sederhana (string, angka) dan **JavaScript properties** untuk data kompleks (objek, array).
-    *   Di **React**, ini terlihat seperti props biasa: `<xstack-table data={myData}></xstack-table>`.
+    *   Di **React**, ini terlihat seperti props biasa: `<XStackTable data={myData} />`.
     *   Di **Vue**, menggunakan `v-bind`: `<xstack-table :data="myData"></xstack-table>`.
     *   Di **Angular**, menggunakan property binding: `<xstack-table [data]="myData"></xstack-table>`.
 
-2.  **Menerima Data dari Komponen (Events):** Ketika sesuatu terjadi di dalam komponen kita (misalnya, sebuah baris diklik), komponen akan memancarkan **Standard DOM Events**. Framework kemudian bisa "mendengarkan" event ini seperti event HTML biasa.
-    *   Di **React**, menggunakan `onEventName`: `<xstack-table onRowClick={handleRowClick}></xstack-table>`.
-    *   Di **Vue**, menggunakan `@event-name`: `<xstack-table @row-click="handleRowClick"></xstack-table>`.
-    *   Di **Angular**, menggunakan event binding: `<xstack-table (rowClick)="handleRowClick($event)"></xstack-table>`.
+2.  **Menerima Data dari Komponen (Events):** Ketika sesuatu terjadi di dalam komponen kita (misalnya, pengguna mengetik di pencarian), komponen akan memancarkan **Standard DOM Events**. Framework kemudian bisa "mendengarkan" event ini seperti event HTML biasa.
+    *   Di **React**, menggunakan `onEventName` (setelah di-map di wrapper): `<XStackModal onClose={handleClose} />`.
+    *   Di **Vue**, menggunakan `@event-name`: `<xstack-table @page-change="handlePageChange"></xstack-table>`.
+    *   Di **Angular**, menggunakan event binding: `<xstack-modal (close)="handleClose()"></xstack-modal>`.
 
-Jadi, kita tidak memerlukan *wrapper* atau lapisan adaptasi yang rumit. Kita menggunakan standar web yang sudah ada, membuat integrasi menjadi sangat bersih dan langsung.
+Jadi, kita tidak memerlukan *wrapper* atau lapisan adaptasi yang rumit (meskipun wrapper di React sangat membantu untuk event handling). Kita menggunakan standar web yang sudah ada, membuat integrasi menjadi sangat bersih dan langsung.
 
 ### 2. Apakah library ini memerlukan instalasi yang ribet?
 
 Sama sekali tidak. Proses instalasinya dirancang agar sesederhana mungkin, sama seperti library npm lainnya. Hanya ada dua langkah utama:
 
-1.  **Instalasi via npm:** Cukup jalankan `npm install xstack-library` di dalam proyek Anda.
+1.  **Instalasi via npm:** Cukup jalankan `npm install cross-stack-lib` di dalam proyek Anda.
 2.  **Impor Library:** Impor library-nya satu kali di titik masuk utama aplikasi Anda (misalnya di `main.ts` atau `App.js`). Impor ini akan secara otomatis mendaftarkan semua komponen kustom kita ke browser, sehingga siap digunakan di seluruh aplikasi.
 
 Setelah dua langkah itu, Anda bisa langsung menggunakan tag seperti `<xstack-modal>` di mana saja dalam kode HTML atau JSX Anda. Tidak ada konfigurasi build tambahan atau *plugin* yang diperlukan.

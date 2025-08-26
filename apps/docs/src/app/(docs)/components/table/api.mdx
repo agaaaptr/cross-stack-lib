@@ -2,11 +2,49 @@
 
 ## Properties
 
-- `data`: `Array<Object>` - Data to display.
-- `columns`: `Array<Object>` - Column definitions.
-- `pageSize`: `Number` - Items per page.
+### `columns`
+- **Type**: `TableColumn[]`
+- **Default**: `[]`
+- **Description**: An array of objects to define table columns. Each object should have a `key` (matching a key in the data object) and a `label` (for the header).
+
+### `data`
+- **Type**: `any[]`
+- **Default**: `[]`
+- **Description**: An array of objects representing the rows to display.
+
+### `pageSize`
+- **Type**: `number`
+- **Default**: `10`
+- **Description**: The number of items to display per page.
+
+### `showSearch`
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: If `true`, the search input field is displayed.
+
+### `showPageSize`
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: If `true`, the page size selector dropdown is displayed.
+
+### `showPagination`
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: If `true`, the pagination controls (page info, next/prev buttons) are displayed.
+
+### `theme`
+- **Type**: `'light' | 'dark'`
+- **Default**: `'light'`
+- **Description**: Sets the component's color scheme. It's automatically handled by the site's theme provider.
+
+*Note: The `TableColumn` interface is `{ key: string; label: string; }`.*
 
 ## Events
 
-- `search`: Fired on search input change.
-- `pageChange`: Fired on page change.
+### `search`
+- **Detail**: `{ detail: { value: string } }`
+- **Description**: Fired whenever the user types in the search input. The `value` property contains the current search query.
+
+### `pageChange`
+- **Detail**: `{ detail: { page: number } }`
+- **Description**: Fired whenever the current page number changes (e.g., by searching, changing page size, or clicking pagination buttons).

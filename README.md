@@ -14,12 +14,21 @@ This project is organized as a monorepo using npm workspaces:
     └── docs/             # Next.js documentation website
 ```
 
+## Available Components
+
+Currently, the library provides the following components:
+
+- `xstack-table`: A feature-rich data table with searching, pagination, and customizable controls.
+- `xstack-modal`: A flexible modal/dialog component with contextual types (info, warning, danger, etc.).
+
+**[➡️ View the full documentation and live examples on the documentation website.](https://cross-stack-lib.vercel.app/)**
+
 ## Getting Started
 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/cross-stack-lib.git
+    git clone https://github.com/agaaaptr/cross-stack-lib.git
     cd cross-stack-lib
     ```
 
@@ -31,7 +40,7 @@ This project is organized as a monorepo using npm workspaces:
     ```
 
 3. **Build the XStack Library:**
-    Before running any example, you need to build the core library:
+    Before running the documentation site or any other project, you need to build the core library:
 
     ```bash
     npm run build -w packages/cross-stack-lib
@@ -56,34 +65,26 @@ To test XStack Library with external projects (e.g., React, Vue, Angular applica
 
     Verdaccio will typically start on `http://localhost:4873`.
 
-3. **Build XStack Library:**
-    Ensure your library is built and ready for publishing:
-
-    ```bash
-    npm run build -w packages/cross-stack-lib
-    ```
-
-4. **Publish to your local Verdaccio registry:**
+3. **Publish to your local Verdaccio registry:**
     First, log in to the local registry (you can use any username/password):
 
     ```bash
     npm adduser --registry http://localhost:4873
     ```
 
-    Then, navigate to the `packages/cross-stack-lib` directory and publish:
+    Then, from the project root, run the publish command:
 
     ```bash
-    cd packages/cross-stack-lib
-    npm publish --registry http://localhost:4873
+    npm publish --workspace packages/cross-stack-lib --registry http://localhost:4873
     ```
 
-5. **Consume XStack Library in your external project:**
-    In your external project (e.g., a new Next.js, Vue, or Angular app), you can install XStack Library from your local registry.
+4. **Consume XStack Library in your external project:**
+    In your external project (e.g., a new Next.js, Vue, or Angular app), you can install `cross-stack-lib` from your local registry.
 
     * **Option A (Temporary for a single install):**
 
         ```bash
-        npm install xstack-library --registry http://localhost:4873
+        npm install cross-stack-lib --registry http://localhost:4873
         ```
 
     * **Option B (More permanent for the project):**
@@ -93,10 +94,10 @@ To test XStack Library with external projects (e.g., React, Vue, Angular applica
         registry=http://localhost:4873
         ```
 
-        Then, you can install XStack Library as usual:
+        Then, you can install the library as usual:
 
         ```bash
-        npm install xstack-library
+        npm install cross-stack-lib
         ```
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
@@ -111,63 +112,14 @@ This project utilizes GitHub Actions for Continuous Integration and Continuous D
 
 The workflow is defined in `.github/workflows/ci.yml`.
 
-## Usage Guides
-
-This section provides a comprehensive guide on how to run, build, lint, and test different parts of the monorepo.
-
-### Monorepo Root Commands
+## Monorepo Scripts
 
 These commands should be run from the project's root directory.
 
-* **Install All Dependencies**: Installs dependencies for all packages and apps in the monorepo.
-
-    ```bash
-    npm install
-    ```
-
-* **Build Core Library (XStack Library)**: Builds the core UI component library.
-
-    ```bash
-    npm run build -w packages/cross-stack-lib
-    # Alias: npm run build:lib
-    ```
-
-* **Run Linting for All Relevant Packages**: Runs ESLint for the core library and documentation site.
-
-    ```bash
-    npm run lint
-    ```
-
-* **Run Tests for Core Library**: Executes unit tests for XStack Library.
-
-    ```bash
-    npm run test
-    ```
-
-* **Build All Projects**: Builds the XStack Library and the documentation site.
-
-    ```bash
-    npm run build
-    ```
-
-### Documentation Website (`apps/docs`)
-
-These commands should be run from the project's root directory.
-
-* **Start Development Server**: Runs the Next.js development server for the documentation site.
-
-    ```bash
-    npm run dev -w apps/docs
-    ```
-
-* **Build for Production**: Creates an optimized production build of the documentation site.
-
-    ```bash
-    npm run build -w apps/docs
-    ```
-
-* **Run Linting**: Checks the documentation site's code for quality and errors.
-
-    ```bash
-    npm run lint -w apps/docs
-    ```
+- `npm install`: Install dependencies for all packages.
+- `npm run build`: Build both the library and the docs site.
+- `npm run build:lib`: Build only the `cross-stack-lib` package.
+- `npm run build:docs`: Build only the `docs` site.
+- `npm run dev:docs`: Start the Next.js development server for the docs site.
+- `npm run lint`: Run linting for all relevant packages.
+- `npm run test`: Run unit tests for the core library.
