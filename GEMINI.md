@@ -191,54 +191,18 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] `apps/docs` project correctly resolved `cross-stack-lib` imports.
     * [x] Documentation site successfully deployed to Vercel.
 
-* [ ] **Checkpoint 20: Isolated Example Projects with Verdaccio**
-  * **Problem**: Previous attempts to integrate example projects directly within the monorepo led to significant build and configuration complexities, particularly with Next.js's server-side rendering and dependency resolution. This hindered efficient local testing of XStack Library across different frameworks.
-  * **Solution**: Adopt a strategy of creating isolated example projects outside the main monorepo, consuming XStack Library via a local npm registry (Verdaccio). This approach prioritizes simplicity, isolation, and realistic testing.
-  * **Detailed Plan**:
-    1. **Install Verdaccio**: Install Verdaccio globally on the development machine.
+* [x] **Checkpoint 23: Comprehensive Documentation Sync (Completed)**
+  * [x] **Component-level Fixes**: Implemented missing `search` and `pageChange` events in the `xstack-table` component to align its behavior with the documentation.
+  * [x] **Documentation Overhaul**: Updated all user-facing documentation to be accurate and consistent with the current state of the library.
+    * [x] Corrected all component API documentation (`/components/table/api.mdx`, `/components/modal/api.mdx`) to reflect the actual properties, events, and slots.
+    * [x] Modernized all code examples (`/components/table/examples.mdx`, etc.) to use current best practices (e.g., direct property binding instead of stringified JSON).
+    * [x] Updated installation and usage guides (`/getting-started/*`) to be more accurate and provide better, framework-specific instructions.
+  * [x] **Project Document Alignment**: Updated high-level project documents (`README.md`, `KNOWLEDGE_BASE.md`) to reflect the current project status, correct package names, and provide accurate examples.
 
-        ```bash
-        npm install -g verdaccio
-        ```
-
-    2. **Start Verdaccio**: Run Verdaccio to start a local npm registry server (typically on `http://localhost:4873`).
-
-        ```bash
-        verdaccio
-        ```
-
-    3. **Build XStack Library**: Ensure the core library is built and ready for publishing.
-
-        ```bash
-        npm run build -w packages/cross-stack-lib
-        ```
-
-    4. **Publish to Verdaccio**: Log in to the local registry and publish XStack Library.
-
-        ```bash
-        npm adduser --registry http://localhost:4873
-        cd packages/cross-stack-lib
-        npm publish --registry http://localhost:4873
-        ```
-
-    5. **Create Isolated Example Projects**: For each desired framework (e.g., Next.js, Vue, Angular), create a new, standard project *outside* the `cross-stack-lib` monorepo.
-        * Example for Next.js: `npx create-next-app@latest my-next-app`
-        * Example for Vue: `npm create vue@latest my-vue-app`
-        * Example for Angular: `ng new my-angular-app`
-    6. **Consume from Verdaccio**: In each isolated example project, configure npm to use the local Verdaccio registry and install `xstack-library`.
-        * Option A (Temporary for a single install):
-
-            ```bash
-            npm install xstack-library --registry http://localhost:4873
-            ```
-
-        * Option B (More permanent for the project): Create a `.npmrc` file in the example project's root with `registry=http://localhost:4873`, then run `npm install xstack-library`.
-    7. **Integrate and Test**: Use XStack Library components within the isolated example projects and verify functionality.
-  * **Benefits of this approach**:
-    * **Isolation**: Eliminates monorepo-specific build complexities and conflicts.
-    * **Simplicity**: Uses standard framework CLIs and build processes.
-    * **Realistic Testing**: Mimics real-world consumption of the published library.
-    * **Clearer Debugging**: Easier to diagnose issues as they are isolated to either the library or the specific framework integration.
+* [x] **Checkpoint 20: Isolated Example Projects with Verdaccio (Completed)**
+  * [x] **Verdaccio Setup**: Installed Verdaccio globally via npm and started the local npm registry server.
+  * [x] **Library Publishing**: Successfully built and published the `cross-stack-lib` package to the local Verdaccio registry.
+  * [x] **Example Project Consumption**: Verified that the isolated example projects (Next.js, Angular, Vue) can successfully consume and display components from the `cross-stack-lib` published to the local registry, enabling realistic, real-world testing across different frameworks.
 
 * [x] **Checkpoint 21: Project Knowledge Base Creation (Completed)**
   * [x] Created `KNOWLEDGE_BASE.md` to store project FAQs and important information.

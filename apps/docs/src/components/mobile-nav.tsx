@@ -46,7 +46,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0 transition-all duration-500">
+      <SheetContent side="left" className="pr-0 transition-all duration-300">
         <SheetTitle className="sr-only">Menu</SheetTitle>
         <SheetDescription className="sr-only">
           Navigation menu for XStack Library documentation.

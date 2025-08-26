@@ -121,10 +121,32 @@ export class XStackTable extends LitElement {
     return this.filteredData.slice(start, start + this.pageSize);
   }
 
-  private _handleSearch(e: Event) { this.searchText = (e.target as HTMLInputElement).value; this.currentPage = 1; }
-  private _handlePageSizeChange(e: Event) { this.pageSize = Number((e.target as HTMLSelectElement).value); this.currentPage = 1; }
-  private _handlePrevPage() { if (this.currentPage > 1) this.currentPage--; }
-  private _handleNextPage() { if (this.currentPage < this.totalPages) this.currentPage++; }
+  private _handleSearch(e: Event) {
+    this.searchText = (e.target as HTMLInputElement).value;
+    this.currentPage = 1;
+    this.dispatchEvent(new CustomEvent('search', { detail: { value: this.searchText }, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent('pageChange', { detail: { page: this.currentPage }, bubbles: true, composed: true }));
+  }
+
+  private _handlePageSizeChange(e: Event) {
+    this.pageSize = Number((e.target as HTMLSelectElement).value);
+    this.currentPage = 1;
+    this.dispatchEvent(new CustomEvent('pageChange', { detail: { page: this.currentPage }, bubbles: true, composed: true }));
+  }
+
+  private _handlePrevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.dispatchEvent(new CustomEvent('pageChange', { detail: { page: this.currentPage }, bubbles: true, composed: true }));
+    }
+  }
+
+  private _handleNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.dispatchEvent(new CustomEvent('pageChange', { detail: { page: this.currentPage }, bubbles: true, composed: true }));
+    }
+  }
 
   render() {
     return html`

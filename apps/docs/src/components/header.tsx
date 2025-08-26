@@ -27,7 +27,7 @@ export function Header() {
           <nav className="flex items-center">
             <Button variant="ghost" size="icon" asChild>
               <a href="https://github.com/agaaaptr/cross-stack-lib" target="_blank" rel="noopener noreferrer">
-                <GitHubLogoIcon className="h-5 w-5" />
+                <GitHubLogoIcon className="h-6 w-6" />
                 <span className="sr-only">GitHub</span>
               </a>
             </Button>

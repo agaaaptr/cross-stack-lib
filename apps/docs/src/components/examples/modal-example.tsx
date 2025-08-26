@@ -16,8 +16,8 @@ export default function ModalExample() {
   };
 
   return (
-    <div className="p-4 border rounded-lg flex flex-wrap gap-4 items-center">
-      <Button onClick={() => openModal('confirmation')}>Confirmation</Button>
+    <div className="p-4 border rounded-lg flex flex-col sm:flex-row flex-wrap gap-4 items-center">
+      <Button onClick={() => openModal('confirmation')} variant="default">Confirmation</Button>
       <Button onClick={() => openModal('info')} variant="outline">Info</Button>
       <Button onClick={() => openModal('warning')} variant="outline">Warning</Button>
       <Button onClick={() => openModal('danger')} variant="destructive">Danger</Button>
