@@ -1,0 +1,23 @@
+<!-- src/app/app.html -->
+<main style="font-family: sans-serif; padding: 2rem;">
+  <h1 style="font-size: 2rem; font-weight: bold;">XStack Library Test Page</h1>
+
+  <div style="margin: 2rem 0;">
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Modal Example</h2>
+    <button (click)="openModal()">Open Modal</button>
+  </div>
+
+  <div style="margin: 2rem 0;">
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Table Example</h2>
+    <xstack-table [columns]="tableColumns" [data]="tableData" [pageSize]="2" [showSearch]="true" [showPageSize]="false"
+      [showPagination]="false"></xstack-table>
+  </div>
+
+  <xstack-modal [open]="isModalOpen" (close)="closeModal()" type="warning">
+    <h2 slot="header">Hello from XStack Modal!</h2>
+    <p slot="body">This modal is running in an Angular application.</p>
+    <div slot="footer" style="display: flex; justify-content: flex-end;">
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </xstack-modal>
+</main>

@@ -31,7 +31,7 @@ Sama sekali tidak. Proses instalasinya dirancang agar sesederhana mungkin, sama 
 1.  **Instalasi via npm:** Cukup jalankan `npm install cross-stack-lib` di dalam proyek Anda.
 2.  **Impor Library:** Impor library-nya satu kali di titik masuk utama aplikasi Anda (misalnya di `main.ts` atau `App.js`). Impor ini akan secara otomatis mendaftarkan semua komponen kustom kita ke browser, sehingga siap digunakan di seluruh aplikasi.
 
-Setelah dua langkah itu, Anda bisa langsung menggunakan tag seperti `<xstack-modal>` di mana saja dalam kode HTML atau JSX Anda. Tidak ada konfigurasi build tambahan atau *plugin* yang diperlukan.
+Setelah dua langkah itu, Anda bisa langsung menggunakan tag seperti `<xstack-modal>` di mana saja dalam kode HTML atau JSX Anda.
 
 ### 3. Apa trade-off menggunakan library ini dibanding library native untuk framework tersebut?
 
@@ -54,3 +54,37 @@ Ini adalah pertanyaan yang sangat penting dan menyoroti keputusan strategis di b
 **Kesimpulan Trade-off:**
 
 Pada dasarnya, **trade-off-nya adalah menukar sedikit kenyamanan dan optimasi spesifik-framework dengan keuntungan besar berupa portabilitas, konsistensi, dan kemudahan pemeliharaan jangka panjang di lingkungan multi-framework.**
+
+---
+
+## Pemecahan Masalah & Catatan Penting
+
+### 1. Masalah `lint` pada Proyek Angular (`example-angular`)
+
+**Symptom:** Perintah `npm run lint` (menggunakan `ng lint`) pada proyek Angular seringkali gagal dengan error seperti `Error when running ESLint: Invalid Options: - Unknown options: stats` ketika dijalankan dari root monorepo atau bahkan setelah instalasi ulang yang bersih.
+
+**Penyebab:** Ini adalah masalah yang kompleks dan sulit diidentifikasi secara pasti. Kemungkinan besar disebabkan oleh konflik versi ESLint atau konfigurasi yang tidak kompatibel antara `angular-eslint` dan dependensi ESLint lainnya yang di-hoist ke `node_modules` root dalam lingkungan `npm workspaces`. `ng lint` tampaknya tidak dapat mengatasi lingkungan dependensi yang tidak terisolasi ini.
+
+**Solusi (Pragmatis):**
+Karena masalah ini sangat sulit dipecahkan dan tidak memengaruhi fungsionalitas `build` atau `dev` proyek Angular, solusi yang paling pragmatis adalah:
+
+*   **Jangan jalankan `lint` Angular dari root monorepo.** Skrip `lint` di `package.json` root telah dikonfigurasi untuk **melewatkan** `example-angular`.
+*   **Jalankan `lint` Angular secara manual:** Jika Anda perlu me-lint proyek Angular, `cd` ke direktori `cross-framework-examples/example-angular` dan jalankan `npm run lint` dari sana. Perlu diingat bahwa bahkan dengan cara ini, masalah `lint` mungkin masih muncul tergantung pada kondisi lingkungan `npm` saat itu.
+
+### 2. Menginstal Dependensi dari Registri Lokal (Verdaccio)
+
+**Symptom:** Perintah `npm install` gagal dengan error `404 Not Found` untuk `cross-stack-lib`.
+
+**Penyebab:** `cross-stack-lib` adalah pustaka lokal yang diterbitkan ke Verdaccio (`http://localhost:4873`), bukan ke registri npm publik (`https://registry.npmjs.org/`). `npm install` secara default akan mencari semua dependensi di registri publik.
+
+**Solusi:** Untuk menginstal `cross-stack-lib` dari Verdaccio tanpa mengubah konfigurasi registry default Anda, gunakan flag `--registry` pada perintah `npm install`.
+
+**Contoh Alur Instalasi untuk Proyek Contoh:**
+
+1.  **Bersihkan:** `rm -rf node_modules package-lock.json` (di dalam direktori proyek contoh).
+2.  **Hapus Sementara `cross-stack-lib` dari `package.json`:** Ini memungkinkan `npm install` berikutnya berhasil untuk dependensi publik.
+3.  **Instal Dependensi Publik:** `npm install` (di dalam direktori proyek contoh).
+4.  **Tambahkan Kembali `cross-stack-lib` ke `package.json`:** (secara manual atau dengan perintah `npm install cross-stack-lib`).
+5.  **Instal `cross-stack-lib` dari Verdaccio:** `npm install cross-stack-lib@1.0.1 --registry http://localhost:4873` (di dalam direktori proyek contoh).
+
+**Penting:** Jangan pernah mengubah konfigurasi registry npm global atau proyek Anda menggunakan `npm config set registry ...`. Selalu gunakan flag `--registry` untuk instalasi dari Verdaccio.
