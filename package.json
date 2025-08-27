@@ -6,7 +6,11 @@
   "scripts": {
     "build": "npm run build -w packages/cross-stack-lib -w apps/docs",
     "lint": "npm run lint -w packages/cross-stack-lib -w apps/docs",
-    "test": "npm test -w packages/cross-stack-lib"
+    "test": "npm test -w packages/cross-stack-lib",
+    "dev:docs": "npm run dev -w apps/docs",
+    "dev:angular": "(cd cross-framework-examples/example-angular && npm run start)",
+    "dev:react": "(cd cross-framework-examples/example-react && npm run dev)",
+    "dev:vue": "(cd cross-framework-examples/example-vue && npm run dev)"
   },
   "devDependencies": {
     "vite": "^7.1.2"
