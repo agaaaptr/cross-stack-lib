@@ -25,6 +25,9 @@ Currently, the library provides the following components:
 
 ## Getting Started
 
+**Node.js Version:**
+For consistent development, it is recommended to use Node.js `v22.17.0` or higher.
+
 1. **Clone the repository:**
 
     ```bash
