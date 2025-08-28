@@ -26,7 +26,7 @@ export const useToc = (contentSelector: string, pathname: string) => {
     scrollRef.current = contentElement as HTMLElement; // Type assertion
 
     const headings = Array.from(
-      contentElement.querySelectorAll('h2, h3') // Include h3 again
+      contentElement.querySelectorAll('h1, h2, h3') // Include h1, h2, h3
     ) as HTMLHeadingElement[]
 
     const tocEntries: TocEntry[] = []

@@ -50,6 +50,7 @@
     /* Custom variables for modal overlay */
     --overlay: 0 0% 0% / 0.6;
     /* HSL for rgba(0,0,0,0.6) */
+    --viewport-padding: 1.5rem; /* Added for toast animations */
   }
 
   .dark {
@@ -93,6 +94,7 @@
     /* Custom variables for modal overlay */
     --overlay: 0 0% 0% / 0.7;
     /* HSL for rgba(0,0,0,0.7) */
+    --viewport-padding: 1.5rem; /* Added for toast animations */
   }
 }
 

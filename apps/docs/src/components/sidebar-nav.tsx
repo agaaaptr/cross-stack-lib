@@ -14,6 +14,7 @@ const navItems = [
     children: [
       { title: "Installation", href: "/getting-started/installation" },
       { title: "Usage", href: "/getting-started/usage" },
+      { title: "Suggest a Feature", href: "/getting-started/suggest-feature" },
     ],
   },
   {

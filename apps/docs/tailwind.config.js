@@ -84,6 +84,31 @@ module.exports = {
           '0%, 100%': { backgroundPosition: 'calc(-100% - 1rem) 0' },
           '50%': { backgroundPosition: 'calc(100% + 1rem) 0' },
         },
+        // Toast animations
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "fade-out": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        "slide-in-from-right": {
+          from: { transform: "translateX(calc(100% + var(--viewport-padding)))" },
+          to: { transform: "translateX(0)" },
+        },
+        "slide-out-to-right": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(100% + var(--viewport-padding)))" },
+        },
+        "slide-in-from-bottom": {
+          from: { transform: "translateY(calc(100% + var(--viewport-padding)))" },
+          to: { transform: "translateY(0)" },
+        },
+        "slide-out-to-bottom": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(100% + var(--viewport-padding)))" },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -91,8 +116,15 @@ module.exports = {
         'fade-in': 'fade-in 0.5s ease-in-out',
         'slide-in-from-top': 'slide-in-from-top 0.5s ease-in-out',
         shimmer: 'shimmer 2s ease-in-out infinite',
+        // Toast animations
+        "fade-in": "fade-in 0.4s ease-out",
+        "fade-out": "fade-out 0.4s ease-out",
+        "slide-in-from-right": "slide-in-from-right 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        "slide-out-to-right": "slide-out-to-right 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        "slide-in-from-bottom": "slide-in-from-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        "slide-out-to-bottom": "slide-out-to-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
 };
