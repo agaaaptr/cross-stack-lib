@@ -1,6 +1,6 @@
 {
   "name": "cross-stack-lib",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A cross-stack UI component library built with Lit and Vite.",
   "main": "dist/cross-stack-lib.umd.js",
   "module": "dist/cross-stack-lib.es.js",

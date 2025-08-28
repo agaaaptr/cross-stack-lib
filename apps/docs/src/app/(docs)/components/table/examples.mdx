@@ -50,7 +50,6 @@ export default function FullFeaturedTable() {
     <XStackTable
       columns={columns}
       data={data}
-      pageSize={3}
       // Set these to false to hide the controls
       showSearch={true}
       showPageSize={true}
@@ -68,9 +67,9 @@ export default function FullFeaturedTable() {
       title="Sample Table"
       :data="tableData"
       :columns="tableColumns"
-      :showPagination="false"
-      :showSearch="false"
-      :showPageSize="false"
+      :showPagination="true"
+      :showSearch="true"
+      :showPageSize="true"
     >
     </XStackTableWrapper>
   </div>
@@ -108,7 +107,6 @@ import { Component } from '@angular/core';
     <xstack-table
       [columns]="columns"
       [data]="data"
-      [pageSize]="3"
       [showSearch]="true"
       [showPageSize]="true"
       [showPagination]="true"

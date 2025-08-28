@@ -9,7 +9,10 @@ const XStackTableComponent = createComponent({
   react: React,
   tagName: 'xstack-table',
   elementClass: XStackTableWC,
-  events: {},
+  events: {
+    onSearch: 'search',
+    onPageChange: 'pageChange',
+  },
 });
 
 const XStackModalComponent = createComponent({

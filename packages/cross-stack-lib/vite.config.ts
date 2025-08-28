@@ -15,6 +15,7 @@ export default defineConfig({
         globals: {
           lit: 'lit',
           'lit/decorators.js': 'litDecorators',
+          'lit/directives/class-map.js': 'litDirectivesClassMap',
         },
       },
     }

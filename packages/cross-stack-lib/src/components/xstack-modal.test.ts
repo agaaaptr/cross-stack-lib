@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import './xstack-modal';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { XStackModal } from '../src/components/xstack-modal';
+import { XStackModal } from '../components/xstack-modal';
 
 describe('XStackModal', () => {
   let element: XStackModal;

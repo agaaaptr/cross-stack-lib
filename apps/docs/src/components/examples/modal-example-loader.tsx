@@ -7,6 +7,6 @@ export const ModalExampleLoader = dynamic(
   () => import('@/components/examples/modal-example'),
   {
     ssr: false,
-    loading: () => <Skeleton className="w-24 h-10" />,
+    loading: () => <Skeleton className="w-full h-40 rounded-lg" />,
   }
 );

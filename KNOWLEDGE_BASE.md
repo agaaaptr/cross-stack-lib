@@ -85,6 +85,6 @@ Karena masalah ini sangat sulit dipecahkan dan tidak memengaruhi fungsionalitas 
 2.  **Hapus Sementara `cross-stack-lib` dari `package.json`:** Ini memungkinkan `npm install` berikutnya berhasil untuk dependensi publik.
 3.  **Instal Dependensi Publik:** `npm install` (di dalam direktori proyek contoh).
 4.  **Tambahkan Kembali `cross-stack-lib` ke `package.json`:** (secara manual atau dengan perintah `npm install cross-stack-lib`).
-5.  **Instal `cross-stack-lib` dari Verdaccio:** `npm install cross-stack-lib@1.0.2 --registry http://localhost:4873` (di dalam direktori proyek contoh).
+5.  **Instal `cross-stack-lib` dari Verdaccio:** `npm install cross-stack-lib@1.0.3 --registry http://localhost:4873` (di dalam direktori proyek contoh).
 
 **Penting:** Jangan pernah mengubah konfigurasi registry npm global atau proyek Anda menggunakan `npm config set registry ...`. Selalu gunakan flag `--registry` untuk instalasi dari Verdaccio.

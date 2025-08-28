@@ -197,7 +197,7 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Corrected all component API documentation (`/components/table/api.mdx`, `/components/modal/api.mdx`) to reflect the actual properties, events, and slots.
     * [x] Modernized all code examples (`/components/table/examples.mdx`, etc.) to use current best practices (e.g., direct property binding instead of stringified JSON).
     * [x] Updated installation and usage guides (`/getting-started/*`) to be more accurate and provide better, framework-specific instructions, especially for Vue.js wrapper components.
-  * [x] **Project Document Alignment**: Updated high-level project documents (`README.md`, `KNOWLEDGE_BASE.md`) to reflect the current project status, correct package names, and provide accurate examples, including the `cross-stack-lib` version `1.0.2`.
+  * [x] **Project Document Alignment**: Updated high-level project documents (`README.md`, `KNOWLEDGE_BASE.md`) to reflect the current project status, correct package names, and provide accurate examples, including the `cross-stack-lib` version `1.0.3`.
 
 * [x] **Checkpoint 25: Vue.js Integration Enhancements (Completed)**
   * [x] **Wrapper Components**: Introduced dedicated Vue wrapper components (`XStackTableWrapper.vue`, `XStackModalWrapper.vue`) to ensure robust slot content projection and consistent behavior when using XStack Web Components in Vue.js applications.

@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import './xstack-table';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { XStackTable } from '../src/components/xstack-table';
+import { XStackTable } from '../components/xstack-table';
 
 describe('XStackTable', () => {
   let element: XStackTable;
@@ -14,6 +14,11 @@ describe('XStackTable', () => {
 
   it('renders with default values', async () => {
     await element.updateComplete;
-    expect(element.shadowRoot.querySelector('table')).toBeInTheDocument();
+    expect(element.shadowRoot).not.toBeNull();
+    const table = element.shadowRoot!.querySelector('table');
+    expect(table).not.toBeNull();
+    if (table) {
+      expect(table.isConnected).toBe(true);
+    }
   });
 });

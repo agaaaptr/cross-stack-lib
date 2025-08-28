@@ -39,10 +39,9 @@ export default function HomePage() {
         <XStackTable
           columns={tableColumns}
           data={tableData}
-          pageSize={2}
           showSearch={true}
-          showPageSize={false}
-          showPagination={false}
+          showPageSize={true}
+          showPagination={true}
         />
       </div>
 

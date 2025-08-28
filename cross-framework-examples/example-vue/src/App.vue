@@ -33,7 +33,7 @@ const handleModalClose = () => {
     <div style="margin: 2rem 0;">
       <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Table Example</h2>
       <XStackTableWrapper title="Sample Table" :data="tableData" :columns="tableColumns"
-        :showPagination="false" :showSearch="false" :showPageSize="false">
+        :showPagination="true" :showSearch="true" :showPageSize="true">
       </XStackTableWrapper>
     </div>
 
