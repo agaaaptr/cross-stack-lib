@@ -20,18 +20,22 @@ export function Header() {
 
         <MobileNav />
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <div className="flex flex-1 items-center justify-between md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <SearchCommand />
           </div>
-          <nav className="flex items-center">
-            <Button variant="ghost" size="icon" asChild>
+          <nav className="flex items-center ml-2">
+            <Button
+              variant="outline"
+              className="h-9 w-9 rounded-[0.5rem] p-0"
+              asChild
+            >
               <a href="https://github.com/agaaaptr/cross-stack-lib" target="_blank" rel="noopener noreferrer">
-                <GitHubLogoIcon className="h-6 w-6" />
+                <GitHubLogoIcon className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </a>
             </Button>
-            <ThemeToggle />
+            <ThemeToggle className="ml-2" />
           </nav>
         </div>
       </div>

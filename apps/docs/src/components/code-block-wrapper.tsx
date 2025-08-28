@@ -10,13 +10,12 @@ interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function CodeBlockWrapper({ children, ...props }: CodeBlockProps) {
   const [isCopied, setIsCopied] = React.useState(false)
+  const codeRef = React.useRef<HTMLDivElement>(null); // Added ref
 
   const onCopy = () => {
-    if (typeof window === 'undefined' || !children) return
-    // Find the actual code text within the pre element, ignoring line numbers or other elements added by rehype-pretty-code
-    const codeElement = document.createElement('div');
-    codeElement.innerHTML = React.Children.toArray(children).join('');
-    const codeString = codeElement.querySelector('code')?.textContent || '';
+    if (typeof window === 'undefined' || !codeRef.current) return // Check codeRef.current
+
+    const codeString = codeRef.current.textContent || ''; // Get textContent from ref
 
     navigator.clipboard.writeText(codeString).then(() => {
       setIsCopied(true)
@@ -25,7 +24,7 @@ export function CodeBlockWrapper({ children, ...props }: CodeBlockProps) {
   }
 
   return (
-    <div className="relative" {...props}>
+    <div className="relative rounded-lg border bg-card dark:bg-card" {...props}> {/* Background/border here */} 
       <div className="absolute top-2 right-2 z-10">
         <Button variant="ghost" size="icon" onClick={onCopy} className="hover:text-foreground">
           {isCopied ? (
@@ -36,7 +35,9 @@ export function CodeBlockWrapper({ children, ...props }: CodeBlockProps) {
           <span className="sr-only">Copy to clipboard</span>
         </Button>
       </div>
-      {children}
+      <div ref={codeRef} className="overflow-x-auto bg-[hsl(var(--code-block-background))] p-4 rounded-lg" style={{ whiteSpace: 'pre', height: 'auto' }}> {/* Added ref */} 
+        {children} {/* This children is the raw code content */} 
+      </div>
     </div>
   )
 }

@@ -9,27 +9,37 @@
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
- 
+
     --primary: 262.1 83.3% 57.8%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 215.4 16.3% 46.9%;
- 
-    --muted: 215.4 16.3% 56.9%; /* Adjusted for better visibility */
+
+    --muted: 215.4 16.3% 56.9%;
+    /* Adjusted for better visibility */
     --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --accent: 210 40% 90%; /* Adjusted for better visibility */
+
+    --accent: 210 40% 90%;
+    /* Adjusted for better visibility */
     --accent-foreground: 215.4 16.3% 46.9%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 85%; /* Slightly lighter border */
-    --input: 214.3 31.8% 95%; /* Slightly lighter input border */
+    --info: 217.2 91.2% 59.8%; /* Matched modal info accent */
+    --info-foreground: 210 40% 98%; /* White */
+
+    --warning: 38.9 92.3% 50.8%; /* Matched modal warning accent */
+    --warning-foreground: 210 40% 98%; /* White */
+
+    --border: 214.3 31.8% 75%;
+    /* Adjusted for better visibility in light mode */
+    --input: 214.3 31.8% 80%;
+    /* Slightly lighter input border */
     --ring: 262.1 83.3% 57.8%;
 
     --radius: 0.5rem;
@@ -38,34 +48,41 @@
     --code-block-background: 220 10% 20%;
 
     /* Custom variables for modal overlay */
-    --overlay: 0 0% 0% / 0.6; /* HSL for rgba(0,0,0,0.6) */
+    --overlay: 0 0% 0% / 0.6;
+    /* HSL for rgba(0,0,0,0.6) */
   }
- 
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
- 
+
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
- 
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
- 
+
     --primary: 263.4 95.2% 66.3%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
- 
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
- 
+
+    --info: 217.2 91.2% 59.8%; /* Matched modal info accent */
+    --info-foreground: 210 40% 98%;
+
+    --warning: 38.9 92.3% 50.8%; /* Matched modal warning accent */
+    --warning-foreground: 210 40% 98%;
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 263.4 95.2% 66.3%;
@@ -74,7 +91,8 @@
     --code-block-background: 220 10% 15%;
 
     /* Custom variables for modal overlay */
-    --overlay: 0 0% 0% / 0.7; /* HSL for rgba(0,0,0,0.7) */
+    --overlay: 0 0% 0% / 0.7;
+    /* HSL for rgba(0,0,0,0.7) */
   }
 }
 
@@ -82,6 +100,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -89,9 +108,9 @@
 
   /* Custom styles for code blocks */
   pre {
-    background-color: hsl(var(--code-block-background)) !important; /* Added !important */
     border-radius: var(--radius);
-    padding: 1rem; /* Adjust as needed */
+    padding: 1rem;
+    /* Adjust as needed */
   }
 
   .prose pre,
@@ -101,14 +120,16 @@
   }
 
   /* Remove highlight/block effect for inline code and code within pre */
-  :not(pre) > code {
-    background-color: transparent !important; /* Remove background for inline code */
+  :not(pre)>code {
+    background-color: transparent !important;
+    /* Remove background for inline code */
     padding: 0 !important;
     border-radius: 0 !important;
   }
 
   pre code {
-    background-color: transparent !important; /* Ensure code inside pre doesn't have its own background */
+    background-color: transparent !important;
+    /* Ensure code inside pre doesn't have its own background */
     padding: 0 !important;
     border-radius: 0 !important;
   }

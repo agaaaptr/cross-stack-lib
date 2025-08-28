@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types';
+import React from 'react';
 import { CodeBlockWrapper } from '@/components/code-block-wrapper';
 import { SourceCodeToggle } from '@/components/source-code-toggle';
 
@@ -43,22 +44,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     li: ({ children }) => <li>{children}</li>,
     a: ({ children, href }) => <a href={href} className="font-medium text-primary underline underline-offset-4">{children}</a>,
     pre: ({ children, className, ...props }) => {
-      const preElement = (
+      const wrapper = (
         <CodeBlockWrapper>
-          <pre
-            className={`max-h-[650px] rounded-lg border bg-card dark:bg-card ${className || ''}`}
-            {...props}
-          >
-            {children}
-          </pre>
+          {children}
         </CodeBlockWrapper>
       );
 
       if (className?.includes('raw')) {
-        return preElement;
+        return wrapper;
       }
 
-      return <SourceCodeToggle>{preElement}</SourceCodeToggle>;
+      return <SourceCodeToggle>{wrapper}</SourceCodeToggle>;
     },
     code: ({ children }) => <code className="relative font-mono text-sm font-semibold">{children}</code>,
     table: ({ children }) => <div className="my-6 w-full overflow-y-auto"><table className="w-full">{children}</table></div>,
