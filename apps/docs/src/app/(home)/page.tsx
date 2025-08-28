@@ -21,10 +21,10 @@ export default function HomePage() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="min-w-[180px]">
-              <a href="mailto:suggestion@example.com">
+              <Link href="/getting-started/suggest-feature">
                 <InfoCircledIcon className="mr-2 h-5 w-5" />
                 Suggest a Feature
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

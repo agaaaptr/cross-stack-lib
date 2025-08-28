@@ -206,6 +206,31 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] **Styling Enhancements**: Added general button styling to `main.css` in `example-vue` for improved UI consistency.
   * [x] **Example Updates**: Refactored `App.vue` in `example-vue` to utilize the new wrapper components and showcase updated table and modal examples.
 
+* [x] **Checkpoint 26: Feature Suggestion Page & Toast Notification System (Completed)**
+  * [x] **Implementasi Halaman Saran Fitur**:
+      * [x] Mengimplementasikan halaman "Saran Fitur" baru (`apps/docs/src/app/(docs)/getting-started/suggest-feature/page.mdx`).
+      * [x] Membuat komponen formulir khusus (`apps/docs/src/components/suggestion-form.tsx`) untuk masukan pengguna.
+      * [x] Mengintegrasikan Formspree untuk pengiriman formulir asinkron.
+      * [x] Memperbarui bilah sisi (`apps/docs/src/components/sidebar-nav.tsx`) dan navigasi seluler (`apps/docs/src/components/mobile-nav.tsx`) untuk menyertakan tautan halaman baru.
+      * [x] Memastikan animasi transisi halaman dengan menambahkan komponen PageTransition ke `page.mdx`.
+      * [x] Memperbarui pelacakan Daftar Isi (TOC) untuk menyertakan judul h1 di `apps/docs/src/lib/use-toc.ts`.
+      * [x] Menyesuaikan lebar formulir untuk presentasi visual yang lebih baik (`max-w-4xl`).
+  * [x] **Implementasi Sistem Notifikasi Toast**:
+      * [x] Mengembangkan sistem notifikasi toast kustom (`apps/docs/src/components/ui/toast.tsx`, `apps/docs/src/components/ui/use-toast.ts`, `apps/docs/src/components/ui/toaster.tsx`).
+      * [x] Mengintegrasikan komponen Toaster ke dalam tata letak root (`apps/docs/src/app/layout.tsx`).
+      * [x] Memodifikasi pengiriman formulir untuk menampilkan notifikasi toast saat berhasil/gagal alih-alih mengalihkan.
+      * [x] Menambahkan komponen UI `label.tsx` dan `textarea.tsx` yang hilang.
+      * [x] Menginstal dependensi yang diperlukan: `@radix-ui/react-label`, `@radix-ui/react-toast`, `tailwindcss-animate`.
+      * [x] Mengkonfigurasi plugin `tailwindcss-animate` di `apps/docs/tailwind.config.js`.
+      * [x] Menyempurnakan animasi toast:
+          * [x] Memperbaiki posisi toast ke kanan atas.
+          * [x] Menyesuaikan tata letak toast (penyelarasan ikon, judul, deskripsi).
+          * [x] Menyesuaikan durasi animasi dan fungsi easing untuk animasi slide yang lebih halus (meningkatkan durasi menjadi 1.5s).
+          * [x] Memastikan arah animasi masuk/keluar yang konsisten (meluncur dari/ke kanan).
+          * [x] Menyesuaikan durasi tampilan toast (`TOAST_REMOVE_DELAY` menjadi 5000ms).
+      * [x] Menerapkan gaya mode gelap yang ditargetkan ke `input.tsx` dan `textarea.tsx` untuk garis luar yang terlihat tanpa memengaruhi gaya global.
+  * [x] **Verifikasi**: Semua pemeriksaan lint dan build berhasil.
+
 * [x] **Checkpoint 20: Isolated Example Projects with Verdaccio (Completed)**
   * [x] **Verdaccio Setup**: Installed Verdaccio globally via npm and started the local npm registry server.
   * [x] **Library Publishing**: Successfully built and published the `cross-stack-lib` package to the local Verdaccio registry.

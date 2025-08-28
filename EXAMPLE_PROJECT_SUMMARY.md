@@ -166,7 +166,7 @@ The project will typically run on `http://localhost:3000`.
     Next, install `cross-stack-lib` from the local Verdaccio registry using the `--registry` flag:
 
     ```bash
-    npm install cross-stack-lib@1.0.2 --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.3 --registry http://localhost:4873
     ```
 
 2. **Register Components in `src/main.ts`**:
@@ -321,7 +321,7 @@ The project will typically run on `http://localhost:4200`.
     Next, install `cross-stack-lib` from the local Verdaccio registry using the `--registry` flag:
 
     ```bash
-    npm install cross-stack-lib@1.0.2 --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.3 --registry http://localhost:4873
     ```
 
 2. **Configure `src/main.js`**:
