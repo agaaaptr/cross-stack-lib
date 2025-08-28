@@ -15,18 +15,21 @@ For consistency, all projects were set up and built using Node.js `v22.17.0`.
 
 ### Integration Steps
 
-1.  **Dependency Installation**:
+1. **Dependency Installation**:
     First, navigate to the `example-react` directory and install the default project dependencies from the public npm registry:
+
     ```bash
     cd example-react
     npm install
     ```
+
     Next, install `cross-stack-lib` from the local Verdaccio registry and `@lit-labs/react` for integration. The `--registry` flag is used to target the local registry for these specific packages without changing the default configuration.
+
     ```bash
-    npm install cross-stack-lib @lit-labs/react --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.2 @lit-labs/react --registry http://localhost:4873
     ```
 
-2.  **Create Lit Wrappers (`src/components/LitWrappers.tsx`)**:
+2. **Create Lit Wrappers (`src/components/LitWrappers.tsx`)**:
     Create the file `example-react/src/components/LitWrappers.tsx` and add the following code. This file creates React components that wrap the Web Components from `cross-stack-lib`, making them usable in React.
 
     ```typescript
@@ -57,7 +60,7 @@ For consistency, all projects were set up and built using Node.js `v22.17.0`.
     });
     ```
 
-3.  **Implement Display in `src/app/page.tsx`**:
+3. **Implement Display in `src/app/page.tsx`**:
     Replace the entire content of `example-react/src/app/page.tsx` with the following code. This page demonstrates the usage of `XStackTable` and `XStackModal` components.
 
     ```typescript
@@ -152,18 +155,21 @@ The project will typically run on `http://localhost:3000`.
 
 ### Integration Steps
 
-1.  **Dependency Installation**:
+1. **Dependency Installation**:
     First, navigate to the `example-angular` directory and install the default project dependencies:
+
     ```bash
     cd example-angular
     npm install
     ```
+
     Next, install `cross-stack-lib` from the local Verdaccio registry using the `--registry` flag:
+
     ```bash
-    npm install cross-stack-lib --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.2 --registry http://localhost:4873
     ```
 
-2.  **Register Components in `src/main.ts`**:
+2. **Register Components in `src/main.ts`**:
     Add the `cross-stack-lib` import to `example-angular/src/main.ts` to ensure Web Components are registered in the browser:
 
     ```typescript
@@ -178,7 +184,7 @@ The project will typically run on `http://localhost:3000`.
       .catch(err => console.error(err));
     ```
 
-3.  **Allow Custom Elements in `src/app/app-module.ts`**:
+3. **Allow Custom Elements in `src/app/app-module.ts`**:
     Modify `example-angular/src/app/app-module.ts` to import `CUSTOM_ELEMENTS_SCHEMA` and add it to the `schemas` array in your `AppModule`. This tells Angular to recognize custom elements.
 
     ```typescript
@@ -206,7 +212,7 @@ The project will typically run on `http://localhost:3000`.
     export class AppModule { }
     ```
 
-4.  **Implement Component Logic in `src/app/app.ts`**:
+4. **Implement Component Logic in `src/app/app.ts`**:
     Replace the entire content of `example-angular/src/app/app.ts` with the following code. Note that the component class is named `App` to match the import in `app-module.ts`.
 
     ```typescript
@@ -246,7 +252,7 @@ The project will typically run on `http://localhost:3000`.
     }
     ```
 
-5.  **Implement Component Template in `src/app/app.html`**:
+5. **Implement Component Template in `src/app/app.html`**:
     Replace the entire content of `example-angular/src/app/app.html` with the following template code.
 
     ```html
@@ -265,6 +271,9 @@ The project will typically run on `http://localhost:3000`.
           [columns]="tableColumns"
           [data]="tableData"
           [pageSize]="2"
+          [showSearch]="false"
+          [showPageSize]="false"
+          [showPagination]="false"
         ></xstack-table>
       </div>
 
@@ -277,6 +286,7 @@ The project will typically run on `http://localhost:3000`.
         <p slot="body">This modal is running in an Angular application.</p>
         <div slot="footer" style="display: flex; justify-content: flex-end;">
           <button (click)="closeModal()">Close</button>
+          <button (click)="closeModal()" data-variant="primary">OK</button>
         </div>
       </xstack-modal>
     </main>
@@ -300,61 +310,111 @@ The project will typically run on `http://localhost:4200`.
 
 ### Integration Steps
 
-1.  **Dependency Installation**:
+1. **Dependency Installation**:
     First, navigate to the `example-vue` directory and install the default project dependencies:
+
     ```bash
     cd example-vue
     npm install
     ```
+
     Next, install `cross-stack-lib` from the local Verdaccio registry using the `--registry` flag:
+
     ```bash
-    npm install cross-stack-lib --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.2 --registry http://localhost:4873
     ```
 
-2.  **Configure `src/main.js`**:
+2. **Configure `src/main.js`**:
     Modify `example-vue/src/main.js` to import `cross-stack-lib` and tell Vue to recognize custom elements prefixed with `xstack-`.
 
     ```javascript
     // src/main.js
     import './assets/main.css'
-    import 'cross-stack-lib' // <-- Tambahkan baris ini
+    import 'cross-stack-lib' // Import the library to register the components
 
     import { createApp } from 'vue'
     import App from './App.vue'
 
     const app = createApp(App)
 
-    // Beri tahu Vue untuk tidak mencoba me-resolve tag yang diawali 'xstack-'
-    app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-') // <-- Tambahkan baris ini
+    // Tell Vue not to try to resolve tags starting with 'xstack-'
+    app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-')
 
     app.mount('#app')
     ```
 
-3.  **Implement Display in `src/App.vue`**:
-    Replace the entire content of `example-vue/src/App.vue` with the following code. This page demonstrates the usage of `xstack-table` and `xstack-modal` components.
+3. **Create Vue Wrapper Components:**
+    For robust slot content projection and consistent behavior, it is highly recommended to create simple Vue wrapper components for each XStack Web Component you use. These wrappers will explicitly pass attributes and slots to the underlying Web Component.
+
+    Create files like `XStackTableWrapper.vue` and `XStackModalWrapper.vue` (e.g., in `src/components/`):
+
+    **`src/components/XStackTableWrapper.vue`:**
+
+    ```vue
+    <template>
+      <xstack-table v-bind="$attrs">
+        <!-- Explicitly pass named slots -->
+        <slot name="header" slot="header"></slot>
+        <slot name="body" slot="body"></slot>
+        <slot name="footer" slot="footer"></slot>
+        <!-- Pass default slot if any -->
+        <slot></slot>
+      </xstack-table>
+    </template>
+
+    <script setup>
+    // This component acts as a simple wrapper to ensure Vue correctly passes
+    // all attributes (props, events) to the underlying web component.
+    // It uses v-bind="$attrs" to pass all inherited attributes.
+    </script>
+    ```
+
+    **`src/components/XStackModalWrapper.vue`:**
+
+    ```vue
+    <template>
+      <xstack-modal v-bind="$attrs">
+        <!-- Explicitly pass named slots -->
+        <slot name="header" slot="header"></slot>
+        <slot name="body" slot="body"></slot>
+        <slot name="footer" slot="footer"></slot>
+        <!-- Pass default slot if any -->
+        <slot></slot>
+      </xstack-modal>
+    </template>
+
+    <script setup>
+    // This component acts as a simple wrapper to ensure Vue correctly passes
+    // all attributes (props, events) to the underlying web component.
+    // It uses v-bind="$attrs" to pass all inherited attributes.
+    </script>
+    ```
+
+4. **Implement Display in `src/App.vue`**:
+    Replace the entire content of `example-vue/src/App.vue` with the following code. This page demonstrates the usage of `XStackTable` and `XStackModal` components.
 
     ```html
     <!-- src/App.vue -->
     <script setup>
     import { ref } from 'vue';
+    import XStackTableWrapper from './components/XStackTableWrapper.vue';
+    import XStackModalWrapper from './components/XStackModalWrapper.vue';
 
-    // State untuk modal
-    const isModalOpen = ref(false);
-
-    // Data untuk tabel
+    const showModal = ref(false);
+    const modalText = ref('This is the body of the modal. It is now dynamic!');
     const tableData = ref([
-      { id: 1, framework: 'React', year: 2013, creator: 'Facebook' },
-      { id: 2, framework: 'Angular', year: 2016, creator: 'Google' },
-      { id: 3, framework: 'Vue', year: 2014, creator: 'Evan You' },
-      { id: 4, framework: 'Svelte', year: 2016, creator: 'Rich Harris' },
+      { id: 1, name: 'John Doe', age: 30 },
+      { id: 2, name: 'Jane Doe', age: 25 },
     ]);
-
     const tableColumns = ref([
       { key: 'id', label: 'ID' },
-      { key: 'framework', label: 'Framework' },
-      { key: 'year', label: 'Year' },
-      { key: 'creator', label: 'Creator' },
+      { key: 'name', label: 'Name' },
+      { key: 'age', label: 'Age' },
     ]);
+
+    const handleModalClose = () => {
+      showModal.value = false;
+    };
     </script>
 
     <template>
@@ -363,29 +423,30 @@ The project will typically run on `http://localhost:4200`.
 
         <div style="margin: 2rem 0;">
           <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Modal Example</h2>
-          <button @click="isModalOpen = true">Open Modal</button>
+          <button @click="showModal = true">Open Modal</button>
         </div>
 
         <div style="margin: 2rem 0;">
           <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Table Example</h2>
-          <xstack-table
-            :columns="tableColumns"
+          <XStackTableWrapper
+            title="Sample Table"
             :data="tableData"
-            :page-size="2"
-          ></xstack-table>
+            :columns="tableColumns"
+            :showPagination="false"
+            :showSearch="false"
+            :showPageSize="false"
+          >
+          </XStackTableWrapper>
         </div>
 
-        <xstack-modal
-          :open="isModalOpen"
-          @close="isModalOpen = false"
-          type="danger"
-        >
-          <template v-slot:header><h2>Hello from XStack Modal!</h2></template>
-          <template v-slot:body><p>This modal is running in a Vue.js application.</p></template>
-          <template v-slot:footer><div style="display: flex; justify-content: flex-end;">
-            <button @click="isModalOpen = false">Close</button>
-          </div></template>
-        </xstack-modal>
+        <XStackModalWrapper :open="showModal" @close="handleModalClose" type="info">
+          <h2 slot="header">Sample Modal</h2>
+          <p slot="body" v-html="modalText"></p>
+          <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+            <button @click="showModal = false">Close</button>
+            <button @click="showModal = false" data-variant="primary">OK</button>
+          </div>
+        </XStackModalWrapper>
       </main>
     </template>
     ```

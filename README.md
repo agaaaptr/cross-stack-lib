@@ -131,5 +131,13 @@ For each project (e.g., `cross-framework-examples/example-angular`):
 
 ---
 
+**Important Notes:**
+
+*   **Vue Integration:** The Vue integration has been significantly improved for robust slot content projection. It now utilizes wrapper components and explicit `slot` attribute usage. Refer to the updated documentation for detailed setup.
+*   **Component Styling:** The `xstack-modal` component's slot styling has been refined to correctly apply styles to nested elements within slots.
+*   **Version Update:** The `cross-stack-lib` has been updated to version `1.0.2`.
+
+---
+
 **Important Note on Git:**
 The Git repositories for all three example projects (`.git` directories) have been removed to ensure they run purely locally without version control interference.
