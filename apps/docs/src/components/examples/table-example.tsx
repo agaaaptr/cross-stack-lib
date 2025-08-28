@@ -1,6 +1,7 @@
 'use client';
 
 import { XStackTable } from '@/LitWrappers';
+import { motion } from 'framer-motion';
 
 export default function TableExample() {
   const data = [
@@ -20,13 +21,19 @@ export default function TableExample() {
   ];
 
   return (
-    <XStackTable
-      columns={columns}
-      data={data}
-      pageSize={3}
-      showSearch={true}
-      showPageSize={true}
-      showPagination={true}
-    />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <XStackTable
+        columns={columns}
+        data={data}
+        pageSize={3}
+        showSearch={true}
+        showPageSize={true}
+        showPagination={true}
+      />
+    </motion.div>
   );
 }

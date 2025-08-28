@@ -31,7 +31,7 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
   const tabOrder: Framework[] = ['react', 'vue', 'angular'];
 
   return (
-    <div className="my-4">
+    <motion.div layout className="my-4">
       <Button variant="outline" onClick={() => setIsSourceVisible(!isSourceVisible)} className="mb-4">
         {isSourceVisible ? 'Hide Source' : 'View Source'}
       </Button>
@@ -39,13 +39,14 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
       <AnimatePresence>
         {isSourceVisible && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
+            style={{ overflow: 'hidden' }}
           >
-            <div className="mt-4 mb-8"> {/* Added mb-8 */} 
-              <div className="flex items-center gap-2 mb-8"> {/* Changed mb-2 to mb-8 */} 
+            <div className="mt-4 mb-8"> 
+              <div className="flex items-center gap-2 mb-8"> 
                 {tabOrder.map(framework => (
                   tabs[framework] && (
                     <Button
@@ -60,11 +61,11 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
                 ))}
               </div>
               <SourceCodeToggleContext.Provider value={true}>
-                <div className="-mt-2"> {/* Removed grid classes */} 
-                  <AnimatePresence mode="wait"> {/* Added AnimatePresence for tab content */} 
+                <div className="-mt-2"> 
+                  <AnimatePresence mode="wait"> 
                     {tabs[activeTab] && (
                       <motion.div
-                        key={activeTab} // Key is crucial for AnimatePresence to detect changes
+                        key={activeTab}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
@@ -80,6 +81,6 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

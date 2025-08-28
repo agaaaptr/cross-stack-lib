@@ -80,12 +80,17 @@ module.exports = {
           '0%': { transform: 'translateY(-20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        shimmer: {
+          '0%, 100%': { backgroundPosition: 'calc(-100% - 1rem) 0' },
+          '50%': { backgroundPosition: 'calc(100% + 1rem) 0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         'slide-in-from-top': 'slide-in-from-top 0.5s ease-in-out',
+        shimmer: 'shimmer 2s ease-in-out infinite',
       },
     },
   },
