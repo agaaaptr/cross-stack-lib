@@ -65,30 +65,27 @@ export default function ModalExample() {
 ```html
 <template>
   <div>
-    <button @click="isOpen = true">Open Info Modal</button>
-    <xstack-modal
-      :open="isOpen"
+    <button @click="showModal = true">Open Info Modal</button>
+    <XStackModalWrapper
+      :open="showModal"
       type="info"
-      @close="isOpen = false"
+      @close="showModal = false"
     >
       <h2 slot="header">Information</h2>
       <p slot="body">This is an informational message.</p>
       <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
-        <button @click="isOpen = false">Cancel</button>
-        <button @click="isOpen = false">OK</button>
+        <button @click="showModal = false">Cancel</button>
+        <button @click="showModal = false" data-variant="primary">OK</button>
       </div>
-    </xstack-modal>
+    </XStackModalWrapper>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-};
+<script setup>
+import { ref } from 'vue';
+import XStackModalWrapper from '@/components/XStackModalWrapper.vue'; // Assuming path
+
+const showModal = ref(false);
 </script>
 ```
 </div>

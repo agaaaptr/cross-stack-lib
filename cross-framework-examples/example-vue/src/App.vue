@@ -1,25 +1,24 @@
 <!-- src/App.vue -->
 <script setup>
 import { ref } from 'vue';
+import XStackTableWrapper from './components/XStackTableWrapper.vue';
+import XStackModalWrapper from './components/XStackModalWrapper.vue';
 
-// State untuk modal
-const isModalOpen = ref(false);
-
-// Data untuk tabel
+const showModal = ref(false);
+const modalText = ref('This is the body of the modal. It is now dynamic!');
 const tableData = ref([
-  { id: 1, framework: 'React', year: 2013, creator: 'Facebook' },
-  { id: 2, framework: 'Angular', year: 2016, creator: 'Google' },
-  { id: 3, framework: 'Vue', year: 2014, creator: 'Evan You' },
-  { id: 4, framework: 'Svelte', year: 2016, creator: 'Rich Harris' },
+  { id: 1, name: 'John Doe', age: 30 },
+  { id: 2, name: 'Jane Doe', age: 25 },
 ]);
-
 const tableColumns = ref([
   { key: 'id', label: 'ID' },
-  { key: 'framework', label: 'Framework' },
-  { key: 'year', label: 'Year' },
-  { key: 'creator', label: 'Creator' },
+  { key: 'name', label: 'Name' },
+  { key: 'age', label: 'Age' },
 ]);
 
+const handleModalClose = () => {
+  showModal.value = false;
+};
 </script>
 
 <template>
@@ -28,27 +27,23 @@ const tableColumns = ref([
 
     <div style="margin: 2rem 0;">
       <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Modal Example</h2>
-      <button @click="isModalOpen = true">Open Modal</button>
+      <button @click="showModal = true">Open Modal</button>
     </div>
 
     <div style="margin: 2rem 0;">
       <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Table Example</h2>
-      <xstack-table :columns="tableColumns" :data="tableData" :page-size="2" :show-search="true" :show-pagination="true"
-        :show-page-size="false"></xstack-table>
+      <XStackTableWrapper title="Sample Table" :data="tableData" :columns="tableColumns"
+        :showPagination="false" :showSearch="false" :showPageSize="false">
+      </XStackTableWrapper>
     </div>
 
-    <xstack-modal :open="isModalOpen" @close="isModalOpen = false" type="danger">
-      <template v-slot:header>
-        <h2>Hello from XStack Modal!</h2>
-      </template>
-      <template v-slot:body>
-        <p>This modal is running in a Vue.js application.</p>
-      </template>
-      <template v-slot:footer>
-        <div style="display: flex; justify-content: flex-end;">
-          <button @click="isModalOpen = false">Close</button>
-        </div>
-      </template>
-    </xstack-modal>
+    <XStackModalWrapper :open="showModal" @close="handleModalClose" type="info">
+      <h2 slot="header">Sample Modal</h2>
+      <p slot="body" v-html="modalText"></p>
+      <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button @click="showModal = false">Close</button>
+        <button @click="showModal = false" data-variant="primary">OK</button>
+      </div>
+    </XStackModalWrapper>
   </main>
 </template>

@@ -96,7 +96,7 @@ export class XStackModal extends LitElement {
       <div class="modal-overlay" @click="${this._handleOverlayClick}">
         <div class="modal-content ${this.type}" role="dialog" aria-modal="true">
           <div class="modal-header">
-            <slot name="header">Modal Title</slot>
+            <slot name="header"></slot>
           </div>
           <button class="close-button" @click="${this._closeModal}" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -104,7 +104,7 @@ export class XStackModal extends LitElement {
             </svg>
           </button>
           <div class="modal-body">
-            <slot name="body">This is the modal body.</slot>
+            <slot name="body"></slot>
           </div>
           <div class="modal-footer">
             <slot name="footer"></slot>

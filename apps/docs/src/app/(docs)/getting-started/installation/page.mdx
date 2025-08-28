@@ -77,22 +77,124 @@ import { PageTransition } from "@/components/page-transition";
 
     ### Vue.js
 
-    Vue.js has excellent native support for Web Components. You just need to tell Vue to treat `xstack-*` tags as custom elements.
+    Integrating XStack Library Web Components with Vue.js requires a specific setup to ensure proper prop passing, event handling, and crucially, **slot content projection**. While Vue has native support for Web Components, certain nuances, especially with named slots and default fallback content, necessitate a wrapper component approach for robust integration.
 
-    In your `main.ts` or `main.js`:
+    1.  **Install XStack Library:**
+        ```bash
+        npm install cross-stack-lib
+        ```
 
-    ```typescript
-    // main.ts
-    import { createApp } from 'vue';
-    import App from './App.vue';
-    import 'cross-stack-lib'; // Import the library to register the components
+    2.  **Configure Vue to Recognize Custom Elements:**
+        In your `main.ts` or `main.js`, tell Vue's compiler to treat `xstack-*` tags as custom elements. This prevents Vue from trying to compile them as Vue components.
 
-    const app = createApp(App);
-    app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-');
-    app.mount('#app');
-    ```
+        ```typescript
+        // main.ts
+        import { createApp } from 'vue';
+        import App from './App.vue';
+        import 'cross-stack-lib'; // Import the library to register the components
 
-    Then you can use the components directly in your Vue templates, using `.prop` for object/array properties and `@event` for events.
+        const app = createApp(App);
+        app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-');
+        app.mount('#app');
+        ```
+
+    3.  **Create Vue Wrapper Components:**
+        For robust slot content projection and consistent behavior, it is highly recommended to create simple Vue wrapper components for each XStack Web Component you use. These wrappers will explicitly pass attributes and slots to the underlying Web Component.
+
+        Create files like `XStackTableWrapper.vue` and `XStackModalWrapper.vue` (e.g., in `src/components/`):
+
+        **`src/components/XStackTableWrapper.vue`:**
+        ```vue
+        <template>
+          <xstack-table v-bind="$attrs">
+            <!-- Explicitly pass named slots -->
+            <slot name="header" slot="header"></slot>
+            <slot name="body" slot="body"></slot>
+            <slot name="footer" slot="footer"></slot>
+            <!-- Pass default slot if any -->
+            <slot></slot>
+          </xstack-table>
+        </template>
+
+        <script setup>
+        // This component acts as a simple wrapper to ensure Vue correctly passes
+        // all attributes (props, events) to the underlying web component.
+        // It uses v-bind="$attrs" to pass all inherited attributes.
+        </script>
+        ```
+
+        **`src/components/XStackModalWrapper.vue`:**
+        ```vue
+        <template>
+          <xstack-modal v-bind="$attrs">
+            <!-- Explicitly pass named slots -->
+            <slot name="header" slot="header"></slot>
+            <slot name="body" slot="body"></slot>
+            <slot name="footer" slot="footer"></slot>
+            <!-- Pass default slot if any -->
+            <slot></slot>
+          </xstack-modal>
+        </template>
+
+        <script setup>
+        // This component acts as a simple wrapper to ensure Vue correctly passes
+        // all attributes (props, events) to the underlying web component.
+        // It uses v-bind="$attrs" to pass all inherited attributes.
+        </script>
+        ```
+
+    4.  **Use Wrapper Components in Your Vue Application:**
+        Import and use these wrapper components in your Vue SFCs (e.g., `App.vue`). When passing content to slots, use the native `slot` attribute on the elements you want to project.
+
+        ```vue
+        <!-- App.vue example -->
+        <script setup>
+        import { ref } from 'vue';
+        import XStackTableWrapper from './components/XStackTableWrapper.vue';
+        import XStackModalWrapper from './components/XStackModalWrapper.vue';
+
+        const showModal = ref(false);
+        const modalText = ref('This is the body of the modal. It is now dynamic!');
+        const tableData = ref([
+          { id: 1, name: 'John Doe', age: 30 },
+          { id: 2, name: 'Jane Doe', age: 25 },
+        ]);
+        const tableColumns = ref([
+          { key: 'id', label: 'ID' },
+          { key: 'name', label: 'Name' },
+          { key: 'age', label: 'Age' },
+        ]);
+
+        const handleModalClose = () => {
+          showModal.value = false;
+        };
+        </script>
+
+        <template>
+          <!-- ... other content ... -->
+
+          <XStackTableWrapper
+            title="Sample Table"
+            :data="tableData"
+            :columns="tableColumns"
+            :controls="false"
+          >
+          </XStackTableWrapper>
+
+          <button @click="showModal = true">Open Modal</button>
+
+          <XStackModalWrapper :open="showModal" @close="handleModalClose" type="info">
+            <h2 slot="header">Sample Modal</h2>
+            <p slot="body" v-html="modalText"></p>
+            <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
+              <button @click="showModal = false">Close</button>
+              <button @click="showModal = false" data-variant="primary">OK</button>
+            </div>
+          </XStackModalWrapper>
+        </template>
+        ```
+
+    *Note: The `slot` attribute is the standard for Web Components. While Vue's linter might flag it as deprecated for Vue components, it is necessary for correct content projection into Web Component slots.*
 
     ### Angular
 

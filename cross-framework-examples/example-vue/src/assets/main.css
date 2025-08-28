@@ -33,3 +33,25 @@ a,
     padding: 0 2rem;
   }
 }
+
+/* General Button Styling */
+button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+button:active {
+  background-color: #d0d0d0;
+  border-color: #aaa;
+}

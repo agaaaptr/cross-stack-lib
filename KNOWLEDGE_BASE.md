@@ -13,16 +13,16 @@ Cara komunikasi utamanya adalah dengan memanfaatkan **standar Web Components**, 
 Secara teknis, komunikasinya berjalan dua arah:
 
 1.  **Mengirim Data ke Komponen (Props/Attributes):** Framework mengirim data ke dalam komponen kita melalui **HTML attributes** untuk data sederhana (string, angka) dan **JavaScript properties** untuk data kompleks (objek, array).
-    *   Di **React**, ini terlihat seperti props biasa: `<XStackTable data={myData} />`.
-    *   Di **Vue**, menggunakan `v-bind`: `<xstack-table :data="myData"></xstack-table>`.
+    *   Di **React**, ini terlihat seperti props biasa, seringkali dengan bantuan wrapper (`@lit-labs/react`): `<XStackTable data={myData} />`.
+    *   Di **Vue**, menggunakan `v-bind` dan seringkali memerlukan komponen wrapper untuk proyeksi slot yang robust: `<XStackTableWrapper :data="myData"></XStackTableWrapper>`.
     *   Di **Angular**, menggunakan property binding: `<xstack-table [data]="myData"></xstack-table>`.
 
 2.  **Menerima Data dari Komponen (Events):** Ketika sesuatu terjadi di dalam komponen kita (misalnya, pengguna mengetik di pencarian), komponen akan memancarkan **Standard DOM Events**. Framework kemudian bisa "mendengarkan" event ini seperti event HTML biasa.
     *   Di **React**, menggunakan `onEventName` (setelah di-map di wrapper): `<XStackModal onClose={handleClose} />`.
-    *   Di **Vue**, menggunakan `@event-name`: `<xstack-table @page-change="handlePageChange"></xstack-table>`.
+    *   Di **Vue**, menggunakan `@event-name`: `<XStackTableWrapper @page-change="handlePageChange"></XStackTableWrapper>`.
     *   Di **Angular**, menggunakan event binding: `<xstack-modal (close)="handleClose()"></xstack-modal>`.
 
-Jadi, kita tidak memerlukan *wrapper* atau lapisan adaptasi yang rumit (meskipun wrapper di React sangat membantu untuk event handling). Kita menggunakan standar web yang sudah ada, membuat integrasi menjadi sangat bersih dan langsung.
+Jadi, kita tidak memerlukan *wrapper* atau lapisan adaptasi yang rumit (meskipun wrapper di React dan Vue sangat membantu untuk event handling dan proyeksi slot). Kita menggunakan standar web yang sudah ada, membuat integrasi menjadi sangat bersih dan langsung.
 
 ### 2. Apakah library ini memerlukan instalasi yang ribet?
 
@@ -85,6 +85,6 @@ Karena masalah ini sangat sulit dipecahkan dan tidak memengaruhi fungsionalitas 
 2.  **Hapus Sementara `cross-stack-lib` dari `package.json`:** Ini memungkinkan `npm install` berikutnya berhasil untuk dependensi publik.
 3.  **Instal Dependensi Publik:** `npm install` (di dalam direktori proyek contoh).
 4.  **Tambahkan Kembali `cross-stack-lib` ke `package.json`:** (secara manual atau dengan perintah `npm install cross-stack-lib`).
-5.  **Instal `cross-stack-lib` dari Verdaccio:** `npm install cross-stack-lib@1.0.1 --registry http://localhost:4873` (di dalam direktori proyek contoh).
+5.  **Instal `cross-stack-lib` dari Verdaccio:** `npm install cross-stack-lib@1.0.2 --registry http://localhost:4873` (di dalam direktori proyek contoh).
 
 **Penting:** Jangan pernah mengubah konfigurasi registry npm global atau proyek Anda menggunakan `npm config set registry ...`. Selalu gunakan flag `--registry` untuk instalasi dari Verdaccio.

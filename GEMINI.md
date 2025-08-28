@@ -196,8 +196,15 @@ This project will be divided into several structured stages (checkpoints) to ens
   * [x] **Documentation Overhaul**: Updated all user-facing documentation to be accurate and consistent with the current state of the library.
     * [x] Corrected all component API documentation (`/components/table/api.mdx`, `/components/modal/api.mdx`) to reflect the actual properties, events, and slots.
     * [x] Modernized all code examples (`/components/table/examples.mdx`, etc.) to use current best practices (e.g., direct property binding instead of stringified JSON).
-    * [x] Updated installation and usage guides (`/getting-started/*`) to be more accurate and provide better, framework-specific instructions.
-  * [x] **Project Document Alignment**: Updated high-level project documents (`README.md`, `KNOWLEDGE_BASE.md`) to reflect the current project status, correct package names, and provide accurate examples.
+    * [x] Updated installation and usage guides (`/getting-started/*`) to be more accurate and provide better, framework-specific instructions, especially for Vue.js wrapper components.
+  * [x] **Project Document Alignment**: Updated high-level project documents (`README.md`, `KNOWLEDGE_BASE.md`) to reflect the current project status, correct package names, and provide accurate examples, including the `cross-stack-lib` version `1.0.2`.
+
+* [x] **Checkpoint 25: Vue.js Integration Enhancements (Completed)**
+  * [x] **Wrapper Components**: Introduced dedicated Vue wrapper components (`XStackTableWrapper.vue`, `XStackModalWrapper.vue`) to ensure robust slot content projection and consistent behavior when using XStack Web Components in Vue.js applications.
+  * [x] **ESLint Configuration**: Updated `eslint.config.js` in `example-vue` to disable the `vue/no-deprecated-slot-attribute` rule, accommodating the use of native `slot` attributes for Web Component integration.
+  * [x] **Vite Configuration**: Configured `vite.config.js` in `example-vue` to explicitly recognize `xstack-table` and `xstack-modal` as custom elements, preventing Vue from attempting to compile them as Vue components.
+  * [x] **Styling Enhancements**: Added general button styling to `main.css` in `example-vue` for improved UI consistency.
+  * [x] **Example Updates**: Refactored `App.vue` in `example-vue` to utilize the new wrapper components and showcase updated table and modal examples.
 
 * [x] **Checkpoint 20: Isolated Example Projects with Verdaccio (Completed)**
   * [x] **Verdaccio Setup**: Installed Verdaccio globally via npm and started the local npm registry server.
