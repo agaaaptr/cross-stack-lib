@@ -26,7 +26,7 @@ For consistency, all projects were set up and built using Node.js `v22.17.0`.
     Next, install `cross-stack-lib` from the local Verdaccio registry and `@lit-labs/react` for integration. The `--registry` flag is used to target the local registry for these specific packages without changing the default configuration.
 
     ```bash
-    npm install cross-stack-lib@1.0.2 @lit-labs/react --registry http://localhost:4873
+    npm install cross-stack-lib@1.0.3 @lit-labs/react --registry http://localhost:4873
     ```
 
 2. **Create Lit Wrappers (`src/components/LitWrappers.tsx`)**:

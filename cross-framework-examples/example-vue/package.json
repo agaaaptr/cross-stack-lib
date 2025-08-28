@@ -13,7 +13,7 @@
     "lint": "eslint . --ext .vue,.js --ignore-pattern \"dist/\""
   },
   "dependencies": {
-    "cross-stack-lib": "^1.0.2",
+    "cross-stack-lib": "^1.0.3",
     "vue": "^3.5.20"
   },
   "devDependencies": {

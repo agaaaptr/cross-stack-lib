@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { XStackModal } from '@/LitWrappers';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 // Define a type for the modal state to ensure 'type' is strictly typed
 type ModalType = 'confirmation' | 'info' | 'warning' | 'danger';
@@ -24,7 +25,12 @@ export default function ModalExample() {
   };
 
   return (
-    <div className="p-4 border rounded-lg flex flex-col sm:flex-row flex-wrap gap-4 items-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="p-4 border rounded-lg flex flex-col sm:flex-row flex-wrap gap-4 items-center"
+    >
       <Button onClick={() => openModal('confirmation')} variant="confirmation" size="default" className="w-32">Confirmation</Button>
       <Button onClick={() => openModal('info')} variant="info" size="default" className="w-32">Info</Button>
       <Button onClick={() => openModal('warning')} variant="warning" size="default" className="w-32">Warning</Button>
@@ -47,6 +53,6 @@ export default function ModalExample() {
           <Button onClick={closeModal} variant={modalState.type}>OK</Button> 
         </div>
       </XStackModal>
-    </div>
+    </motion.div>
   );
 }

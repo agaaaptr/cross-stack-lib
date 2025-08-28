@@ -15,22 +15,23 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="mt-4">
+    <motion.div layout className="mt-4">
       <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? 'Hide Source' : 'View Source'}
       </Button>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
+            style={{ overflow: 'hidden' }}
           >
-            <div className="mt-4 rounded-md bg-background/95">{children}</div> {/* Removed overflow-x-auto */} 
+            <div className="mt-4 rounded-md bg-background/95">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

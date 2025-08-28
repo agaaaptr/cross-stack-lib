@@ -1,11 +1,12 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const TableExampleLoader = dynamic(
   () => import('@/components/examples/table-example'),
   {
     ssr: false,
-    loading: () => <div className="w-full h-48 bg-muted animate-pulse rounded-lg"></div>,
+    loading: () => <Skeleton className="w-full h-48" />,
   }
 );

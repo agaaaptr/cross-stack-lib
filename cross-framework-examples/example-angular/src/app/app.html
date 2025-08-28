@@ -9,8 +9,8 @@
 
   <div style="margin: 2rem 0;">
     <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Table Example</h2>
-    <xstack-table [columns]="tableColumns" [data]="tableData" [pageSize]="2" [showSearch]="true" [showPageSize]="false"
-      [showPagination]="false"></xstack-table>
+    <xstack-table [columns]="tableColumns" [data]="tableData" [showSearch]="true" [showPageSize]="true"
+      [showPagination]="true"></xstack-table>
   </div>
 
   <xstack-modal [open]="isModalOpen" (close)="closeModal()" type="warning">
