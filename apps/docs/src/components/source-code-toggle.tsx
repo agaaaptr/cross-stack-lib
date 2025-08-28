@@ -11,7 +11,7 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
 
   if (isDisabled) {
     // When disabled (inside tabs), remove the top margin as the parent will handle it.
-    return <div className="rounded-md bg-background/95 overflow-x-auto">{children}</div>;
+    return <div className="rounded-md bg-background/95">{children}</div>; // Removed overflow-x-auto
   }
 
   return (
@@ -26,9 +26,8 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
           >
-            <div className="mt-4 rounded-md bg-background/95 overflow-x-auto">{children}</div>
+            <div className="mt-4 rounded-md bg-background/95">{children}</div> {/* Removed overflow-x-auto */} 
           </motion.div>
         )}
       </AnimatePresence>

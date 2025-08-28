@@ -43,10 +43,9 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
           >
-            <div className="mt-4">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="mt-4 mb-8"> {/* Added mb-8 */} 
+              <div className="flex items-center gap-2 mb-8"> {/* Changed mb-2 to mb-8 */} 
                 {tabOrder.map(framework => (
                   tabs[framework] && (
                     <Button
@@ -61,24 +60,20 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
                 ))}
               </div>
               <SourceCodeToggleContext.Provider value={true}>
-                <div className="-mt-2 grid grid-cols-1 grid-rows-1">
-                  {tabOrder.map(framework => {
-                    const isActive = activeTab === tabs[framework].id;
-                    return (
-                      tabs[framework] && (
-                        <div
-                          key={tabs[framework].id}
-                          className="col-start-1 row-start-1 transition-opacity duration-200"
-                          style={{
-                            opacity: isActive ? 1 : 0,
-                            visibility: isActive ? 'visible' : 'hidden',
-                          }}
-                        >
-                          {tabs[framework].content}
-                        </div>
-                      )
-                    );
-                  })}
+                <div className="-mt-2"> {/* Removed grid classes */} 
+                  <AnimatePresence mode="wait"> {/* Added AnimatePresence for tab content */} 
+                    {tabs[activeTab] && (
+                      <motion.div
+                        key={activeTab} // Key is crucial for AnimatePresence to detect changes
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {tabs[activeTab].content}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </SourceCodeToggleContext.Provider>
             </div>

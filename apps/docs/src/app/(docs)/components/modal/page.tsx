@@ -5,7 +5,7 @@ import { PageTransition } from "@/components/page-transition";
 export default function ModalPage() {
   return (
     <PageTransition>
-      <div className="prose dark:prose-invert">
+      <div className="prose dark:prose-invert max-w-none">
         <h1 className="text-4xl font-bold mb-6 text-primary">XStack Modal Component</h1>
         <Examples />
         <API />

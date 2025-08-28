@@ -4,10 +4,18 @@ import { useState } from 'react';
 import { XStackModal } from '@/LitWrappers';
 import { Button } from '@/components/ui/button';
 
-export default function ModalExample() {
-  const [modalState, setModalState] = useState({ open: false, type: 'confirmation' });
+// Define a type for the modal state to ensure 'type' is strictly typed
+type ModalType = 'confirmation' | 'info' | 'warning' | 'danger';
 
-  const openModal = (type: string) => {
+interface ModalState {
+  open: boolean;
+  type: ModalType;
+}
+
+export default function ModalExample() {
+  const [modalState, setModalState] = useState<ModalState>({ open: false, type: 'confirmation' });
+
+  const openModal = (type: ModalType) => {
     setModalState({ open: true, type });
   };
 
@@ -17,10 +25,10 @@ export default function ModalExample() {
 
   return (
     <div className="p-4 border rounded-lg flex flex-col sm:flex-row flex-wrap gap-4 items-center">
-      <Button onClick={() => openModal('confirmation')} variant="default">Confirmation</Button>
-      <Button onClick={() => openModal('info')} variant="outline">Info</Button>
-      <Button onClick={() => openModal('warning')} variant="outline">Warning</Button>
-      <Button onClick={() => openModal('danger')} variant="destructive">Danger</Button>
+      <Button onClick={() => openModal('confirmation')} variant="confirmation" size="default" className="w-32">Confirmation</Button>
+      <Button onClick={() => openModal('info')} variant="info" size="default" className="w-32">Info</Button>
+      <Button onClick={() => openModal('warning')} variant="warning" size="default" className="w-32">Warning</Button>
+      <Button onClick={() => openModal('danger')} variant="danger" size="default" className="w-32">Danger</Button>
 
       <XStackModal
         open={modalState.open}
@@ -35,7 +43,8 @@ export default function ModalExample() {
         </div>
         <div slot="footer" className="flex justify-end gap-2">
           <Button variant="outline" onClick={closeModal}>Cancel</Button>
-          <Button onClick={closeModal} data-variant="primary">OK</Button>
+          {/* Use the strictly typed modalState.type for variant */} 
+          <Button onClick={closeModal} variant={modalState.type}>OK</Button> 
         </div>
       </XStackModal>
     </div>
