@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSourceCodeToggle } from '@/contexts/source-code-toggle-context';
 
-export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
+export function SourceCodeToggle({ children, title }: { children: React.ReactNode; title?: string }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const isDisabled = useSourceCodeToggle();
 
@@ -16,6 +16,7 @@ export function SourceCodeToggle({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.div layout className="mt-4">
+      {title && <span className="block text-sm font-semibold mb-2">{title}</span>} {/* Always render as span */}
       <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? 'Hide Source' : 'View Source'}
       </Button>

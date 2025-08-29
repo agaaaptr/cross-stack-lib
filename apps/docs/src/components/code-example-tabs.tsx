@@ -12,7 +12,7 @@ interface FrameworkElementProps {
   children: ReactNode;
 }
 
-export function CodeExampleTabs({ children }: { children: ReactNode }) {
+export function CodeExampleTabs({ children, title }: { children: ReactNode; title?: string }) {
   const [activeTab, setActiveTab] = useState<Framework>('react');
   const [isSourceVisible, setIsSourceVisible] = useState(false);
 
@@ -32,6 +32,7 @@ export function CodeExampleTabs({ children }: { children: ReactNode }) {
 
   return (
     <motion.div layout className="my-4">
+      {title && <h3 className="text-sm font-semibold mb-2">{title}</h3>} {/* Render title */}
       <Button variant="outline" onClick={() => setIsSourceVisible(!isSourceVisible)} className="mb-4">
         {isSourceVisible ? 'Hide Source' : 'View Source'}
       </Button>

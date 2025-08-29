@@ -54,7 +54,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         return wrapper;
       }
 
-      return <SourceCodeToggle>{wrapper}</SourceCodeToggle>;
+      // Extract title from props, or use a default
+      const title = props.title || 'Source Code'; // Changed default to 'Source Code'
+
+      return <SourceCodeToggle title={title}>{wrapper}</SourceCodeToggle>; // Modified this line
     },
     code: ({ children }) => <code className="relative font-mono text-sm font-semibold">{children}</code>,
     table: ({ children }) => <div className="my-6 w-full overflow-y-auto"><table className="w-full">{children}</table></div>,

@@ -16,214 +16,115 @@ import { PageTransition } from "@/components/page-transition";
     yarn add cross-stack-lib
     ```
 
-    ## Framework Integration
+## Verifying Installation
 
-    XStack Library components are Web Components, which means they can be used directly in any modern web project. However, for the best experience in frameworks like React, Vue, or Angular, some additional setup is recommended.
+After successfully installing the XStack Library, it's a good practice to verify that the components are correctly recognized and rendered in a basic HTML environment. This step ensures that the library's files are accessible and properly linked.
 
-    ### React (Next.js)
+1.  **Create a simple `index.html` file:**
+    Create a new HTML file (e.g., `test-xstack.html`) in your project's root or a temporary directory. This file will serve as a minimal testbed.
 
-    When using XStack Library with React, it's highly recommended to use the `@lit-labs/react` package to create wrapper components. This provides proper type safety, event handling, and integration with React's lifecycle.
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XStack Library Installation Verification</title>
+        <!-- Import the XStack Library's main JavaScript file -->
+        <!-- The path assumes you are running this HTML file from your project root -->
+        <script type="module" src="./node_modules/cross-stack-lib/dist/cross-stack-lib.js"></script>
+        <style>
+            body { font-family: sans-serif; padding: 20px; line-height: 1.6; color: #333; }
+            h1, h2 { color: #2c3e50; }
+            xstack-table {
+                display: block; /* Web components are inline by default */
+                margin-top: 20px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            xstack-modal {
+                /* Basic styling for modal to ensure it's visible if opened */
+                --modal-bg: #ffffff;
+                --modal-fg: #333;
+                --modal-border: #ddd;
+                --modal-overlay-bg: rgba(0,0,0,0.5);
+                --modal-accent: #4CAF50; /* Example accent color */
+            }
+            button {
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>XStack Library Installation Verification</h1>
+        <p>This page demonstrates a basic setup to confirm that the XStack Library components are correctly installed and accessible in your project.</p>
 
-    First, install `@lit-labs/react`:
+        <h2>Table Component Test</h2>
+        <p>Below is an `xstack-table` component. If it renders correctly with a search bar, page size selector, and pagination, the table component is working.</p>
+        <xstack-table show-search show-page-size show-pagination></xstack-table>
 
-    ```bash
-    npm install @lit-labs/react
-    ```
-
-    Then, create a wrapper component file (e.g., `LitWrappers.tsx`). Using a client component (`'use client';`) is recommended to access hooks like `useTheme`.
-
-    ```tsx
-    // components/LitWrappers.tsx
-    'use client';
-
-    import React from 'react';
-    import { createComponent } from '@lit-labs/react';
-    import { useTheme } from 'next-themes'; // Or your preferred theme provider
-    import { XStackTable as XStackTableWC, XStackModal as XStackModalWC } from 'cross-stack-lib';
-
-    // Create base React components from the Web Components
-    const XStackTableComponent = createComponent({
-      react: React,
-      tagName: 'xstack-table',
-      elementClass: XStackTableWC,
-      events: {
-        onSearch: 'search', // Map 'search' event to 'onSearch' prop
-        onPageChange: 'pageChange', // Map 'pageChange' event to 'onPageChange' prop
-      },
-    });
-
-    const XStackModalComponent = createComponent({
-      react: React,
-      tagName: 'xstack-modal',
-      elementClass: XStackModalWC,
-      events: {
-        onClose: 'close', // Map 'close' event to 'onClose' prop
-      },
-    });
-
-    // Create theme-aware wrappers that pass the current theme to the components
-    export const XStackTable = (props: any) => {
-      const { theme } = useTheme();
-      return <XStackTableComponent {...props} theme={theme} />;
-    };
-
-    export const XStackModal = (props: any) => {
-      const { theme } = useTheme();
-      return <XStackModalComponent {...props} theme={theme} />;
-    };
-    ```
-
-    Now you can import `XStackTable` and `XStackModal` from this file and use them as regular React components.
-
-    ### Vue.js
-
-    Integrating XStack Library Web Components with Vue.js requires a specific setup to ensure proper prop passing, event handling, and crucially, **slot content projection**. While Vue has native support for Web Components, certain nuances, especially with named slots and default fallback content, necessitate a wrapper component approach for robust integration.
-
-    1.  **Install XStack Library:**
-        ```bash
-        npm install cross-stack-lib
-        ```
-
-    2.  **Configure Vue to Recognize Custom Elements:**
-        In your `main.ts` or `main.js`, tell Vue's compiler to treat `xstack-*` tags as custom elements. This prevents Vue from trying to compile them as Vue components.
-
-        ```typescript
-        // main.ts
-        import { createApp } from 'vue';
-        import App from './App.vue';
-        import 'cross-stack-lib'; // Import the library to register the components
-
-        const app = createApp(App);
-        app.config.compilerOptions.isCustomElement = (tag) => tag.startsWith('xstack-');
-        app.mount('#app');
-        ```
-
-    3.  **Create Vue Wrapper Components:**
-        For robust slot content projection and consistent behavior, it is highly recommended to create simple Vue wrapper components for each XStack Web Component you use. These wrappers will explicitly pass attributes and slots to the underlying Web Component.
-
-        Create files like `XStackTableWrapper.vue` and `XStackModalWrapper.vue` (e.g., in `src/components/`):
-
-        **`src/components/XStackTableWrapper.vue`:**
-        ```vue
-        <template>
-          <xstack-table v-bind="$attrs">
-            <!-- Explicitly pass named slots -->
-            <slot name="header" slot="header"></slot>
-            <slot name="body" slot="body"></slot>
-            <slot name="footer" slot="footer"></slot>
-            <!-- Pass default slot if any -->
-            <slot></slot>
-          </xstack-table>
-        </template>
-
-        <script setup>
-        // This component acts as a simple wrapper to ensure Vue correctly passes
-        // all attributes (props, events) to the underlying web component.
-        // It uses v-bind="$attrs" to pass all inherited attributes.
-        </script>
-        ```
-
-        **`src/components/XStackModalWrapper.vue`:**
-        ```vue
-        <template>
-          <xstack-modal v-bind="$attrs">
-            <!-- Explicitly pass named slots -->
-            <slot name="header" slot="header"></slot>
-            <slot name="body" slot="body"></slot>
-            <slot name="footer" slot="footer"></slot>
-            <!-- Pass default slot if any -->
-            <slot></slot>
-          </xstack-modal>
-        </template>
-
-        <script setup>
-        // This component acts as a simple wrapper to ensure Vue correctly passes
-        // all attributes (props, events) to the underlying web component.
-        // It uses v-bind="$attrs" to pass all inherited attributes.
-        </script>
-        ```
-
-    4.  **Use Wrapper Components in Your Vue Application:**
-        Import and use these wrapper components in your Vue SFCs (e.g., `App.vue`). When passing content to slots, use the native `slot` attribute on the elements you want to project.
-
-        ```vue
-        <!-- App.vue example -->
-        <script setup>
-        import { ref } from 'vue';
-        import XStackTableWrapper from './components/XStackTableWrapper.vue';
-        import XStackModalWrapper from './components/XStackModalWrapper.vue';
-
-        const showModal = ref(false);
-        const modalText = ref('This is the body of the modal. It is now dynamic!');
-        const tableData = ref([
-          { id: 1, name: 'John Doe', age: 30 },
-          { id: 2, name: 'Jane Doe', age: 25 },
-        ]);
-        const tableColumns = ref([
-          { key: 'id', label: 'ID' },
-          { key: 'name', label: 'Name' },
-          { key: 'age', label: 'Age' },
-        ]);
-
-        const handleModalClose = () => {
-          showModal.value = false;
-        };
-        </script>
-
-        <template>
-          <!-- ... other content ... -->
-
-          <XStackTableWrapper
-            title="Sample Table"
-            :data="tableData"
-            :columns="tableColumns"
-            :controls="false"
-          >
-          </XStackTableWrapper>
-
-          <button @click="showModal = true">Open Modal</button>
-
-          <XStackModalWrapper :open="showModal" @close="handleModalClose" type="info">
-            <h2 slot="header">Sample Modal</h2>
-            <p slot="body" v-html="modalText"></p>
-            <div slot="footer" style="display: flex; justify-content: flex-end; gap: 8px;">
-              <button @click="showModal = false">Close</button>
-              <button @click="showModal = false" data-variant="primary">OK</button>
+        <h2>Modal Component Test</h2>
+        <p>Click the button below to open an `xstack-modal`. If the modal appears, the modal component is functioning as expected.</p>
+        <button id="openModalBtn">Open Test Modal</button>
+        <xstack-modal type="info">
+            <div slot="header">Verification Successful!</div>
+            <div slot="body">
+                <p>Congratulations! Your XStack Library installation is working correctly.</p>
+                <p>You can now proceed to integrate these components into your framework of choice.</p>
             </div>
-          </XStackModalWrapper>
-        </template>
-        ```
+            <div slot="footer">
+                <button onclick="document.getElementById('testModal').open = false">Close</button>
+            </div>
+        </xstack-modal>
 
-    *Note: The `slot` attribute is the standard for Web Components. While Vue's linter might flag it as deprecated for Vue components, it is necessary for correct content projection into Web Component slots.*
+        <script>
+            // Populate the table with some dummy data
+            const table = document.querySelector('xstack-table');
+            table.columns = [
+                { key: 'id', label: 'ID' },
+                { key: 'name', label: 'Name' },
+                { key: 'status', label: 'Status' }
+            ];
+            table.data = [
+                { id: 1, name: 'Project Alpha', status: 'Active' },
+                { id: 2, name: 'Task Beta', status: 'Pending' },
+                { id: 3, name: 'Report Gamma', status: 'Completed' }
+            ];
 
-    ### Angular
-
-    Angular also supports Web Components. You need to add `CUSTOM_ELEMENTS_SCHEMA` to your module to allow custom element tags.
-
-    In your `app.module.ts` (or the specific module where you use the components):
-
-    ```typescript
-    // app.module.ts
-    import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-    import { BrowserModule } from '@angular/platform-browser';
-    import { AppComponent } from './app.component';
-
-    @NgModule({
-      declarations: [AppComponent],
-      imports: [BrowserModule],
-      providers: [],
-      bootstrap: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line
-    })
-    export class AppModule { }
+            // Handle modal opening and closing
+            const modal = document.querySelector('xstack-modal');
+            modal.id = 'testModal'; // Assign an ID for easy access
+            document.getElementById('openModalBtn').addEventListener('click', () => {
+                modal.open = true;
+            });
+            modal.addEventListener('close', () => {
+                modal.open = false;
+            });
+        </script>
+    </body>
+    </html>
     ```
 
-    And in your `main.ts`, you need to import the library to register the components:
+2.  **Open `test-xstack.html` in your web browser.**
+    Navigate to the file path in your browser (e.g., `file:///path/to/your/project/test-xstack.html`). You should see a basic table and a button. Interact with them to confirm functionality.
 
-    ```typescript
-    // main.ts
-    import 'cross-stack-lib';
-    ```
+    *   If the table renders with data, search, and pagination controls, the `xstack-table` component is working.
+    *   If clicking the "Open Test Modal" button displays a modal, the `xstack-modal` component is working.
 
+    If both components render and function as described, your XStack Library installation is successful!
+
+For detailed usage and integration instructions within specific frameworks like React, Vue, or Angular, please refer to the dedicated sections on the [Usage](/getting-started/usage) page.
   </div>
 </PageTransition>

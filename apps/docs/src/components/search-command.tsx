@@ -9,8 +9,11 @@ import { cn } from '@/lib/utils'
 import { MagnifyingGlassIcon, Component1Icon, FileTextIcon } from '@radix-ui/react-icons'
 
 const commandItems = [
-  { title: 'Getting Started', href: '/getting-started/usage', category: 'Navigation', icon: FileTextIcon },
+  { title: 'Getting Started', href: '/getting-started', category: 'Navigation', icon: FileTextIcon },
   { title: 'Installation', href: '/getting-started/installation', category: 'Getting Started', icon: FileTextIcon },
+  { title: 'Usage', href: '/getting-started/usage', category: 'Getting Started', icon: FileTextIcon },
+  { title: 'Suggest a Feature', href: '/getting-started/suggest-feature', category: 'Getting Started', icon: FileTextIcon },
+  { title: 'Components', href: '/components', category: 'Navigation', icon: Component1Icon },
   { title: 'Table', href: '/components/table', category: 'Components', icon: Component1Icon },
   { title: 'Modal', href: '/components/modal', category: 'Components', icon: Component1Icon },
 ]
