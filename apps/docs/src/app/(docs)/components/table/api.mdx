@@ -3,9 +3,9 @@
 ## Properties
 
 ### `columns`
-- **Type**: `TableColumn[]`
+- **Type**: `TableColumn[] | string` (JSON string)
 - **Default**: `[]`
-- **Description**: An array of objects to define table columns. Each object should have a `key` (matching a key in the data object) and a `label` (for the header).
+- **Description**: An array of objects to define table columns. Each object should have a `key` (matching a key in the data object) and a `label` (for the header). Can also be provided as a JSON string representation of the array.
 
 ### `data`
 - **Type**: `any[]`
