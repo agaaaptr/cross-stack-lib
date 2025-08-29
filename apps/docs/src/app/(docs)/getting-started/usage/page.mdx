@@ -2,9 +2,213 @@ import { PageTransition } from "@/components/page-transition";
 
 <PageTransition>
   <div className="prose dark:prose-invert max-w-none">
-    # Basic Usage
+    # Usage
 
-    This section provides a basic overview of how to use the XStack Library components in a plain HTML or Lit-based environment. For framework-specific examples (React, Vue, Angular), please see the component example pages.
+    This section provides detailed instructions on how to use the XStack Library components in various environments, including plain HTML/Lit and popular frameworks like React, Vue, and Angular.
+
+## Framework-Specific Usage
+
+### React Integration
+
+When using XStack components in a React application, it's recommended to use the provided `LitWrappers.tsx` to ensure proper handling of props and events, especially for complex data structures or custom events.
+
+1.  **Import the Wrapper:**
+    ```tsx
+    import { XStackTable, XStackModal } from '@/components/LitWrappers';
+    ```
+
+2.  **Use in your Component:**
+    ```tsx
+    // In your React component
+    <XStackTable
+      columns={[
+        { key: 'id', label: 'ID' },
+        { key: 'name', label: 'Name' }
+      ]}
+      data={[{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }]}
+      showSearch
+    />
+
+    <XStackModal type="info" open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <div slot="header">Modal Title</div>
+      <div slot="body">
+        <p>This is the content of the modal body.</p>
+      </div>
+      <div slot="footer">
+        <button onClick={() => setIsModalOpen(false)}>Close</button>
+      </div>
+    </XStackModal>
+    ```
+
+### Vue Integration
+
+For robust integration of XStack components in a Vue.js application, especially for handling slot content projection and consistent behavior, it is highly recommended to use the dedicated Vue wrapper components (`XStackTableWrapper.vue`, `XStackModalWrapper.vue`).
+
+1.  **Configure Vite (if not already):**
+    Ensure your `vite.config.js` (or `vue.config.js`) is configured to recognize custom elements:
+    ```javascript
+    // vite.config.js
+    import { defineConfig } from 'vite';
+    import vue from '@vitejs/plugin-vue';
+
+    export default defineConfig({
+      plugins: [
+        vue({
+          template: {
+            compilerOptions: {
+              isCustomElement: (tag) => tag.startsWith('xstack-'),
+            },
+          },
+        }),
+      ],
+    });
+    ```
+
+2.  **Import and Use Wrapper Components:**
+    ```vue
+    <!-- In your Vue component (e.g., App.vue) -->
+    <script setup>
+    import { ref } from 'vue';
+    import XStackTableWrapper from './components/XStackTableWrapper.vue';
+    import XStackModalWrapper from './components/XStackModalWrapper.vue';
+
+    const tableData = ref([
+      { id: 1, name: 'Item 1' },
+      { id: 2, name: 'Item 2' }
+    ]);
+    const tableColumns = ref([
+      { key: 'id', label: 'ID' },
+      { key: 'name', label: 'Name' }
+    ]);
+    const isModalOpen = ref(false);
+    </script>
+
+    <template>
+      <XStackTableWrapper
+        :data="tableData"
+        :columns="tableColumns"
+        show-search
+      />
+
+      <button @click="isModalOpen = true">Open Modal</button>
+      <XStackModalWrapper :open="isModalOpen" type="info" @close="isModalOpen = false">
+        <template #header>Modal Title</template>
+        <template #body>
+          <p>This is the content of the modal body from Vue.</p>
+        </template>
+        <template #footer>
+          <button @click="isModalOpen = false">Close</button>
+        </template>
+      </XStackModalWrapper>
+    </template>
+    ```
+
+3.  **Wrapper Component Example (`XStackTableWrapper.vue`):**
+    ```vue
+    <!-- src/components/XStackTableWrapper.vue -->
+    <template>
+      <xstack-table
+        :data="data"
+        :columns="columns"
+        :page-size="pageSize"
+        :show-search="showSearch"
+        :show-page-size="showPageSize"
+        :show-pagination="showPagination"
+        @search="handleSearch"
+        @page-change="handlePageChange"
+      ></xstack-table>
+    </template>
+
+    <script setup>
+    import { defineProps, defineEmits } from 'vue';
+
+    const props = defineProps({
+      data: Array,
+      columns: Array,
+      pageSize: Number,
+      showSearch: Boolean,
+      showPageSize: Boolean,
+      showPagination: Boolean,
+    });
+
+    const emit = defineEmits(['search', 'pageChange']);
+
+    const handleSearch = (event) => {
+      emit('search', event.detail);
+    };
+
+    const handlePageChange = (event) => {
+      emit('pageChange', event.detail);
+    };
+    </script>
+    ```
+
+### Angular Integration
+
+To use XStack components in an Angular application, you need to configure your Angular module to recognize custom elements.
+
+1.  **Import `CUSTOM_ELEMENTS_SCHEMA`:**
+    In your main application module (e.g., `app.module.ts`), import `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core`.
+
+2.  **Add to `schemas` Array:**
+    Add `CUSTOM_ELEMENTS_SCHEMA` to the `schemas` array within your `@NgModule` decorator. This tells Angular to allow custom elements in your templates without throwing errors.
+
+    ```typescript
+    // app.module.ts
+    import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    import { AppComponent } from './app.component';
+
+    @NgModule({
+      declarations: [
+        AppComponent
+      ],
+      imports: [
+        BrowserModule
+      ],
+      providers: [],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line
+    })
+    export class AppModule { }
+    ```
+
+3.  **Use in your Component Template:**
+    You can now use the XStack components directly in your Angular component templates.
+
+    ```typescript
+    // app.component.ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-root',
+      template: `
+        <xstack-table
+          [columns]="[{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }]"
+          [data]="[{ id: 1, name: 'Item 1' }, { id: 2, name: 'Item 2' }]"
+          [showSearch]="true"
+        ></xstack-table>
+
+        <button (click)="isModalOpen = true">Open Modal</button>
+        <xstack-modal
+          [open]="isModalOpen"
+          type="info"
+          (close)="isModalOpen = false"
+        >
+          <div slot="header">Modal Title</div>
+          <div slot="body">
+            <p>This is the content of the modal body from Angular.</p>
+          </div>
+          <div slot="footer">
+            <button (click)="isModalOpen = false">Close</button>
+          </div>
+        </xstack-modal>
+      `
+    })
+    export class AppComponent {
+      isModalOpen = false;
+    }
+    ```
 
     ## `xstack-table`
 
