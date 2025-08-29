@@ -14,7 +14,7 @@ When using XStack components in a React application, it's recommended to use the
 
 1.  **Import the Wrapper:**
     ```tsx
-    import { XStackTable, XStackModal } from '@/components/LitWrappers';
+    import { XStackTable, XStackModal } from '@/LitWrappers';
     ```
 
 2.  **Use in your Component:**
@@ -87,7 +87,7 @@ For robust integration of XStack components in a Vue.js application, especially 
       <XStackTableWrapper
         :data="tableData"
         :columns="tableColumns"
-        show-search
+        :show-search="true"
       />
 
       <button @click="isModalOpen = true">Open Modal</button>
