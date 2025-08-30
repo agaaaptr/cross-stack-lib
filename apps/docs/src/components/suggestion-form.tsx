@@ -56,7 +56,7 @@ export function SuggestionForm() {
       action="https://formspree.io/f/mpwjwvlg"
       method="POST"
       onSubmit={handleSubmit} // Add onSubmit handler
-      className="my-8 space-y-4 max-w-4xl mx-auto p-6 border rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800"
+      className="my-8 space-y-4 max-w-none mx-auto p-6 border rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="name">Your Name (Optional)</Label>
