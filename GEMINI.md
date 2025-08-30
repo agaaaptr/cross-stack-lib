@@ -208,27 +208,27 @@ This project will be divided into several structured stages (checkpoints) to ens
 
 * [x] **Checkpoint 26: Feature Suggestion Page & Toast Notification System (Completed)**
   * [x] **Implementasi Halaman Saran Fitur**:
-      * [x] Mengimplementasikan halaman "Saran Fitur" baru (`apps/docs/src/app/(docs)/getting-started/suggest-feature/page.mdx`).
-      * [x] Membuat komponen formulir khusus (`apps/docs/src/components/suggestion-form.tsx`) untuk masukan pengguna.
-      * [x] Mengintegrasikan Formspree untuk pengiriman formulir asinkron.
-      * [x] Memperbarui bilah sisi (`apps/docs/src/components/sidebar-nav.tsx`) dan navigasi seluler (`apps/docs/src/components/mobile-nav.tsx`) untuk menyertakan tautan halaman baru.
-      * [x] Memastikan animasi transisi halaman dengan menambahkan komponen PageTransition ke `page.mdx`.
-      * [x] Memperbarui pelacakan Daftar Isi (TOC) untuk menyertakan judul h1 di `apps/docs/src/lib/use-toc.ts`.
-      * [x] Menyesuaikan lebar formulir untuk presentasi visual yang lebih baik (`max-w-4xl`).
+    * [x] Mengimplementasikan halaman "Saran Fitur" baru (`apps/docs/src/app/(docs)/getting-started/suggest-feature/page.mdx`).
+    * [x] Membuat komponen formulir khusus (`apps/docs/src/components/suggestion-form.tsx`) untuk masukan pengguna.
+    * [x] Mengintegrasikan Formspree untuk pengiriman formulir asinkron.
+    * [x] Memperbarui bilah sisi (`apps/docs/src/components/sidebar-nav.tsx`) dan navigasi seluler (`apps/docs/src/components/mobile-nav.tsx`) untuk menyertakan tautan halaman baru.
+    * [x] Memastikan animasi transisi halaman dengan menambahkan komponen PageTransition ke `page.mdx`.
+    * [x] Memperbarui pelacakan Daftar Isi (TOC) untuk menyertakan judul h1 di `apps/docs/src/lib/use-toc.ts`.
+    * [x] Menyesuaikan lebar formulir untuk presentasi visual yang lebih baik (`max-w-4xl`).
   * [x] **Implementasi Sistem Notifikasi Toast**:
-      * [x] Mengembangkan sistem notifikasi toast kustom (`apps/docs/src/components/ui/toast.tsx`, `apps/docs/src/components/ui/use-toast.ts`, `apps/docs/src/components/ui/toaster.tsx`).
-      * [x] Mengintegrasikan komponen Toaster ke dalam tata letak root (`apps/docs/src/app/layout.tsx`).
-      * [x] Memodifikasi pengiriman formulir untuk menampilkan notifikasi toast saat berhasil/gagal alih-alih mengalihkan.
-      * [x] Menambahkan komponen UI `label.tsx` dan `textarea.tsx` yang hilang.
-      * [x] Menginstal dependensi yang diperlukan: `@radix-ui/react-label`, `@radix-ui/react-toast`, `tailwindcss-animate`.
-      * [x] Mengkonfigurasi plugin `tailwindcss-animate` di `apps/docs/tailwind.config.js`.
-      * [x] Menyempurnakan animasi toast:
-          * [x] Memperbaiki posisi toast ke kanan atas.
-          * [x] Menyesuaikan tata letak toast (penyelarasan ikon, judul, deskripsi).
-          * [x] Menyesuaikan durasi animasi dan fungsi easing untuk animasi slide yang lebih halus (meningkatkan durasi menjadi 1.5s).
-          * [x] Memastikan arah animasi masuk/keluar yang konsisten (meluncur dari/ke kanan).
-          * [x] Menyesuaikan durasi tampilan toast (`TOAST_REMOVE_DELAY` menjadi 5000ms).
-      * [x] Menerapkan gaya mode gelap yang ditargetkan ke `input.tsx` dan `textarea.tsx` untuk garis luar yang terlihat tanpa memengaruhi gaya global.
+    * [x] Mengembangkan sistem notifikasi toast kustom (`apps/docs/src/components/ui/toast.tsx`, `apps/docs/src/components/ui/use-toast.ts`, `apps/docs/src/components/ui/toaster.tsx`).
+    * [x] Mengintegrasikan komponen Toaster ke dalam tata letak root (`apps/docs/src/app/layout.tsx`).
+    * [x] Memodifikasi pengiriman formulir untuk menampilkan notifikasi toast saat berhasil/gagal alih-alih mengalihkan.
+    * [x] Menambahkan komponen UI `label.tsx` dan `textarea.tsx` yang hilang.
+    * [x] Menginstal dependensi yang diperlukan: `@radix-ui/react-label`, `@radix-ui/react-toast`, `tailwindcss-animate`.
+    * [x] Mengkonfigurasi plugin `tailwindcss-animate` di `apps/docs/tailwind.config.js`.
+    * [x] Menyempurnakan animasi toast:
+      * [x] Memperbaiki posisi toast ke kanan atas.
+      * [x] Menyesuaikan tata letak toast (penyelarasan ikon, judul, deskripsi).
+      * [x] Menyesuaikan durasi animasi dan fungsi easing untuk animasi slide yang lebih halus (meningkatkan durasi menjadi 1.5s).
+      * [x] Memastikan arah animasi masuk/keluar yang konsisten (meluncur dari/ke kanan).
+      * [x] Menyesuaikan durasi tampilan toast (`TOAST_REMOVE_DELAY` menjadi 5000ms).
+    * [x] Menerapkan gaya mode gelap yang ditargetkan ke `input.tsx` dan `textarea.tsx` untuk garis luar yang terlihat tanpa memengaruhi gaya global.
   * [x] **Verifikasi**: Semua pemeriksaan lint dan build berhasil.
 
 * [x] **Checkpoint 20: Isolated Example Projects with Verdaccio (Completed)**
@@ -359,8 +359,8 @@ At the end of each session, the agent must:
 * **Symptom**: The `npm run lint` command (using `ng lint`) in the Angular project often fails with errors like `Error when running ESLint: Invalid Options: - Unknown options: stats` when run from the monorepo root or even after a clean reinstall.
 * **Cause**: This is a complex issue likely caused by ESLint version conflicts or incompatible configurations between `angular-eslint` and other ESLint dependencies hoisted to the root `node_modules` in an `npm workspaces` environment. `ng lint` appears unable to handle this non-isolated dependency environment.
 * **Solution (Pragmatic)**: Since this issue is difficult to resolve and does not affect the `build` or `dev` functionality of the Angular project, the most pragmatic solution is:
-    * **Do not run Angular lint from the monorepo root.** The `lint` script in the root `package.json` has been configured to **skip** `example-angular`.
-    * **Run Angular lint manually**: If you need to lint the Angular project, `cd` into the `cross-framework-examples/example-angular` directory and run `npm run lint` from there. Note that even with this method, lint issues may still arise depending on the current npm environment conditions.
+  * **Do not run Angular lint from the monorepo root.** The `lint` script in the root `package.json` has been configured to **skip** `example-angular`.
+  * **Run Angular lint manually**: If you need to lint the Angular project, `cd` into the `cross-framework-examples/example-angular` directory and run `npm run lint` from there. Note that even with this method, lint issues may still arise depending on the current npm environment conditions.
 * **Current Status**: **Known Issue (Workaround Applied).**
 
 ## 8. Usage Guides
@@ -374,19 +374,19 @@ For consistent development, it is recommended to use Node.js `v22.17.0` or highe
 
 These commands are run from the monorepo root and primarily manage the core library and documentation site.
 
-*   `npm install`: Installs dependencies for `packages/cross-stack-lib` and `apps/docs`.
-*   `npm run lint`: Runs linting for `packages/cross-stack-lib` and `apps/docs`.
-*   `npm run build`: Builds `packages/cross-stack-lib` and `apps/docs`.
-*   `npm run test`: Runs unit tests for `packages/cross-stack-lib`.
+* `npm install`: Installs dependencies for `packages/cross-stack-lib` and `apps/docs`.
+* `npm run lint`: Runs linting for `packages/cross-stack-lib` and `apps/docs`.
+* `npm run build`: Builds `packages/cross-stack-lib` and `apps/docs`.
+* `npm run test`: Runs unit tests for `packages/cross-stack-lib`.
 
 #### Development Servers
 
 Use these scripts to start development servers for specific projects:
 
-*   `npm run dev:docs`: Starts the Next.js development server for the documentation site.
-*   `npm run dev:angular`: Starts the Angular development server for the example project.
-*   `npm run dev:react`: Starts the Next.js development server for the React example project.
-*   `npm run dev:vue`: Starts the Vite development server for the Vue example project.
+* `npm run dev:docs`: Starts the Next.js development server for the documentation site.
+* `npm run dev:angular`: Starts the Angular development server for the example project.
+* `npm run dev:react`: Starts the Next.js development server for the React example project.
+* `npm run dev:vue`: Starts the Vite development server for the Vue example project.
 
 ### 8.2. Example Projects (`cross-framework-examples/`)
 
@@ -394,33 +394,33 @@ These projects are designed to consume `cross-stack-lib` from a local Verdaccio 
 
 For each project (e.g., `cross-framework-examples/example-angular`):
 
-1.  **Navigate to the project directory:**
+1. **Navigate to the project directory:**
 
     ```bash
     cd cross-framework-examples/example-angular # or example-react, example-vue
     ```
 
-2.  **Install Dependencies:**
+2. **Install Dependencies:**
     First, install public dependencies. If `cross-stack-lib` is listed in `dependencies`, this step might fail if not handled carefully.
 
     ```bash
     npm install
     ```
 
-3.  **Install `cross-stack-lib` from Local Registry:**
+3. **Install `cross-stack-lib` from Local Registry:**
     Ensure your local Verdaccio registry is running (`verdaccio &` from monorepo root) and `cross-stack-lib` is published to it (`npm publish --workspace packages/cross-stack-lib --registry http://localhost:4873`). Then, install the library:
 
     ```bash
     npm install cross-stack-lib --registry http://localhost:4873
     ```
 
-4.  **Run Development Server:**
+4. **Run Development Server:**
 
     ```bash
     npm run dev # or npm run start for Angular
     ```
 
-5.  **Run Linting and Building:**
+5. **Run Linting and Building:**
 
     ```bash
     npm run lint
