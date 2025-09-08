@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { XStackTable, XStackModal } from '@/components/LitWrappers';
 
 export default function HomePage() {
-  // State untuk mengontrol modal
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Data untuk tabel
   const tableData = [
     { id: 1, framework: 'React', year: 2013, creator: 'Facebook' },
     { id: 2, framework: 'Angular', year: 2016, creator: 'Google' },
     { id: 3, framework: 'Vue', year: 2014, creator: 'Evan You' },
     { id: 4, framework: 'Svelte', year: 2016, creator: 'Rich Harris' },
+    { id: 5, framework: 'Ember', year: 2011, creator: 'Yehuda Katz' },
+    { id: 6, framework: 'Backbone', year: 2010, creator: 'Jeremy Ashkenas' },
   ];
 
   const tableColumns = [
@@ -24,18 +24,14 @@ export default function HomePage() {
   ];
 
   return (
-    <main style={{ fontFamily: 'sans-serif', padding: '2rem' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>XStack Library Test Page</h1>
+    <main className="container">
+      <h1 className="header">Admin Dashboard</h1>
 
-      <div style={{ margin: '2rem 0' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Modal Example</h2>
-        <button onClick={() => setModalOpen(true)} style={buttonStyle}>
-          Open Modal
-        </button>
-      </div>
-
-      <div style={{ margin: '2rem 0' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Table Example</h2>
+      <div className="panel">
+        <h2 className="panel-header">Framework Management</h2>
+        <p style={{ opacity: 0.7, marginTop: '-1rem', marginBottom: '1.5rem' }}>
+          A list of popular web frameworks.
+        </p>
         <XStackTable
           columns={tableColumns}
           data={tableData}
@@ -45,29 +41,32 @@ export default function HomePage() {
         />
       </div>
 
+      <div className="panel">
+        <h2 className="panel-header">Modal Example</h2>
+        <p style={{ opacity: 0.7, marginTop: '-1rem', marginBottom: '1.5rem' }}>
+          Click the button to launch a confirmation modal.
+        </p>
+        <button onClick={() => setModalOpen(true)} className="btn btn-primary">
+          Show Confirmation
+        </button>
+      </div>
+
       <XStackModal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
         type="info"
       >
-        <h2 slot="header">Hello from XStack Modal!</h2>
-        <p slot="body">This modal is running in a Next.js application.</p>
-        <div slot="footer" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button onClick={() => setModalOpen(false)} style={buttonStyle}>
-            Close
+        <h2 slot="header">Confirm Action</h2>
+        <p slot="body">Are you sure you want to proceed? This action cannot be undone.</p>
+        <div slot="footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+          <button onClick={() => setModalOpen(false)} className="btn btn-secondary">
+            Cancel
+          </button>
+          <button onClick={() => setModalOpen(false)} className="btn btn-primary">
+            Confirm
           </button>
         </div>
       </XStackModal>
     </main>
   );
 }
-
-// Simple button style
-const buttonStyle: React.CSSProperties = {
-  background: '#0070f3',
-  color: 'white',
-  border: 'none',
-  padding: '10px 20px',
-  borderRadius: '5px',
-  cursor: 'pointer',
-};
