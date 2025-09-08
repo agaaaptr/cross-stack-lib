@@ -1,6 +1,6 @@
 body {
-  background-color: #111827; /* gray-900 */
-  color: #f9fafb; /* gray-50 */
+  background-color: #1a1a2e; /* Dark Blue */
+  color: #e0e0e0; /* Light Gray */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -20,7 +20,7 @@ body {
 }
 
 .panel {
-  background-color: #1f2937; /* gray-800 */
+  background-color: #282844; /* Darker Blue */
   border-radius: 0.75rem; /* 12px */
   padding: 2rem;
   margin-bottom: 2rem;
@@ -48,19 +48,19 @@ body {
 }
 
 .btn-primary {
-  background-color: #3b82f6; /* blue-500 */
+  background-color: #e74c3c; /* Red (Danger) */
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: #2563eb; /* blue-600 */
+  background-color: #c0392b; /* Darker Red */
 }
 
 .btn-secondary {
-  background-color: #4b5563; /* gray-600 */
-  color: #ffffff;
+  background-color: #D1D5DB; /* Light Gray */
+  color: #333333;
 }
 
 .btn-secondary:hover {
-  background-color: #6b7280; /* gray-500 */
+  background-color: #B0B4BA; /* Darker Light Gray */
 }

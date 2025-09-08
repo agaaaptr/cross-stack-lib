@@ -12,7 +12,7 @@
 }
 
 .panel {
-  background-color: #1f2937; /* gray-800 */
+  background-color: #34495e; /* Darker Blue Gray */
   border-radius: 0.75rem; /* 12px */
   padding: 2rem;
   margin-bottom: 2rem;
@@ -40,19 +40,19 @@
 }
 
 .btn-primary {
-  background-color: #3b82f6; /* blue-500 */
+  background-color: #F9A825; /* Orange (Warning) */
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: #2563eb; /* blue-600 */
+  background-color: #D48A1F; /* Darker Orange */
 }
 
 .btn-secondary {
-  background-color: #4b5563; /* gray-600 */
-  color: #ffffff;
+  background-color: #D1D5DB; /* Light Gray */
+  color: #333333;
 }
 
 .btn-secondary:hover {
-  background-color: #6b7280; /* gray-500 */
+  background-color: #B0B4BA; /* Darker Light Gray */
 }

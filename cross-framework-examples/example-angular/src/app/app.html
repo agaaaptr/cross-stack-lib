@@ -25,9 +25,9 @@
     </button>
   </div>
 
-  <xstack-modal [open]="isModalOpen" (close)="closeModal()" type="info">
-    <h2 slot="header">Confirm Action</h2>
-    <p slot="body">Are you sure you want to proceed? This action cannot be undone.</p>
+  <xstack-modal [open]="isModalOpen" (close)="closeModal()" type="warning">
+    <h2 slot="header">Warning!</h2>
+    <p slot="body">This action might have unintended consequences. Do you wish to proceed?</p>
     <div slot="footer" style="display: flex; justify-content: flex-end; gap: 0.5rem;">
       <button (click)="closeModal()" class="btn btn-secondary">Cancel</button>
       <button (click)="closeModal()" class="btn btn-primary">Confirm</button>
