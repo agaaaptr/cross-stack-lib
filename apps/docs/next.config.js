@@ -3,7 +3,7 @@ const withMDX = require('@next/mdx')({
   options: {
     remarkPlugins: [],
     rehypePlugins: [
-      [require('rehype-pretty-code').default, { theme: 'aurora-x', keepBackground: false }],
+      [require('rehype-pretty-code').default, { theme: 'github-dark', keepBackground: false }],
     ],
   },
 });
