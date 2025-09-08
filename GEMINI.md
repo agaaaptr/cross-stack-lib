@@ -231,6 +231,12 @@ This project will be divided into several structured stages (checkpoints) to ens
     * [x] Menerapkan gaya mode gelap yang ditargetkan ke `input.tsx` dan `textarea.tsx` untuk garis luar yang terlihat tanpa memengaruhi gaya global.
   * [x] **Verifikasi**: Semua pemeriksaan lint dan build berhasil.
 
+* [x] **Checkpoint 27: Example Project Enhancements (Completed)**
+  * [x] Enhanced example projects with varied modal types (`danger` for React, `warning` for Angular, `confirmation` for Vue).
+  * [x] Ensured consistent styling for primary and secondary buttons in example projects, matching `xstack-modal` accent colors.
+  * [x] Expanded dummy data in tables for all example projects to at least 20 entries.
+  * [x] Verified all changes by running lint and build commands across the monorepo.
+
 * [x] **Checkpoint 20: Isolated Example Projects with Verdaccio (Completed)**
   * [x] **Verdaccio Setup**: Installed Verdaccio globally via npm and started the local npm registry server.
   * [x] **Library Publishing**: Successfully built and published the `cross-stack-lib` package to the local Verdaccio registry.
