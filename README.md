@@ -144,6 +144,10 @@ For each project (e.g., `cross-framework-examples/example-angular`):
 - **Feature Suggestion Page:** A new "Suggest Feature" page has been implemented, including a custom form with Formspree integration for asynchronous submissions and toast notifications for feedback.
 - **Toast Notification System:** A custom toast notification system has been integrated, providing visual feedback for user actions.
 - **Version Update:** The `cross-stack-lib` has been updated to version `1.0.3`.
+- **Example Project Enhancements:**
+  - Each example project (`React`, `Angular`, `Vue`) now showcases a different `xstack-modal` type (`danger`, `warning`, `confirmation` respectively).
+  - Button colors in example projects are precisely aligned with the `xstack-modal` component's accent colors for visual consistency.
+  - Table data in all example projects has been expanded to at least 20 dummy entries for better demonstration.
 
 ---
 
