@@ -102,19 +102,19 @@ For each project (e.g., `cross-framework-examples/example-angular`):
 4. **Running and Developing:**
     Once inside the project directory, use the following commands:
 
-    - **React (`example-react`):
+    - **React** (`example-react`):
 
         ```bash
         npm run dev
         ```
 
-    - **Angular (`example-angular`):
+    - **Angular** (`example-angular`):
 
         ```bash
         npm run start
         ```
 
-    - **Vue (`example-vue`):
+    - **Vue** (`example-vue`):
 
         ```bash
         npm run dev
